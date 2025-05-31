@@ -14,7 +14,9 @@
 
       <UTable :columns="selectedColumns" :rows="list">
         <template #user-data="{ row }">
-          <DataUserName no-guild :user="row.user" size="md" class="!text-gray-100" />
+          <div class="min-w-[140px]">
+            <DataUserName no-guild :user="row.user" size="md" class="!text-gray-100" />
+          </div>
         </template>
 
         <template #payment-data="{ row }">
@@ -22,8 +24,8 @@
         </template>
 
         <template #reward-data="{ row }">
-          <UButton variant="link" :padded="false" @click="viewReward(row)">
-            {{ useMoney().toMoney(row.reward) }}
+          <UButton color="green" variant="link" :padded="false" @click="viewReward(row)">
+            + {{ useMoney().toMoney(row.reward) }}
           </UButton>
         </template>
 

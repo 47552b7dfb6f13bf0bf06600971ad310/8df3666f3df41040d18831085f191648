@@ -47,7 +47,7 @@
     </UCard>
 
     <!--Post-->
-    <UCard>
+    <UCard :ui="{ body: { padding: '!pb-0' }}">
       <UiFlex class="mb-4 gap-1">
         <USelectMenu v-model="page.size" :options="[5,10,20,50,100]" size="lg" />
         

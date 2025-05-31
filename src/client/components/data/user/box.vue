@@ -6,6 +6,7 @@
     <div v-else class="rounded-2xl p-6">
       <UiFlex class="gap-2 mb-6 relative z-[3]">
         <DataUserAvatar size="lg" :user="user" no-action />
+        
         <div class="grow">
           <DataUserName :user="user" size="sm" no-action class="mb-1.5"  />
           <DataUserLevel :user="user" />

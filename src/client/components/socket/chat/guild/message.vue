@@ -150,7 +150,7 @@ const send = async () => {
     if(state.value.text.length > 100) return useNotify().error('Nội dung không vượt quá 100 ký tự')
 
     loading.value.send = true
-    await useAPI('socket/public/chat/guild/send', JSON.parse(JSON.stringify(state.value)))
+    $socket.emit('chat-guild-send', JSON.parse(JSON.stringify(state.value)))
 
     state.value.text = null
     loading.value.send = false

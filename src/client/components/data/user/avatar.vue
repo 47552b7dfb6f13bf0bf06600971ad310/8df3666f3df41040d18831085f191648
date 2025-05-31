@@ -1,7 +1,6 @@
 <template>
   <UiFlex justify="center" :class="`
     relative inline-flex
-    user-level-${level} 
     ${user.online ? 'bg-green-500' : 'bg-rose-500'}
     rounded-full
     p-0.5
@@ -57,20 +56,6 @@ const vip = computed(() => {
   if(props.user.vip.month.enable) return 'month'
   if(props.user.vip.forever.enable) return 'forever'
   return false
-})
-
-const level = computed(() => {
-  if(!props.user) return 1
-  if(!props.user.level) return 1
-  const level = props.user.level ? (props.user.level.number || 1) : 1
-  return level > 10 ? 10 : level
-})
-
-const levelShow = computed(() => {
-  if(!props.user) return null
-  if(!props.user.level) return null
-  const level = props.user.level ? (props.user.level.number || 1) : 1
-  return level
 })
 
 const sizeAvatar = {

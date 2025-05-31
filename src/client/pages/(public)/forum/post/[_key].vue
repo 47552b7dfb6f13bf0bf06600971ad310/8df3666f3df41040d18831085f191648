@@ -59,7 +59,7 @@
     <!--Comment-->
     <UiContent title="Bình luận" sub="Các phản hồi về bài viết" icon="i-fluent-comment-text-24-filled" class="bg-gray-1000 rounded-2xl p-4" >
       <!--Action-->
-      <UiFlex class="gap-1 mb-4">
+      <UiFlex class="gap-1">
         <USelectMenu v-model="page.size" size="md" :options="[5,10,20,50,100]" />
 
         <UButton 
@@ -81,7 +81,8 @@
         <DataForumPostCommentList :list="comments" v-else />
       </div>
 
-      <UiFlex justify="between" class="mt-4">
+      <!--Pagination-->
+      <UiFlex justify="between">
         <UButton icon="i-bxs-arrow-to-top" color="gray" size="md" @click="scrollTop">Top</UButton>
         <UPagination v-model="page.current" :page-count="page.size" :total="page.total" :max="4" size="md" />
       </UiFlex>
@@ -126,7 +127,7 @@ const modal = ref({
   comment: false
 })
 const page = ref({
-  size: 5,
+  size: 10,
   current: 1,
   sort: {
     column: 'createdAt',
@@ -206,8 +207,10 @@ const createComment = async () => {
 
     loading.value.comment.create = false
     modal.value.comment = false
-
-    await getComments()
+    state.value.content = null
+    const endPage = Math.floor((page.value.total + 1) / page.value.size)
+    if(endPage == page.value.current) await getComments()
+    else page.value.current = endPage
   }
   catch(e){
     loading.value.comment.create = false

@@ -4,7 +4,12 @@
 
     <UTable :columns="selectedColumns" :rows="list">
       <template #number-data="{ row }">
-        <UBadge :class="`UserName user-level-${row.number > 10 ? 10 : row.number} bg-user-level-process !text-white`">{{ row.title }}</UBadge>
+        <div class="min-w-[120px]">
+          <UBadge :class="`UserName user-level-${row.number} bg-user-level-process !text-white`" size="md">
+            <img :src="`/images/user/stone/${row.number > 10 ? 10 : row.number}.png`" :width="16" class="select-none pointer-events-none" />
+            {{ row.title }}
+          </UBadge>
+        </div>
       </template>
 
       <template #exp-data="{ row }">
@@ -16,15 +21,21 @@
       </template>
 
       <template #[`limit.invite-data`]="{ row }">
-        {{ row.limit.invite }} bạn
+        <UiFlex class="gap-1">
+          <UiText color="rose">{{ row.limit.invite }}</UiText> bạn
+        </UiFlex>
       </template>
 
       <template #[`gift.invite-data`]="{ row }">
-        {{ row.gift.invite }} ECoin
+        <UiFlex class="gap-1">
+          <UiText color="green">+ {{ row.gift.invite }}</UiText> ECoin
+        </UiFlex>
       </template>
 
       <template #[`bonus.invite.payment-data`]="{ row }">
-        {{ row.bonus.invite.payment }}% tiền nạp
+        <UiFlex class="gap-1">
+          <UiText color="green">+ {{ row.bonus.invite.payment }}%</UiText> tiền nạp
+        </UiFlex>
       </template>
     </UTable>
   </div>

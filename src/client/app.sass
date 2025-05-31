@@ -100,7 +100,7 @@ html, body
 .bg-title
   background: linear-gradient(to right, transparent, rgba(var(--color-primary-800)))
   &::after
-    content: url(/images/icon-sparks.svg)
+    content: url(/images/icon/icon-sparks.svg)
     margin: 0 10px
 
 // Background Light Anim
@@ -181,25 +181,35 @@ html, body
 
 // User Level
 .user-level-1
-  --user-level-color: 95, 144, 239
+  --user-level-color: 67, 67, 67
 .user-level-2
   --user-level-color: 95, 144, 239
 .user-level-3
-  --user-level-color: 63, 125, 246
+  --user-level-color: 95, 144, 239
 .user-level-4
-  --user-level-color: 71, 126, 255
+  --user-level-color: 24, 92, 177
 .user-level-5
-  --user-level-color: 71, 90, 255
+  --user-level-color: 0, 87, 255
 .user-level-6
-  --user-level-color: 39, 47, 243
+  --user-level-color: 71, 90, 255
 .user-level-7
-  --user-level-color: 42, 25, 238
+  --user-level-color: 39, 47, 243
 .user-level-8
-  --user-level-color: 104, 7, 228
+  --user-level-color: 42, 25, 238
 .user-level-9
   --user-level-color: 116, 48, 254
 .user-level-10
-  --user-level-color: 112, 44, 232
+  --user-level-color: 104, 7, 228
+.user-level-11
+  --user-level-color: 160, 8, 209
+.user-level-12
+  --user-level-color: 189, 79, 0
+.user-level-13
+  --user-level-color: 25, 112, 163
+.user-level-14
+  --user-level-color: 65, 113, 13
+.user-level-15
+  --user-level-color: 213, 12, 12
 
 .bg-user-level
   background: linear-gradient(to right, rgba(var(--user-level-color), 0.9) 0%, #0c1226 100%)
@@ -233,7 +243,7 @@ html, body
 .bg-guild-level
   background: linear-gradient(to right, rgba(var(--guild-level-color), 0.9) 0%, #0c1226 100%)
 .bg-guild-level-process
-  background: rgba(var(--guild-level-color), 0.9)
+  background: rgba(var(--guild-level-color), 0.9) !important
 
 // Page Anim
 .page-enter-active, .page-leave-active

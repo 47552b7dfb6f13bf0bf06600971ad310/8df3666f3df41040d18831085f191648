@@ -15,8 +15,7 @@ const props = defineProps({
 const level = computed(() => {
   if(!props.user) return 1
   if(!props.user.level) return 1
-  const level = props.user.level ? (props.user.level.number || 1) : 1
-  return level > 10 ? 10 : level
+  return props.user.level ? (props.user.level.number || 1) : 1
 })
 
 const process = computed(() => {

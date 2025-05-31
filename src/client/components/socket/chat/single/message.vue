@@ -202,8 +202,6 @@ const send = async () => {
 
     state.value.text = null
     loading.value.send = false
-    
-    toBottom()
     toFocus()
   }
   catch (e){

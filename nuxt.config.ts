@@ -49,7 +49,7 @@ export default defineNuxtConfig({
       { BlankLine: true },
       { Sitemap: `${process.env.CLIENT_URL}/sitemap.xml` }
     ]
-  }], 'nuxt-rate-limit', '@nuxtjs/device', 'nuxt-lazy-hydrate', 'nuxt-tiptap-editor', 'nuxt-swiper'],
+  }], 'nuxt-rate-limit', '@nuxtjs/device', 'nuxt-lazy-hydrate', 'nuxt-tiptap-editor', 'nuxt-swiper', '@vite-pwa/nuxt'],
 
   nuxtRateLimit: {
     routes: {
@@ -65,6 +65,10 @@ export default defineNuxtConfig({
       htmlAttrs: { lang: 'vi' },
       charset: 'utf-8',
       viewport: 'width=device-width, initial-scale=1, maximum-scale=1',
+      meta: [
+        { name: 'theme-color', content: '#09121b' },
+        { name: 'apple-mobile-web-app-status-bar-style', content: 'black-translucent' }
+      ]
     },
     pageTransition: { name: 'page', mode: 'out-in' }
   },
@@ -101,5 +105,28 @@ export default defineNuxtConfig({
     },
   },
 
-  compatibilityDate: '2024-08-19'
+  pwa: {
+    manifest: {
+      name: process.env.NAME,
+      short_name: process.env.SHORT_NAME,
+      description: 'PWA App',
+      theme_color: '#09121b',
+      background_color: '#09121b',
+      display: 'fullscreen',
+      icons: [
+        { src: 'pwa/64.png', sizes: "64x64", type: 'image/png' },
+        { src: 'pwa/144.png', sizes: "144x144", type: 'image/png' },
+        { src: 'pwa/192.png', sizes: "192x192", type: 'image/png' },
+        { src: 'pwa/512.png', sizes: "512x512", type: 'image/png', purpose: 'any'  },
+        { src: 'pwa/512.png', sizes: '512x512', type: 'image/png', purpose: 'maskable' }
+      ]
+    },
+    workbox: {
+      navigateFallback: '/',
+      sourcemap: true
+    },
+    registerType: 'autoUpdate'
+  },
+
+  compatibilityDate: '2025-06-01'
 })

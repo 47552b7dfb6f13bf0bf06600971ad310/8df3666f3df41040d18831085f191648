@@ -4,23 +4,33 @@
 
     <UTable :columns="selectedColumns" :rows="list">
       <template #[`commission.vip-data`]="{ row }">
-        {{ row.commission.vip }}%
+        <UiFlex class="gap-1">
+          <UiText color="cyan">{{ row.commission.vip }}%</UiText>
+        </UiFlex>
       </template>
 
       <template #[`commission.game.private-data`]="{ row }">
-        {{ row.commission.game.private }}%
+        <UiFlex class="gap-1">
+          <UiText color="green">{{ row.commission.game.private }}%</UiText>
+        </UiFlex>
       </template>
 
       <template #[`commission.game.tool-data`]="{ row }">
-        {{ row.commission.game.private }}%
+        <UiFlex class="gap-1">
+          <UiText color="green">{{ row.commission.game.tool }}%</UiText>
+        </UiFlex>
       </template>
 
       <template #[`commission.game.china-data`]="{ row }">
-        {{ row.commission.game.private }}%
+        <UiFlex class="gap-1">
+          <UiText color="green">{{ row.commission.game.china }}%</UiText>
+        </UiFlex>
       </template>
 
       <template #[`price-data`]="{ row }">
-        {{ useMoney().toMoney(row.price) }} VNĐ
+        <UiFlex class="gap-1">
+          <UiText color="rose">{{ useMoney().toMoney(row.price) }}</UiText> VNĐ
+        </UiFlex>
       </template>
     </UTable>
   </div>

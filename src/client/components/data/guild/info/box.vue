@@ -8,7 +8,7 @@
         <DataGuildInfoLevel :guild="guild" class="w-full" />
       </DataGuildInfoMini>
 
-      <UiFlex justify="center" class="box-blue rounded-2xl p-4 mx-2 mt-3 mb-4">
+      <UiFlex justify="center" class="bg-gray rounded-2xl p-4 mx-2 mt-3 mb-4">
         <UiText align="center" size="sm" weight="semibold" class="italic">{{ guild.description }}</UiText>
       </UiFlex>
       

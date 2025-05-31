@@ -13,7 +13,7 @@
 
       <UTable :columns="selectedColumns" :rows="list" v-else >
         <template #number-data="{ row }">
-          <UiText color="primary" weight="semibold">{{ useMoney().toMoney(row.number) }}</UiText> 
+          <UiText color="green" weight="semibold">+ {{ useMoney().toMoney(row.number) }}</UiText> 
         </template>
 
         <template #createdAt-data="{ row }">

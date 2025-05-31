@@ -43,6 +43,7 @@ onMounted(() => {
   // Chat Global
   $socket.on('chat-global-push', (data) => socketStore.changeChatData('global', { push: { update: socketStore.chat.global.push.update + 1, data: data } })) // Nhận tin nhắn thế giới mới
   $socket.on('chat-global-del', (data) => socketStore.changeChatData('global', { del: { update: socketStore.chat.global.del.update + 1, data: data } })) // Nhận tin nhắn thế giới bị xóa
+  $socket.on('chat-global-send-error', (data) => useNotify().error(data.message))
 
   // Chat Single
   $socket.on('chat-single-new', data => socketStore.changeChatData('single', { new: data })) // Nhận thông tin số tin nhắn mới
@@ -55,7 +56,6 @@ onMounted(() => {
     if(socketStore.chat.single.now.toString() != data.conversation.toString()) return $socket.emit('chat-single-new') // Tin nhắn mới không thuộc hộp thư được mở
   })
   $socket.on('chat-single-push-me', (data) => socketStore.changeChatData('single', { push: { update: socketStore.chat.single.push.update + 1, data: data } }))
-  $socket.on('chat-single-read-error', (data) => useNotify().error(data.message))
   $socket.on('chat-single-send-error', (data) => useNotify().error(data.message))
 
   // Chat Guild
@@ -64,6 +64,7 @@ onMounted(() => {
     if(socketStore.tab != 'chat-guild') socketStore.changeChatData('guild', { new: socketStore.chat.guild.new + 1 }) // Không trong tab gia tộc thì đẩy số tin nhắn
   })
   $socket.on('chat-guild-del', (data) => socketStore.changeChatData('guild', { del: { update: socketStore.chat.guild.del.update + 1, data: data } })) // Nhận tin nhắn gia tộc bị xóa
+  $socket.on('chat-guild-send-error', (data) => useNotify().error(data.message))
 
   // Notify Global
   $socket.on('notify-global-push', (data) => socketStore.changeNotifyData('global', { push: { update: socketStore.notify.global.push.update + 1, data: data } })) // Nhận thông báo thế giới mới
