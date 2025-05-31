@@ -1,0 +1,100 @@
+<template>
+  <div>
+    <UiFlex justify="between" class="mb-2">
+      <USelectMenu v-model="page.size" :options="[5,10,20,50,100]" />
+    </UiFlex>
+
+    <UCard :ui="{ body: { padding: 'p-0 sm:p-0'}}" class="bg-gray mb-2">
+      <LoadingTable v-if="loading.load" />
+
+      <UTable v-model:sort="page.sort" :columns="columns" :rows="list">
+        <template #device-data="{ row }">
+          <UiText weight="semibold">{{ row.device }}</UiText>
+        </template>
+
+        <template #block-data="{ row }">
+          <UBadge :color="!!row.block ? 'red' : 'gray'" variant="soft">{{ !!row.block ? 'Có' : 'Không' }}</UBadge>
+        </template>
+
+        <template #action-data="{ row }">
+          <UButton v-if="!row.block" color="gray" size="xs" icon="i-bxs-lock-alt" @click="block(row.device, 'block')" :loading="loading.block" />
+          <UButton v-if="!!row.block" color="gray" size="xs" icon="i-bxs-lock-open-alt" @click="block(row.device, 'unblock')" :loading="loading.block" />
+        </template>
+      </UTable>
+    </UCard>
+
+    <UiFlex justify="end">
+      <UPagination v-model="page.current" :page-count="page.size" :total="page.total" :max="5" />
+    </UiFlex>
+  </div>
+</template>
+
+<script setup>
+const props = defineProps(['user'])
+
+const loading = ref({
+  load: true,
+  block: false
+})
+
+const list = ref([])
+
+const columns = [
+  {
+    key: 'device',
+    label: 'Thiết bị',
+  },
+  {
+    key: 'block',
+    label: 'Khóa',
+  },
+  {
+    key: 'action',
+    label: 'Chức năng'
+  }
+]
+
+const page = ref({
+  size: 5,
+  current: 1,
+  sort: {
+    column: 'createdAt',
+    direction: 'desc'
+  },
+  total: 0,
+  user: props.user
+})
+watch(() => page.value.size, () => getList())
+watch(() => page.value.current, () => getList())
+watch(() => page.value.sort.column, () => getList())
+watch(() => page.value.sort.direction, () => getList())
+
+const block = async (device, action) => {
+  try {
+    loading.value.true = true
+    await useAPI('ip-device/user-device/block', { device, action })
+
+    loading.value.true = false
+    getList()
+  }
+  catch (e) {
+    loading.value.block = false
+  }
+}
+
+const getList = async () => {
+  try {
+    loading.value.load = true
+    const data = await useAPI('ip-device/user-device/log', JSON.parse(JSON.stringify(page.value)))
+
+    loading.value.load = false
+    list.value = data.list
+    page.value.total = data.total
+  }
+  catch (e) {
+    loading.value.load = false
+  } 
+}
+
+getList()
+</script>

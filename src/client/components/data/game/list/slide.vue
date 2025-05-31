@@ -1,0 +1,29 @@
+<template>
+  <ClientOnly>
+    <swiper-container 
+      ref="containerRef" 
+      :slidesPerView="2" 
+      :spaceBetween="12"
+      :breakpoints="{
+        '768': {
+          slidesPerView: 3,
+          spaceBetween: 12,
+        },
+        '1024': {
+          slidesPerView: 4,
+          spaceBetween: 12,
+        },
+      }"
+      :autoplay="{ delay: 2500, disableOnInteraction: false }" 
+      :loop="true"
+    >
+      <swiper-slide v-for="(item, idx) in list" :key="idx" >
+        <DataGameBox :game="item" :os="os" />
+      </swiper-slide>
+    </swiper-container>
+  </ClientOnly>
+</template>
+
+<script setup>
+const props = defineProps(['list', 'os'])
+</script>

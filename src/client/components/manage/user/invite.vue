@@ -1,0 +1,134 @@
+<template>
+  <div>
+    <UiFlex class="mb-4 gap-1">
+      <USelectMenu v-model="page.size" :disabled="!!loading.list" :options="[5,10,20,50,100]" size="sm"/>
+      <UForm :state="page" @submit="page.current = 1, getList()">
+        <UInput v-model="page.search" placeholder="Tìm kiếm..." icon="i-bx-search" size="sm" :disabled="!!loading.list" />
+      </UForm>
+    </UiFlex>
+
+    <UCard :ui="{ body: { padding: '!p-0' }}" class="bg-gray">
+      <LoadingTable v-if="!!loading.list" />
+
+      <UTable :columns="selectedColumns" :rows="list">
+        <template #user-data="{ row }">
+          <DataUserName no-guild :user="row.user" size="md" class="!text-gray-100" />
+        </template>
+
+        <template #payment-data="{ row }">
+          {{ useMoney().toMoney(row.payment) }}
+        </template>
+
+        <template #reward-data="{ row }">
+          <UButton variant="link" :padded="false" @click="viewReward(row)">
+            {{ useMoney().toMoney(row.reward) }}
+          </UButton>
+        </template>
+
+        <template #['receive.invitation-data']="{ row }">
+          <UBadge :color="!row.receive.invitation ? 'gray' : 'green'" size="sm" variant="soft">
+            {{ !row.receive.invitation ? 'Chưa thể nhận' : 'Đã nhận' }}
+          </UBadge>
+        </template>
+
+        <template #createdAt-data="{ row }">
+          {{ useDayJs().displayFull(row.createdAt) }}
+        </template>
+      </UTable>
+    </UCard>
+
+    <UiFlex justify="end" class="mt-2">
+      <UPagination class="ml-auto" v-model="page.current" :page-count="page.size" :total="page.total" :max="5" />
+    </UiFlex>
+
+    <UModal v-model="modal.reward" :ui="{width: 'sm:max-w-[900px]'}">
+      <DataInviteViewReward :invite="select" :user="user" @close="modal.reward = false"/>
+    </UModal>
+  </div>
+</template>
+
+<script setup>
+const props = defineProps(['user'])
+
+// List
+const list = ref([])
+const select = ref()
+
+// Columns
+const columns = [
+  {
+    key: 'user',
+    label: 'Bạn bè',
+  },{
+    key: 'payment',
+    label: 'Tổng nạp',
+    sortable: true
+  },{
+    key: 'reward',
+    label: 'ECoin nhận',
+    sortable: true
+  },{
+    key: 'receive.invitation',
+    label: 'Quà mời',
+    sortable: true
+  },{
+    key: 'createdAt',
+    label: 'Ngày bắt đầu',
+    sortable: true
+  }
+]
+const selectedColumns = ref([...columns])
+
+// Page
+const page = ref({
+  size: 10,
+  current: 1,
+  sort: {
+    column: 'createdAt',
+    direction: 'desc'
+  },
+  search: '',
+  total: 0,
+  user: props.user
+})
+watch(() => page.value.size, () => getList())
+watch(() => page.value.current, () => getList())
+watch(() => page.value.sort.column, () => getList())
+watch(() => page.value.sort.direction, () => getList())
+watch(() => page.value.search, (val) => !val && (page.value.current = 1) && getList())
+
+// Modal
+const modal = ref({
+  reward: false
+})
+
+// Loading
+const loading = ref({
+  list: true,
+  receive: {
+    invitation: false
+  }
+})
+
+const viewReward = (invite) => {
+  select.value = invite
+  modal.value.reward = true
+}
+ 
+// Fetch
+const getList = async () => {
+  try {
+    loading.value.list = true
+    const data = await useAPI('invite/public/list/friend', JSON.parse(JSON.stringify(page.value)))
+
+    loading.value.list = false
+    list.value = data.list
+    page.value.total = data.total
+  }
+  catch (e) {
+    loading.value.list = false
+  } 
+}
+
+getList()
+</script>

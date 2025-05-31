@@ -1,0 +1,27 @@
+<template>
+  <UiFlex>
+    <UButton color="gray" icon="i-bx-menu-alt-left" size="lg" square @click="open = true" />
+
+    <USlideover v-model="open" side="left" :ui="{
+      width: 'w-screen max-w-[var(--nav-size)]'
+    }">
+      <UiFlex type="col" justify="center" class="bg-card py-4 overflow-hidden h-full">
+        <NuxtLink :to="`/manage/@collab/${route.params._code}`">
+          <UiText weight="bold" size="2xl" color="primary" class="italic" @click="open = false">
+            Collab <span class="text-white text-base">Pannel</span>
+          </UiText>
+        </NuxtLink>
+      
+        <div class="overflow-y-auto w-full grow">
+          <LayoutCollabNav @to="open = false" /> 
+        </div>
+      </UiFlex>
+    </USlideover>
+  </UiFlex>
+</template>
+
+<script setup>
+const props = defineProps(['game'])
+const open = ref(false)
+const route = useRoute()
+</script>

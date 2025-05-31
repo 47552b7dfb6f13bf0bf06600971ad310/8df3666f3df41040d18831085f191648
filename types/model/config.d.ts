@@ -1,0 +1,178 @@
+import type { Types } from 'mongoose'
+import type { IDBCollab } from './ads'
+
+export interface IDBConfig {
+  _id: Types.ObjectId
+  createdAt: Date
+  updatedAt: Date
+
+  name: string
+  short_name: string
+  description: string
+  og_image: string
+  logo_image: string
+  makeby: string
+  article: {
+    about: string
+    privacy: string
+    terms: string
+    passportchina: string
+    paymentchina: string
+  }
+  security: {
+    manage: {
+      password: string
+    }
+    register: {
+      ip: number
+      device: number
+    }
+  }
+  license: boolean
+  yuan: number
+  vip: {
+    month: number
+    forever: number
+  }
+  guild: {
+    create: number
+  }
+  promo: {
+    register: {
+      coin: number
+    }
+    payment: {
+      first: number
+      second: number
+    }
+  }
+  download: {
+    windows: string
+    mac: string
+    android: string
+    ios: string
+  }
+  contact: {
+    name: string
+    phone: string
+    email: string
+    address: string
+    prefix: string
+  }
+  telebot: {
+    payment: {
+      create: string
+      receive: string
+    }
+    game: {
+      china: {
+        payment: string
+      }
+    }
+  }
+  social: {
+    facebook: string
+    messenger: string
+    zalo: string
+    telegram: string
+    tiktok: string
+    game: {
+      china: string
+      private: string
+      tool: string
+    }
+  }
+  facebook: {
+    client_id: string
+    client_secret: string
+    client_version: string
+    client_verify: string
+    client_ads: string
+  }
+  google: {
+    client_id: string
+    client_secret: string
+    client_verify: string
+    client_ads: string
+  }
+  tiktok: {
+    client_id: string
+    client_secret: string
+    client_verify: string
+  }
+  zalo: {
+    client_id: string
+    client_secret: string
+    client_verify: string
+  }
+}
+
+export interface IDBConfigStore {
+  name: string
+  short_name: string
+  description: string
+  og_image: string
+  logo_image: string
+  makeby: string
+  yuan: number
+  vip: {
+    month: number
+    forever: number
+  }
+  guild: {
+    create: number
+  }
+  promo: {
+    register: {
+      coin: number
+    }
+    payment: {
+      first: number
+      second: number
+    }
+  }
+  download: {
+    windows: string
+    mac: string
+    android: string
+    ios: string
+  }
+  contact: {
+    name: string
+    phone: string
+    email: string
+    address: string
+    prefix: string
+  }
+  social: {
+    facebook: string
+    messenger: string
+    zalo: string
+    telegram: string
+    tiktok: string
+    game: {
+      china: string
+      private: string
+      tool: string
+    }
+  }
+  facebook: {
+    client_id: string
+    client_version: string
+    client_verify: string
+    client_ads: string
+  }
+  google: {
+    client_id: string
+    client_verify: string
+    client_ads: string
+  }
+  tiktok: {
+    client_id: string
+    client_verify: string
+  }
+  zalo: {
+    client_id: string
+    client_verify: string
+  }
+}

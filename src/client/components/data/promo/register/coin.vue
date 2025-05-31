@@ -1,0 +1,19 @@
+<template>
+  <UiFlex class="box-red rounded-2xl overflow-hidden gap-2 py-2 px-1 cursor-pointer" @click="action">
+    <UiImg src="/images/icon/promo-reg.png" class="h-[90%] w-[20%] md:w-[30%] ml-2" />
+    <div>
+      <UiText class="text-xs md:text-base mb-1">Đăng ký nhận</UiText>
+      <UiText class="text-xl md:text-3xl" weight="bold">{{ useMoney().toMoney(configStore.config.promo.register.coin) }} Xu</UiText>
+    </div>
+  </UiFlex>
+</template>
+
+<script setup>
+const configStore = useConfigStore()
+const authStore = useAuthStore()
+
+const action = () => {
+  if(!!authStore.isLogin) return useNotify().error('Bạn đã đăng nhập tài khoản')
+  authStore.setModal(true)
+}
+</script>
