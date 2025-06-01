@@ -47,15 +47,7 @@ export default defineNuxtConfig({
         Lexend: [300,400,500,600,700,800,900],
       }
     }], 
-    ['@nuxtjs/robots', {
-      rules: [
-        { UserAgent: '*' },
-        { Disallow: '/manage/*' },
-        { Disallow: '/.nuxt/*' },
-        { BlankLine: true },
-        { Sitemap: `${process.env.CLIENT_URL}/sitemap.xml` }
-      ]
-    }], 
+    '@nuxtjs/robots', 
     'nuxt-rate-limit', 
     '@nuxtjs/device', 
     'nuxt-lazy-hydrate', 
@@ -68,6 +60,13 @@ export default defineNuxtConfig({
   site: {
     url: process.env.CLIENT_URL, 
     name: process.env.NAME
+  },
+
+  robots: {
+    disallow: ['/manage/*', '/.nuxt/*', '/*?query=', '/*?page=', '/*?sort=', '/*?filter='],
+    sitemap: '/sitemap.xml', 
+    blockNonSeoBots: true, // Nuclei, WikiDo, Riddler, PetalBot, Zoominfobot, Go-http-client, Node/simplecrawler, CazoodleBot, dotbot/1.0, Gigabot, Barkrowler, , BLEXBot, magpie-crawler
+
   },
 
   nuxtRateLimit: {
