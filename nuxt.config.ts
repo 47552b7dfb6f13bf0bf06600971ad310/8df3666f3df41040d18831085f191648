@@ -68,7 +68,9 @@ export default defineNuxtConfig({
       meta: [
         { name: 'theme-color', content: '#09121b' },
         { name: 'apple-mobile-web-app-capable', content: 'yes' },
+        { name: 'mobile-web-app-capable', content: 'yes' },
         { name: 'apple-mobile-web-app-status-bar-style', content: 'black-translucent' },
+        { name: 'mobile-web-app-status-bar-style', content: 'black-translucent' },
         { name: 'apple-mobile-web-app-title', content: process.env.NAME },
       ],
       link: [
@@ -121,8 +123,10 @@ export default defineNuxtConfig({
       theme_color: '#09121b',
       background_color: '#09121b',
       display: 'standalone',
+      display_override: ["fullscreen", "standalone"],
       start_url: '/',
       orientation: "portrait",
+      lang: 'vi',
       icons: [
         { src: '/pwa/64.png', sizes: "64x64", type: 'image/png' },
         { src: '/pwa/144.png', sizes: "144x144", type: 'image/png' },
