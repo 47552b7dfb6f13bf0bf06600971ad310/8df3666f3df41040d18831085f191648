@@ -35,21 +35,40 @@ export default defineNuxtConfig({
     }
   },
 
-  modules: ['@pinia/nuxt', '@nuxt/image', '@nuxt/ui', '@nuxt/icon', ['@nuxtjs/google-fonts', {
-    display: 'swap',
-    download: true,
-    families: {
-      Lexend: [300,400,500,600,700,800,900],
-    }
-  }], ['@nuxtjs/robots', {
-    rules: [
-      { UserAgent: '*' },
-      { Disallow: '/manage/*' },
-      { Disallow: '/.nuxt/*' },
-      { BlankLine: true },
-      { Sitemap: `${process.env.CLIENT_URL}/sitemap.xml` }
-    ]
-  }], 'nuxt-rate-limit', '@nuxtjs/device', 'nuxt-lazy-hydrate', 'nuxt-tiptap-editor', 'nuxt-swiper', '@vite-pwa/nuxt'],
+  modules: [
+    '@pinia/nuxt', 
+    '@nuxt/image', 
+    '@nuxt/ui', 
+    '@nuxt/icon',
+    ['@nuxtjs/google-fonts', {
+      display: 'swap',
+      download: true,
+      families: {
+        Lexend: [300,400,500,600,700,800,900],
+      }
+    }], 
+    ['@nuxtjs/robots', {
+      rules: [
+        { UserAgent: '*' },
+        { Disallow: '/manage/*' },
+        { Disallow: '/.nuxt/*' },
+        { BlankLine: true },
+        { Sitemap: `${process.env.CLIENT_URL}/sitemap.xml` }
+      ]
+    }], 
+    'nuxt-rate-limit', 
+    '@nuxtjs/device', 
+    'nuxt-lazy-hydrate', 
+    'nuxt-tiptap-editor', 
+    'nuxt-swiper', 
+    '@vite-pwa/nuxt',
+    '@nuxtjs/sitemap'
+  ],
+
+  site: {
+    url: process.env.CLIENT_URL, 
+    name: process.env.NAME
+  },
 
   nuxtRateLimit: {
     routes: {
@@ -69,8 +88,8 @@ export default defineNuxtConfig({
         { name: 'theme-color', content: '#09121b' },
         { name: 'apple-mobile-web-app-capable', content: 'yes' },
         { name: 'mobile-web-app-capable', content: 'yes' },
-        { name: 'apple-mobile-web-app-status-bar-style', content: 'black-translucent' },
-        { name: 'mobile-web-app-status-bar-style', content: 'black-translucent' },
+        { name: 'apple-mobile-web-app-status-bar-style', content: 'black' },
+        { name: 'mobile-web-app-status-bar-style', content: 'black' },
         { name: 'apple-mobile-web-app-title', content: process.env.NAME },
       ],
       link: [
