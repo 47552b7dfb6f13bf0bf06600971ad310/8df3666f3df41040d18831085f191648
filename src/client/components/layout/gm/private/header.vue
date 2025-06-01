@@ -1,6 +1,6 @@
 <template>
   <header class=" 
-    fixed 
+    fixed safe-area-top
     top-0 left-0 z-50 
     w-full
     bg-gray-1000 

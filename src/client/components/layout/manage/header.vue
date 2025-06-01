@@ -1,6 +1,6 @@
 <template>
   <header class="
-    sticky top-0 z-50 
+    sticky safe-area-top top-0 z-50 
     bg-gray-1000
     border-b border-gray-200 dark:border-gray-800
     px-4

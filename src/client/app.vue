@@ -1,10 +1,10 @@
 <template>
-  <SocketNotifyGlobal v-if="route.meta.layout != 'play'"/>
-  
   <NuxtLayout class="relative">
     <NuxtLoadingIndicator :height="2" />
-    <NuxtPage />
     <UNotifications />
+    <SocketNotifyGlobal v-if="route.meta.layout != 'play'"/>
+
+    <NuxtPage />
 
     <SocketInit />
     <DataWelcome />

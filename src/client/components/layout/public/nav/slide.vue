@@ -2,7 +2,7 @@
   <UiFlex>
     <UButton color="gray" icon="i-bx-menu-alt-left" size="lg" square @click="open = true" />
 
-    <USlideover v-model="open" side="left" :ui="{
+    <USlideover v-model="open" side="left" class="safe-area-top" :ui="{
       width: 'w-screen max-w-[var(--nav-size)]'
     }">
       <UiFlex type="col" justify="center" class="bg-card py-4 overflow-hidden h-full">

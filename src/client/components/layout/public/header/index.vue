@@ -1,6 +1,6 @@
 <template>
   <header class=" 
-    fixed 
+    fixed safe-area-top
     top-0 left-0 z-50 
     w-full
     bg-gray-1000 
@@ -9,7 +9,7 @@
     px-4
     md:gap-1 gap-0.5
   ">
-    <LayoutPublicNavHeader class="flex lg:hidden" />
+    <LayoutPublicNavSlide class="flex lg:hidden" />
     
     <NuxtLink to="/">
       <UiLogo class="hidden lg:flex mr-4"/>

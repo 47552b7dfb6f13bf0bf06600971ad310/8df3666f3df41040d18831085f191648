@@ -2,7 +2,7 @@
   <UiFlex class="xl:hidden">
     <UButton icon="i-bx-menu-alt-left" @click="open = true" size="lg" square color="gray" />
 
-    <USlideover v-model="open" side="left" :ui="{
+    <USlideover v-model="open" side="left" class="safe-area-top" :ui="{
       width: 'w-screen max-w-xs'
     }">
       <UCard 
