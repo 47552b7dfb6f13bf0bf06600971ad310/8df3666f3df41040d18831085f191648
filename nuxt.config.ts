@@ -123,7 +123,6 @@ export default defineNuxtConfig({
       theme_color: '#09121b',
       background_color: '#09121b',
       display: 'standalone',
-      display_override: ["fullscreen", "standalone"],
       start_url: '/',
       orientation: "portrait",
       lang: 'vi',
