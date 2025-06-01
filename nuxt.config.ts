@@ -89,7 +89,6 @@ export default defineNuxtConfig({
         { name: 'apple-mobile-web-app-capable', content: 'yes' },
         { name: 'mobile-web-app-capable', content: 'yes' },
         { name: 'apple-mobile-web-app-status-bar-style', content: 'black' },
-        { name: 'mobile-web-app-status-bar-style', content: 'black' },
         { name: 'apple-mobile-web-app-title', content: process.env.NAME },
       ],
       link: [
