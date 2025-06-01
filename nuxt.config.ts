@@ -133,6 +133,12 @@ export default defineNuxtConfig({
   pwa: {
     registerType: 'autoUpdate',
     injectRegister: 'auto',
+    includeAssets: [
+      'favicon.ico', 
+      'robots.txt', 
+      'pwa/apple-touch-icon.png', 
+      '/'
+    ],
     manifest: {
       name: process.env.NAME,
       short_name: process.env.SHORT_NAME,
@@ -153,7 +159,8 @@ export default defineNuxtConfig({
     },
     workbox: {
       navigateFallback: '/',
-      sourcemap: true
+      sourcemap: true,
+      globPatterns: ['**/*.{js,css,html,png,svg}', '/'],
     },
     
   },
