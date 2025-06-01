@@ -119,7 +119,7 @@ export default defineNuxtConfig({
     manifest: {
       name: process.env.NAME,
       short_name: process.env.SHORT_NAME,
-      description: 'PWA App',
+      description: process.env.DESCRIPTION,
       theme_color: '#09121b',
       background_color: '#09121b',
       display: 'standalone',
