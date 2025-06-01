@@ -12,6 +12,14 @@
 
 <script setup>
 const route = useRoute()
+const configStore = useConfigStore()
+
+useSeoMeta({
+  title: () => `Mời Bạn Bè - ${configStore.config.name}`,
+  ogTitle: () => `Mời Bạn Bè - ${configStore.config.name}`,
+  description: () => `Giới thiệu bạn bè tham gia và kiếm thêm thu nhập`,
+  ogDescription: () => `Giới thiệu bạn bè tham gia và kiếm thêm thu nhập`,
+})
 
 const tabFormat = {
   '/money/invite': 0,

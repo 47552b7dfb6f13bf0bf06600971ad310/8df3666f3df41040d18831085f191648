@@ -111,10 +111,20 @@
 </template>
 
 <script setup>
+const configStore = useConfigStore()
 const authStore = useAuthStore()
 const route = useRoute()
-const post = ref(undefined)
+
+const post = ref({
+  title: '...'
+})
 const comments = ref([])
+
+useSeoMeta({
+  title: () => `${post.value.title} - Diễn Đàn - ${configStore.config.name}`,
+  ogTitle: () => `${post.value.title} - Diễn Đàn - ${configStore.config.name}`,
+})
+
 const loading = ref({
   page: true,
   like: false,

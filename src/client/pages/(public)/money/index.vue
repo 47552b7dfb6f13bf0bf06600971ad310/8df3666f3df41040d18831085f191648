@@ -78,3 +78,14 @@
     </UiContent>
   </div>
 </template>
+
+<script setup>
+const configStore = useConfigStore()
+
+useSeoMeta({
+  title: () => `Kiếm Tiền - ${configStore.config.name}`,
+  ogTitle: () => `Kiếm Tiền - ${configStore.config.name}`,
+  description: () => `Kiếm thêm thu nhập hấp dẫn cùng nền tảng`,
+  ogDescription: () => `Kiếm thêm thu nhập hấp dẫn cùng nền tảng`,
+})
+</script>

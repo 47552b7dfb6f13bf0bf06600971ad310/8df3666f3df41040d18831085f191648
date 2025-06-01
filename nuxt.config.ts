@@ -64,10 +64,16 @@ export default defineNuxtConfig({
     head: {
       htmlAttrs: { lang: 'vi' },
       charset: 'utf-8',
-      viewport: 'width=device-width, initial-scale=1, maximum-scale=1',
+      viewport: 'width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover',
       meta: [
         { name: 'theme-color', content: '#09121b' },
-        { name: 'apple-mobile-web-app-status-bar-style', content: 'black-translucent' }
+        { name: 'apple-mobile-web-app-capable', content: 'yes' },
+        { name: 'apple-mobile-web-app-status-bar-style', content: 'black-translucent' },
+        { name: 'apple-mobile-web-app-title', content: process.env.NAME },
+      ],
+      link: [
+        { rel: 'apple-touch-icon', href: '/pwa/apple-touch-icon.png' },
+        { rel: 'manifest', href: '/manifest.webmanifest' },
       ]
     },
     pageTransition: { name: 'page', mode: 'out-in' }
@@ -106,26 +112,30 @@ export default defineNuxtConfig({
   },
 
   pwa: {
+    registerType: 'autoUpdate',
+    injectRegister: 'auto',
     manifest: {
       name: process.env.NAME,
       short_name: process.env.SHORT_NAME,
       description: 'PWA App',
       theme_color: '#09121b',
       background_color: '#09121b',
-      display: 'fullscreen',
+      display: 'standalone',
+      start_url: '/',
+      orientation: "portrait",
       icons: [
-        { src: 'pwa/64.png', sizes: "64x64", type: 'image/png' },
-        { src: 'pwa/144.png', sizes: "144x144", type: 'image/png' },
-        { src: 'pwa/192.png', sizes: "192x192", type: 'image/png' },
-        { src: 'pwa/512.png', sizes: "512x512", type: 'image/png', purpose: 'any'  },
-        { src: 'pwa/512.png', sizes: '512x512', type: 'image/png', purpose: 'maskable' }
+        { src: '/pwa/64.png', sizes: "64x64", type: 'image/png' },
+        { src: '/pwa/144.png', sizes: "144x144", type: 'image/png' },
+        { src: '/pwa/192.png', sizes: "192x192", type: 'image/png' },
+        { src: '/pwa/512.png', sizes: "512x512", type: 'image/png', purpose: 'any'  },
+        { src: '/pwa/512.png', sizes: '512x512', type: 'image/png', purpose: 'maskable' }
       ]
     },
     workbox: {
       navigateFallback: '/',
       sourcemap: true
     },
-    registerType: 'autoUpdate'
+    
   },
 
   compatibilityDate: '2025-06-01'

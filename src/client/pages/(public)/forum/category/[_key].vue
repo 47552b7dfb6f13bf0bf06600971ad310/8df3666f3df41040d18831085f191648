@@ -103,20 +103,37 @@
 </template>
 
 <script setup>
+const configStore = useConfigStore()
 const route = useRoute()
-const form = ref()
-const loading = ref({
-  category: true,
-  post: true,
-  create: false
-})
-const modal = ref({
-  create: false
-})
 const category = ref(undefined)
 const subcategory = ref(undefined)
+
+const titleMeta = computed(() => {
+  if(!category.value && !subcategory.value) return '...'
+  if(!!category.value && !subcategory.value) return category.value.name
+  if(!!category.value && !!subcategory.value) return `${subcategory.value.name} - ${category.value.name}`
+  return '...'
+})
+
+const descriptionMeta = computed(() => {
+  if(!category.value && !subcategory.value) return '...'
+  if(!!category.value && !subcategory.value) return category.value.description
+  if(!!category.value && !!subcategory.value) return subcategory.value.description
+  return '...'
+})
+
+useSeoMeta({
+  title: () => `${titleMeta.value} - Diễn Đàn - ${configStore.config.name}`,
+  ogTitle: () => `${titleMeta.value} - Diễn Đàn - ${configStore.config.name}`,
+  description: () => descriptionMeta,
+  ogDescription: () => descriptionMeta
+})
+
+
 const subs = ref(undefined)
 const posts = ref([])
+
+const form = ref()
 const page = ref({
   size: 10,
   current: 1,
@@ -135,6 +152,15 @@ watch(() => page.value.sort.column, () => getPosts())
 watch(() => page.value.sort.direction, () => getPosts())
 watch(() => page.value.search, (val) => !val && getPosts())
 
+const loading = ref({
+  category: true,
+  post: true,
+  create: false
+})
+
+const modal = ref({
+  create: false
+})
 
 const breadcrumb = computed(() => {
   const list = [{

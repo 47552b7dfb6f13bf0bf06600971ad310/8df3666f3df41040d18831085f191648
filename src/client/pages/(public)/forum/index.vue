@@ -71,6 +71,15 @@
 </template>
 
 <script setup>
+const configStore = useConfigStore()
+
+useSeoMeta({
+  title: () => `Diễn Đàn - ${configStore.config.name}`,
+  ogTitle: () => `Diễn Đàn - ${configStore.config.name}`,
+  description: () => `Trang diễn đàn chính thức của nền tảng`,
+  ogDescription: () => `Trang diễn đàn chính thức của nền tảng`,
+})
+
 const categories = ref([])
 const posts = ref([])
 const loading = ref(true)

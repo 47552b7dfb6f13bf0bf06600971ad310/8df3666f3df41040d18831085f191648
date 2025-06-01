@@ -36,5 +36,12 @@
 </template>
 
 <script setup>
-const route = useRoute()
+const configStore = useConfigStore()
+
+useSeoMeta({
+  title: () => `Cộng Tác Viên - ${configStore.config.name}`,
+  ogTitle: () => `Cộng Tác Viên - ${configStore.config.name}`,
+  description: () => `Hợp tác cùng chúng tôi và kiếm thêm thu nhập`,
+  ogDescription: () => `Hợp tác cùng chúng tôi và kiếm thêm thu nhập`,
+})
 </script>
