@@ -19,7 +19,7 @@
 
         <template #[`voucher.friend-data`]="{ row }">
           <span v-if="!row.voucher || (!!row.voucher && !row.voucher.friend)">...</span>
-          <span>[{{ row.voucher.friend.value }}] {{ row.voucher.friend.title }}</span>
+          <span v-else>[{{ row.voucher.friend.value }}] {{ row.voucher.friend.title }}</span>
         </template>
 
         <template #actions-data="{ row }">
