@@ -11,7 +11,7 @@ export default defineEventHandler(async (event) => {
     if(parseInt(money) < 100000) throw 'Số tiền rút tối thiểu 100.000'
     if(!code) throw 'Dữ liệu đầu vào không đủ'
         
-    const collab = await DB.Collab.findOne({ code: code }) as IDBCollab
+    const collab = await DB.Collab.findOne({ code: code }).select('code user money') as IDBCollab
     if(!collab) throw 'Mã cộng tác viên không tồn tại'
     if(auth.type < 100 && collab.user.toString() != auth._id.toString()) throw 'Bạn không có quyền truy cập'
     if(parseInt(money) > collab.money) throw 'Số dư không đủ để thực hiện'
