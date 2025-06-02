@@ -6,7 +6,7 @@
     px-4
   ">
     <UiFlex class="h-[var(--header-size)] max-h-[var(--header-size)]">
-      <LayoutManageNavSlide v-if="!isXL" class="mr-2 "/>
+      <LayoutManageNavSlide class="mr-2 "/>
       
       <NuxtLink to="/manage/@eni">
         <UiText weight="bold" size="2xl" color="primary" class="italic hidden md:inline-block">
@@ -28,9 +28,7 @@
 </template>
 
 <script setup>
-import { useBreakpoints, breakpointsTailwind } from '@vueuse/core'
-const breakpoints = useBreakpoints(breakpointsTailwind, { ssrWidth: 430 })
-const isLG = breakpoints.greaterOrEqual('lg')
-const isXL = breakpoints.greaterOrEqual('xl')
 const authStore = useAuthStore()
+
+
 </script>

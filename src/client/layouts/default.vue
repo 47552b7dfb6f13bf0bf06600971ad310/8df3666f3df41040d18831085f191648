@@ -3,12 +3,13 @@
     <LayoutPublicHeader />
 
     <UiFlex class="px-4 py-4 lg:gap-6 gap-0" items="start">
-      <div v-if="!!isXL" class="
+      <div class="
         HideScroll
         sticky top-[calc(var(--header-size)+1rem)]
         bg-gray-1000 bg-opacity-90 backdrop-blur-lg rounded-2xl
         min-h-[calc(100vh-2rem-var(--header-size))] max-h-[calc(100vh-2rem-var(--header-size))] overflow-y-auto
-        min-w-[250px] max-w-[250px] w-[250px]
+        lg:min-w-[250px] lg:max-w-[250px] lg:w-[250px]
+        hidden lg:flex
       ">
         <LayoutPublicNav />
       </div>
@@ -21,28 +22,20 @@
         <slot></slot>
       </UContainer>
 
-      <div v-if="!!isLG" class="
+      <div class="
         sticky top-[calc(var(--header-size)+1rem)]
         min-h-[calc(100vh-2rem-var(--header-size))] max-h-[calc(100vh-2rem-var(--header-size))] overflow-hidden
-        min-w-[300px] max-w-[300px] w-[300px]
+        lg:min-w-[300px] lg:max-w-[300px] lg:w-[300px]
+        hidden xl:flex flex-col gap-2
       ">
-        <UiFlex type="col" class="gap-2 h-full">
-          <UiFlex type="col">
-            <DataSocial class="w-full" />
-            <DataDownload class="w-full"/>
-          </UiFlex>
-
-          <SocketNav class="grow w-full" />
+        <UiFlex type="col">
+          <DataSocial class="w-full" />
+          <DataDownload class="w-full"/>
         </UiFlex>
+
+        <SocketNav class="grow" />
       </div>
     </UiFlex>
   </div>
 </template>
-
-<script setup>
-import { useBreakpoints, breakpointsTailwind } from '@vueuse/core'
-const breakpoints = useBreakpoints(breakpointsTailwind, { ssrWidth: 430 })
-const isLG = breakpoints.greaterOrEqual('lg')
-const isXL = breakpoints.greaterOrEqual('xl')
-</script>
 
