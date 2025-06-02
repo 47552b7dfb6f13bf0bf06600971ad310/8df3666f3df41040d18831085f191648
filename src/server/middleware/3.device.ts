@@ -1,7 +1,7 @@
 export default defineEventHandler(async (event) => {
   try {
-    const IP = getRequestIP(event, { xForwardedFor: true })
-    const block = await DB.BlockIP.findOne({ ip: IP }).select('_id')
+    const device = getCookie(event, 'visitor-id')
+    const block = await DB.BlockDevice.findOne({ device: device }).select('_id')
     if(!!block) throw 'Bạn bị chặn quyền truy cập'
   }
   catch (e:any) {

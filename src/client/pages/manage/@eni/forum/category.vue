@@ -29,7 +29,7 @@
         <template #sub-data="{ row }">
           <span v-if="!row.sub || (!!row.sub && row.sub.length == 0)">...</span>
           <UiFlex v-else class="max-w-[200px] gap-1" wrap>
-            <UBadge v-for="(item, i) in row.sub" :key="i" color="gray">{{ item.name }}</UBadge>
+            <UBadge v-for="(item, i) in row.sub" :key="i" color="gray" variant="soft">{{ item.name }}</UBadge>
           </UiFlex>
         </template>
 

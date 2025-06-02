@@ -192,7 +192,7 @@ const navItems = [
     label: 'Cộng tác viên',
     icon: 'i-bxs-user-badge',
     defaultOpen: false,
-    slot: 'tab-10',
+    slot: 'tab-11',
     children: [
       { label: 'Cấp độ', to: '/manage/@eni/collab/level' },
       { label: 'Danh sách', to: '/manage/@eni/collab' },

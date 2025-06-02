@@ -115,14 +115,6 @@ const loading = ref({
   load: true
 })
 
-// Type
-const typeFormat = {
-  0: { label: 'MEMBER', color: 'gray' },
-  1: { label: 'S-MOD', color: 'green' },
-  2: { label: 'G-MOD', color: 'cyan' },
-  100: { label: 'ADMIN', color: 'red' },
-  99: { label: 'ROBOT', color: 'orange' }
-}
 
 // Fetch
 const getList = async () => {

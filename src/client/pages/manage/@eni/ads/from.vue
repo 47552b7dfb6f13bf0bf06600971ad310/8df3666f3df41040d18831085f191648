@@ -24,7 +24,7 @@
         </template>
 
         <template #code-data="{ row }">
-          <UBadge color="gray">{{ row.code }}</UBadge>
+          <UBadge color="gray" variant="soft">{{ row.code }}</UBadge>
         </template>
 
         <template #pay-data="{ row }">
