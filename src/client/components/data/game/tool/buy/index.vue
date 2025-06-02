@@ -17,6 +17,10 @@
         <SelectGameServer v-model="stateBuy.server_id" :game="game.code" type="tool" />
       </UFormGroup>
 
+      <UFormGroup label="Voucher" v-if="!!stateBuy.server_id">
+        <SelectVoucher v-model="stateBuy.voucher" v-model:voucherData="voucher" type="DISCOUNT" />
+      </UFormGroup>
+
       <div v-if="!!checkdone.status">
         <UFormGroup label="Trạng thái tài khoản">
           <div class="pl-4">
@@ -42,6 +46,11 @@
             <UiFlex class="my-3" v-if="discount > 0">
               <UiText weight="semibold" color="gray" size="sm" class="mr-auto">Giảm giá VIP</UiText>
               <UiText weight="semibold" size="sm" color="rose">- {{ toMoney(discount) }}%</UiText>
+            </UiFlex>
+
+            <UiFlex class="my-3" v-if="discountVoucher > 0">
+              <UiText weight="semibold" color="gray" size="sm" class="mr-auto">Giảm giá Voucher</UiText>
+              <UiText weight="semibold" size="sm" color="rose">- {{ toMoney(discountVoucher) }}%</UiText>
             </UiFlex>
 
             <UiFlex>
@@ -78,8 +87,10 @@ const checkdone = ref({
 const stateBuy = ref({
   server_id: null,
   recharge: false,
-  mail: false
+  mail: false,
+  voucher: null
 })
+const voucher = ref()
 watch(() => stateBuy.value.server_id, (val) => (!!val) && checkAccount())
 
 const price = computed(() => {
@@ -96,8 +107,19 @@ const discount = computed(() => {
   return Number(props.game.discount.vip[authStore.vip])
 })
 
+const discountVoucher = computed(() => {
+  if(!voucher.value) return 0
+  if(!voucher.value.value) return 0
+  return Number(voucher.value.value)
+})
+
 const totalPrice = computed(() => {
-  return price.value - Math.floor((price.value * discount.value) / 100)
+  const discount_vip = discount.value
+  const discount_voucher = discountVoucher.value
+  let discountTotal = discount_vip + discount_voucher
+  discountTotal = discountTotal > 100 ? 100 : discountTotal
+
+  return price.value - Math.floor((price.value * discountTotal) / 100)
 })
 
 const checkAccount = async () => {

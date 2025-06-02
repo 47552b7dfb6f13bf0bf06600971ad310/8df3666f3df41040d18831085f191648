@@ -13,6 +13,14 @@
           <UBadge color="gray" variant="soft">{{ row.title }}</UBadge>
         </template>
 
+        <template #[`bonus.invite.payment-data`]="{ row }">
+          {{ row.bonus.invite.payment }}%
+        </template>
+
+        <template #[`voucher.friend-data`]="{ row }">
+          [{{ row.voucher.friend.value }}] {{ row.voucher.friend.title }}
+        </template>
+
         <template #actions-data="{ row }">
           <UDropdown :items="actions(row)">
             <UButton color="gray" icon="i-bx-dots-horizontal-rounded" />
@@ -94,12 +102,8 @@
           <UInput v-model="stateEdit.bonus.invite.payment" type="number" />
         </UFormGroup>
 
-        <UFormGroup label="Thưởng nạp">
-          <UInput v-model="stateEdit.bonus.payment" type="number" />
-        </UFormGroup>
-
-        <UFormGroup label="Giảm giá cửa hàng">
-          <UInput v-model="stateEdit.discount.shop" type="number" />
+        <UFormGroup label="Voucher cho bạn bè">
+          <SelectVoucherManage v-model="stateEdit.voucher.friend"  />
         </UFormGroup>
 
         <UiFlex justify="end" class="mt-4">
@@ -137,13 +141,10 @@ const columns = [
     label: 'Thưởng ECoin mời'
   },{
     key: 'bonus.invite.payment',
-    label: 'Bạn nạp thưởng ECoin'
+    label: 'Bạn nạp +ECoin'
   },{
-    key: 'bonus.payment',
-    label: 'Thưởng nạp'
-  },{
-    key: 'discount.shop',
-    label: 'Giảm giá'
+    key: 'voucher.friend',
+    label: 'Voucher cho bạn bè'
   },{
     key: 'actions',
     label: 'Chức năng',
@@ -192,11 +193,11 @@ const stateEdit = ref({
     chat: null,
     invite: null,
   },
-  discount: {
-    shop: null,
-  },
   gift: {
     invite: null
+  },
+  voucher: {
+    friend: null
   }
 })
 
@@ -239,6 +240,10 @@ const actions = (row) => [
     icon: 'i-bxs-pencil',
     click: () => {
       Object.keys(stateEdit.value).forEach(key => stateEdit.value[key] = row[key])
+      stateEdit.value.voucher = stateEdit.value.voucher ? stateEdit.value.voucher : {
+        friend: null
+      }
+      stateEdit.value.voucher.friend = stateEdit.value.voucher.friend ? stateEdit.value.voucher.friend._id : null
       modal.value.edit = true
     }
   }]

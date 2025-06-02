@@ -14,9 +14,18 @@
 
 <script setup>
 const socketStore = useSocketStore()
+
 const isOpen = ref(false)
+
 const count = computed(() => {
   return socketStore.chat.guild.new + socketStore.chat.single.new + socketStore.notify.single.new
 })
-watch(() => isOpen.value, (val) => !val && socketStore.changeTab('chat-global'))
+
+watch(() => socketStore.slideModal, (val) => !!val && (isOpen.value = true))
+watch(() => isOpen.value, (val) => {
+  if(!val){
+    socketStore.setSlideModal(false)
+    socketStore.changeTab('chat-global')
+  }
+})
 </script>

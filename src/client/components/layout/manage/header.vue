@@ -6,7 +6,7 @@
     px-4
   ">
     <UiFlex class="h-[var(--header-size)] max-h-[var(--header-size)]">
-      <LayoutManageNavSlide class="mr-2 "/>
+      <LayoutManageNavSlide v-if="!isXL" class="mr-2 "/>
       
       <NuxtLink to="/manage/@eni">
         <UiText weight="bold" size="2xl" color="primary" class="italic hidden md:inline-block">
@@ -28,7 +28,6 @@
 </template>
 
 <script setup>
+const { isLG, isXL } = useBreakpointsGlobal()
 const authStore = useAuthStore()
-
-
 </script>

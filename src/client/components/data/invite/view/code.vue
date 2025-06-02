@@ -43,11 +43,18 @@
             </UiText>
           </UiFlex>
 
-          <UiFlex justify="between">
+          <UiFlex justify="between" class="mb-3">
             <UiText weight="semibold" color="gray" size="xs">Bạn bè nạp tặng</UiText>
             <UiText weight="semibold" size="sm">
               <span class="text-yellow-500">{{ level.bonus.invite.payment }}%</span>
               tiền nạp
+            </UiText>
+          </UiFlex>
+
+          <UiFlex justify="between" v-if="!!level.voucher && !!level.voucher.friend">
+            <UiText weight="semibold" color="gray" size="xs">Bạn bè nhận</UiText>
+            <UiText weight="semibold" size="sm">
+              <span class="text-yellow-500">{{ level.voucher.friend.title }}</span>
             </UiText>
           </UiFlex>
         </UiContent>

@@ -9,7 +9,7 @@
           slidesPerView: 3,
           spaceBetween: 12,
         },
-        '1024': {
+        '1500': {
           slidesPerView: 4,
           spaceBetween: 12,
         },

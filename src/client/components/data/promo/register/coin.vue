@@ -2,8 +2,8 @@
   <UiFlex class="box-red rounded-2xl overflow-hidden gap-2 py-2 px-1 cursor-pointer" @click="action">
     <UiImg src="/images/icon/promo-reg.png" class="h-[90%] w-[20%] md:w-[30%] ml-2" />
     <div>
-      <UiText class="text-xs md:text-base mb-1">Đăng ký nhận</UiText>
-      <UiText class="text-xl md:text-3xl" weight="bold">{{ useMoney().toMoney(configStore.config.promo.register.coin) }} Xu</UiText>
+      <UiText class="text-xs md:text-base mb-1">Đăng ký tặng xu</UiText>
+      <UiText class="text-xl md:text-3xl" weight="bold">{{ useMoney().toMoney(configStore.config.promo.register.coin) }}</UiText>
     </div>
   </UiFlex>
 </template>

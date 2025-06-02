@@ -33,9 +33,9 @@
     </UiFlex>
 
     <SocketChatGlobal class="w-full grow" v-if="socketStore.tab == 'chat-global'" />
-    <SocketChatGuild class="w-full grow" v-else-if="socketStore.tab == 'chat-guild'" />
-    <SocketChatSingle class="w-full grow" v-else-if="socketStore.tab == 'chat-single'" />
-    <SocketNotifySingle class="w-full grow" v-else-if="socketStore.tab == 'notify-single'" />
+    <LazySocketChatGuild class="w-full grow" v-else-if="socketStore.tab == 'chat-guild'" />
+    <LazySocketChatSingle class="w-full grow" v-else-if="socketStore.tab == 'chat-single'" />
+    <LazySocketNotifySingle class="w-full grow" v-else-if="socketStore.tab == 'notify-single'" />
     <DataEmpty v-else class="w-full grow" text="Vui lòng chọn 1 mục để xem" />
   </UiFlex>
 </template>

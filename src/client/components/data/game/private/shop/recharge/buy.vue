@@ -21,6 +21,10 @@
         <SelectGameRole v-model="state.role" :server="state.server" :game="game.code" type="private" />
       </UFormGroup>
 
+      <UFormGroup label="Voucher">
+        <SelectVoucher v-model="state.voucher" v-model:voucherData="voucher" type="DISCOUNT" />
+      </UFormGroup>
+
       <UFormGroup label="Thông tin đơn hàng" name="info">
         <UCard class="bg-gray" :ui="{ body: { padding: 'p-2 sm:p-2' } }">
           <UiFlex justify="between" class="text-sm font-semibold p-2">
@@ -41,6 +45,11 @@
           <UiFlex justify="between" class="text-sm font-semibold p-2" v-if="discountVip > 0">
             <UiText color="gray" class="mr-6">Giảm giá VIP</UiText>
             <UiText align="right" color="rose">- {{ discountVip }}%</UiText>
+          </UiFlex>
+
+          <UiFlex justify="between" class="text-sm font-semibold p-2" v-if="discountVoucher > 0">
+            <UiText color="gray" class="mr-6">Giảm giá Voucher</UiText>
+            <UiText align="right" color="rose">- {{ discountVoucher }}%</UiText>
           </UiFlex>
 
           <UiFlex justify="between" class="text-sm font-semibold p-2" v-if="totalPrice != null">
@@ -70,7 +79,10 @@ const state = ref({
   server: props.server,
   role: props.role,
   game: props.game?.code,
+  voucher: null
 })
+
+const voucher = ref()
 
 const validate = (state) => {
   const errors = []
@@ -86,11 +98,12 @@ const totalPrice = computed(() => {
   const price = props.recharge.price
   const discount_system = useRate().data(props.game.rate.shop).number
   const discount_vip = discountVip.value
+  const discount_voucher = discountVoucher.value
 
   if(!amount || amount < 1) return null
   if(!price || price < 1) return null
 
-  let discount = discount_system + discount_vip
+  let discount = discount_system + discount_vip + discount_voucher
   discount = discount > 100 ? 100 : discount
 
   let total = Math.floor(amount * price)
@@ -102,6 +115,12 @@ const discountVip = computed(() => {
   if(!authStore.vip) return 0
   if(!props.game.rate.shop.vip) return 0
   return Number(props.game.rate.shop.vip[authStore.vip])
+})
+
+const discountVoucher = computed(() => {
+  if(!voucher.value) return 0
+  if(!voucher.value.value) return 0
+  return Number(voucher.value.value)
 })
 
 const buy = async () => {

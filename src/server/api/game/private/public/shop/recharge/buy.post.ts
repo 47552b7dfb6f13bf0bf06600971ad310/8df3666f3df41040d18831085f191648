@@ -6,12 +6,12 @@ export default defineEventHandler(async (event) => {
     const auth = await getAuth(event) as IAuth
     const body = await readBody(event)
 
-    const { game : code, recharge : rechargeID, server, role } = body
+    const { game : code, recharge : rechargeID, server, role, voucher } = body
     if(!code) throw 'Không tìm thấy mã trò chơi'
     if(!rechargeID) throw 'Không tìm thấy mã gói nạp'
     if(!server || !role) throw 'Vui lòng chọn máy chủ và nhân vật'
 
-    const user = await DB.User.findOne({ _id: auth._id }).select('currency vip') as IDBUser
+    const user = await DB.User.findOne({ _id: auth._id }).select('currency vip vouchers') as IDBUser
     if(!user) throw 'Không tìm thấy thông tin tài khoản'
     
     const game = await DB.GamePrivate.findOne({ code: code, display: true }).select('name ip api secret rate collab') as IDBGamePrivate
@@ -27,6 +27,9 @@ export default defineEventHandler(async (event) => {
     // Get Price
     const price = recharge.price
 
+    // Get Discount Voucher
+    const discountVoucher = await getValueVoucher(user, voucher)
+
     // Get Discount Game
     let discountGame = formatRate(game.rate.shop)
     discountGame = discountGame > 100 ? 100 : discountGame
@@ -37,12 +40,12 @@ export default defineEventHandler(async (event) => {
     const discountVIP = !!vip ? game.rate.shop.vip[vip] : 0
 
     // Make Discount
-    let discount = discountGame + discountVIP
+    let discount = discountGame + discountVIP + discountVoucher
     discount = discount > 100 ? 100 : discount
 
     // Make Price and Spend
     let totalPrice = price - Math.floor(price * (discount / 100)) // Giá mua
-    let totalSpend = price - Math.floor(price * (discountGame / 100)) // Tích tiêu phí (Không tính giảm giá VIP)
+    let totalSpend = price - Math.floor(price * (discountGame / 100)) // Tích tiêu phí (Không tính giảm giá VIP và Voucher)
     if(!runtimeConfig.public.dev && auth.type == 100) totalPrice = 0 // Admin Free Only Prod
 
     // Check Currency
@@ -71,6 +74,12 @@ export default defineEventHandler(async (event) => {
       'spend.month.count': 1,
       'spend.total.count': 1,
     }})
+
+    // Update Voucher
+    if(discountVoucher > 0){
+      await DB.User.updateOne({ _id: user._id }, { $pull: { 'vouchers': voucher } })
+      await DB.VoucherHistory.create({ voucher: voucher, user: user._id, content: `Mua hàng trong <b>[Game Private] ${game.name}</b>` })
+    }
 
     // Update Revenue
     totalPrice > 0 && await DB.GamePrivate.updateOne({ _id: game._id }, { $inc: { 'statistic.revenue': totalPrice }})

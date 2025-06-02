@@ -17,6 +17,8 @@ export { IDBSpend } from './spend'
 
 export { IDBMission, IDBMissionHistory } from './mission'
 
+export { IDBVoucher, IDBVoucherHistory } from './voucher'
+
 export { IDBLogAdmin, IDBLogUser } from './log'
 export { IDBAdminIP, IDBBlockIP, IDBBlockDevice } from './ip'
 
@@ -107,6 +109,9 @@ export interface IGlobalDB {
   Gate: Model<IDBGate>
   Payment: Model<IDBPayment>
   Spend: Model<IDBSpend>
+
+  Voucher: Model<IDBVoucher>
+  VoucherHistory: Model<IDBVoucherHistory>
 
   Mission: Model<IDBMission>
   MissionHistory: Model<IDBMissionHistory>

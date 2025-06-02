@@ -3,13 +3,12 @@
     <LayoutPublicHeader />
 
     <UiFlex class="px-4 py-4 lg:gap-6 gap-0" items="start">
-      <div class="
+      <div v-if="!!isXL" class="
         HideScroll
         sticky top-[calc(var(--header-size)+1rem)]
         bg-gray-1000 bg-opacity-90 backdrop-blur-lg rounded-2xl
         min-h-[calc(100vh-2rem-var(--header-size))] max-h-[calc(100vh-2rem-var(--header-size))] overflow-y-auto
-        lg:min-w-[250px] lg:max-w-[250px] lg:w-[250px]
-        hidden lg:flex
+        min-w-[250px] max-w-[250px] w-[250px]
       ">
         <LayoutPublicNav />
       </div>
@@ -22,11 +21,11 @@
         <slot></slot>
       </UContainer>
 
-      <div class="
+      <div v-if="!!isLG" class="
         sticky top-[calc(var(--header-size)+1rem)]
         min-h-[calc(100vh-2rem-var(--header-size))] max-h-[calc(100vh-2rem-var(--header-size))] overflow-hidden
-        lg:min-w-[300px] lg:max-w-[300px] lg:w-[300px]
-        hidden xl:flex flex-col gap-2
+        min-w-[300px] max-w-[300px] w-[300px]
+        flex flex-col gap-2
       ">
         <UiFlex type="col">
           <DataSocial class="w-full" />
@@ -38,4 +37,8 @@
     </UiFlex>
   </div>
 </template>
+
+<script setup>
+const { isLG, isXL } = useBreakpointsGlobal()
+</script>
 

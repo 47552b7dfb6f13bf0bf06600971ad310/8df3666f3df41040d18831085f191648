@@ -82,7 +82,6 @@ export default defineNuxtConfig({
     disallow: ['/manage/*', '/.nuxt/*', '/*?query=', '/*?page=', '/*?sort=', '/*?filter='],
     sitemap: '/sitemap.xml', 
     blockNonSeoBots: true, // Nuclei, WikiDo, Riddler, PetalBot, Zoominfobot, Go-http-client, Node/simplecrawler, CazoodleBot, dotbot/1.0, Gigabot, Barkrowler, , BLEXBot, magpie-crawler
-
   },
 
   googleFonts: {
@@ -137,7 +136,6 @@ export default defineNuxtConfig({
       'favicon.ico', 
       'robots.txt', 
       'pwa/apple-touch-icon.png', 
-      '/'
     ],
     manifest: {
       name: process.env.NAME,
@@ -158,11 +156,10 @@ export default defineNuxtConfig({
       ]
     },
     workbox: {
-      navigateFallback: '/',
+      // navigateFallback: '/',
       sourcemap: true,
-      globPatterns: ['**/*.{js,css,html,png,svg}', '/'],
+      globPatterns: ['**/*.{js,css,html,png,svg}'],
     },
-    
   },
 
   compatibilityDate: '2025-06-01'

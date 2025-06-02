@@ -6,9 +6,9 @@ export default defineEventHandler(async (event) => {
     if(auth.type != 100) throw 'Bạn không phải quản trị viên cấp cao'
 
     const body = await readBody(event)
-    const { _id, title, exp, limit } = body
-    if(!_id || !title || !exp || !limit) throw 'Dữ liệu đầu vào không hợp lệ'
-    if(exp < 1) throw 'Cấp độ không hợp lệ'
+    const { _id, title, exp, limit, bonus, gift, voucher } = body
+    if(!_id || !title || !limit || !bonus || !gift || !voucher) throw 'Dữ liệu đầu vào không hợp lệ'
+    if(!isNumber(exp) || exp < 0) throw 'Cấp độ không hợp lệ'
 
     const level = await DB.UserLevel.findOne({ _id: _id }).select('number') as IDBUserLevel
     if(!level) throw 'Cấp độ không tồn tại'

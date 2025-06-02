@@ -5,10 +5,10 @@ export default defineEventHandler(async (event) => {
     const runtimeConfig = useRuntimeConfig()
     const auth = await getAuth(event) as IAuth
 
-    const user = await DB.User.findOne({ _id: auth._id }).select('username currency vip') as IDBUser
+    const user = await DB.User.findOne({ _id: auth._id }).select('username currency vip vouchers') as IDBUser
     if(!user) throw 'Không tìm thấy thông tin tài khoản'
 
-    const { game : code, recharge, mail, server_id } = await readBody(event)
+    const { game : code, recharge, mail, server_id, voucher } = await readBody(event)
     if(!code) throw 'Không tìm thấy mã trò chơi'
     if(!server_id) throw 'Vui lòng chọn máy chủ sử dụng'
     if(!recharge && !mail) throw 'Vui lòng lựa chọn 1 loại tool để mua'
@@ -16,6 +16,7 @@ export default defineEventHandler(async (event) => {
     const game = await DB.GameTool.findOne({ code: code, display: true }).select('name price discount collab') as IDBGameTool
     if(!game) throw 'Trò chơi không tồn tại'
 
+    const discountVoucher = await getValueVoucher(user, voucher)
     const userGame = await DB.GameToolUser.findOne({ game: game._id, user: user._id, server_id: server_id }) as IDBGameToolUser
     let totalPrice = 0
     let discount = 0
@@ -26,6 +27,8 @@ export default defineEventHandler(async (event) => {
     const vip = await getUserVip(user) as string
     // @ts-expect-error
     discount = !!vip ? game.discount.vip[vip] : 0
+    discount = discount + discountVoucher
+    discount = discount > 100 ? 100 : discount
 
     // No User Game Tool
     if(!userGame){
@@ -81,6 +84,12 @@ export default defineEventHandler(async (event) => {
         coin: totalPrice
       })
       result = { recharge: userGame.recharge, mail: userGame.mail }
+    }
+
+    // Update Voucher
+    if(discountVoucher > 0){
+      await DB.User.updateOne({ _id: user._id }, { $pull: { 'vouchers': voucher } })
+      await DB.VoucherHistory.create({ voucher: voucher, user: user._id, content: `Mua công cụ <b>[Game Tool] ${game.name}</b>` })
     }
 
     // Update revenue game

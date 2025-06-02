@@ -147,10 +147,20 @@ const navItems = [
     ]
   },
   {
+    label: 'Voucher',
+    icon: 'i-mdi-voucher-outline',
+    defaultOpen: false,
+    slot: 'tab-9',
+    children: [
+      { label: 'Danh sách', to: '/manage/@eni/voucher' },
+      { label: 'Lịch sử', to: '/manage/@eni/voucher/history' },
+    ]
+  },
+  {
     label: 'Diễn đàn',
     icon: 'i-bx-layer',
     defaultOpen: false,
-    slot: 'tab-9',
+    slot: 'tab-10',
     children: [
       { label: 'Danh mục', to: '/manage/@eni/forum/category' },
       { label: 'Bài viết', to: '/manage/@eni/forum/post' },
@@ -160,7 +170,7 @@ const navItems = [
   //   label: 'Nhiệm vụ',
   //   icon: 'i-bxs-book-open',
   //   defaultOpen: false,
-  //   slot: 'tab-10',
+  //   slot: 'tab-11',
   //   children: [
   //     { label: 'Danh sách', to: '/manage/@eni/mission' },
   //     { label: 'Lịch sử', to: '/manage/@eni/mission/history' },
@@ -170,7 +180,7 @@ const navItems = [
   //   label: 'Ecoin',
   //   icon: 'i-bxl-edge',
   //   defaultOpen: false,
-  //   slot: 'tab-11',
+  //   slot: 'tab-12',
   //   children: [
   //     { label: 'Mùa giải', to: '/manage/@eni/ecoin/season' },
   //     { label: 'Thương gia mua', to: '/manage/@eni/ecoin/p2p/buyer' },

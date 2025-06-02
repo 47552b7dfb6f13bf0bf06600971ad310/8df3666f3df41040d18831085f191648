@@ -15,6 +15,8 @@ import { DBGate } from './gate'
 import { DBPayment } from './payment'
 import { DBSpend } from './spend'
 
+import { DBVoucher, DBVoucherHistory } from './voucher'
+
 import { DBMission, DBMissionHistory } from './mission'
 
 import { DBLogAdmin, DBLogUser } from './log'
@@ -108,6 +110,9 @@ export default (mongoose : Mongoose) : IGlobalDB => {
     Gate: DBGate(mongoose),
     Payment: DBPayment(mongoose),
     Spend: DBSpend(mongoose),
+
+    Voucher: DBVoucher(mongoose),
+    VoucherHistory: DBVoucherHistory(mongoose),
 
     Mission: DBMission(mongoose),
     MissionHistory: DBMissionHistory(mongoose),

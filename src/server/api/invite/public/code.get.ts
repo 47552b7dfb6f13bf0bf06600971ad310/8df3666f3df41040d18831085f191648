@@ -7,7 +7,10 @@ export default defineEventHandler(async (event) => {
     const user = await DB.User.findOne({ _id: auth._id }).select('invite level') as IDBUser
     if(!user) return 'Tài khoản không tồn tại'
 
-    const level = await DB.UserLevel.findOne({ _id: user.level }) as IDBUserLevel
+    const level = await DB.UserLevel
+    .findOne({ _id: user.level })
+    .select('voucher.friend limit.invite gift.invite bonus.invite.payment')
+    .populate({ path: 'voucher.friend', select: 'title' }) as IDBUserLevel
     if(!level) throw 'Không tìm thấy cấp độ tài khoản'
 
     let code : string

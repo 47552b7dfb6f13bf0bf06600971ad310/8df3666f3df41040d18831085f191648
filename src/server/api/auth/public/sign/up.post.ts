@@ -82,10 +82,11 @@ export default defineEventHandler(async (event) => {
       const from = await DB.User
       .findOne({ 'invite.code' : inviteCode})
       .select('username level')
-      .populate({ path: 'level', select: 'limit' }) as IDBUser
+      .populate({ path: 'level', select: 'limit voucher.friend' }) as IDBUser
       if(!!from) {
         // Check Limit Invite
-        const limit = (from.level as IDBUserLevel).limit.invite
+        const levelFrom = (from.level as IDBUserLevel)
+        const limit = levelFrom.limit.invite
         const countInvite = await DB.Invite.count({ from: from._id })
         if(countInvite >= limit) deleteCookie(event, 'invited-by', runtimeConfig.public.cookieConfig)
         else {
@@ -97,6 +98,10 @@ export default defineEventHandler(async (event) => {
             type: 'invite.add'
           })
           inviteFrom = from.username
+
+          // Add Voucher
+          const voucher = levelFrom.voucher ? levelFrom.voucher.friend : null
+          if(!!voucher) user.vouchers = [ voucher ]
         }
       }
       else deleteCookie(event, 'invited-by', runtimeConfig.public.cookieConfig)

@@ -7,6 +7,7 @@ export default defineEventHandler(async (event) => {
 
     const list = await DB.UserLevel
     .find({})
+    .populate({ path: 'voucher.friend', select: 'title value'})
     .sort({ number: 1 })
 
     const total = await DB.UserLevel.count()

@@ -3,6 +3,8 @@ import { defineStore } from 'pinia'
 export const useSocketStore = defineStore('socket', () => {
   const online : Ref<number> = ref(0)
 
+  const slideModal = ref(false)
+
   const tab : Ref<string | null> = ref('chat-global')
 
   const chat : Ref<any> = ref({
@@ -59,6 +61,10 @@ export const useSocketStore = defineStore('socket', () => {
     }
   })
 
+  function setSlideModal (data : boolean) {
+    slideModal.value = data
+  }
+
   function changeTab (data: string) {
     tab.value = data
   }
@@ -76,6 +82,7 @@ export const useSocketStore = defineStore('socket', () => {
   }
 
   return { 
+    slideModal, setSlideModal,
     online, updateOnline,
     tab, changeTab,
     chat, changeChatData,

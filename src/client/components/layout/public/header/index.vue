@@ -9,20 +9,21 @@
     px-4
     md:gap-1 gap-0.5
   ">
-    <LayoutPublicNavSlide class="flex lg:hidden" />
+    <LazyLayoutPublicNavSlide v-if="!isXL" />
     
-    <NuxtLink to="/">
-      <UiLogo class="hidden lg:flex mr-4"/>
+    <NuxtLink to="/" v-if="!!isXL">
+      <UiLogo class="mr-4"/>
     </NuxtLink>
 
     <LayoutPublicHeaderSearch class="mr-auto"/>
 
     <LazyAuthSign v-if="!authStore.isLogin" />
     <LazyAuthHeader v-else />
-    <SocketNavSlide class="flex xl:hidden" />
+    <LazySocketNavSlide v-if="!isLG" />
   </header>
 </template>
 
 <script setup>
+const { isLG, isXL } = useBreakpointsGlobal()
 const authStore = useAuthStore()
 </script>

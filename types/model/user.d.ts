@@ -1,6 +1,7 @@
 import type { Types } from 'mongoose'
 import type { IDBLevel } from './level'
 import type { IDBGuild } from './guild'
+import type { IDBVoucher } from './voucher'
 
 export interface IDBUser {
   _id: Types.ObjectId
@@ -48,6 +49,7 @@ export interface IDBUser {
   china: {
     youxi: boolean
   }
+  vouchers: Array<Types.ObjectId | IDBVoucher>
   type: number
   online: boolean
   block: boolean
@@ -79,6 +81,9 @@ export interface IDBUserLevel {
   }
   discount: {
     shop: number
+  }
+  voucher: {
+    friend: Types.ObjectId | IDBVoucher
   }
 }
 
