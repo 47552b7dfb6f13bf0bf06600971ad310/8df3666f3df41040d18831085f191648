@@ -133,7 +133,7 @@ export default defineAppConfig({
     },
 
     selectMenu: {
-      base: 'overflow-x-hidden HideScroll min-w-[150px]',
+      base: 'overflow-x-hidden HideScroll',
       rounded: 'rounded-2xl',
       padding: 'p-1',
       shadow: 'shadow-xl',

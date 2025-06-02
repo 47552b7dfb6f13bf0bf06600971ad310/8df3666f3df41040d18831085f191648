@@ -35,18 +35,34 @@ export default defineNuxtConfig({
     }
   },
 
+  app: {
+    head: {
+      htmlAttrs: { lang: 'vi' },
+      charset: 'utf-8',
+      viewport: 'width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover',
+      meta: [
+        { name: 'theme-color', content: '#09121b' },
+        { name: 'apple-mobile-web-app-capable', content: 'yes' },
+        { name: 'mobile-web-app-capable', content: 'yes' },
+        { name: 'apple-mobile-web-app-status-bar-style', content: 'black' },
+        { name: 'apple-mobile-web-app-title', content: process.env.NAME },
+      ],
+      link: [
+        { rel: 'apple-touch-icon', href: '/pwa/apple-touch-icon.png' },
+        { rel: 'manifest', href: '/manifest.webmanifest' },
+      ]
+    },
+    pageTransition: { name: 'page', mode: 'out-in' }
+  },
+
+  css: [ '@/app.sass' ],
+
   modules: [
     '@pinia/nuxt', 
     '@nuxt/image', 
     '@nuxt/ui', 
     '@nuxt/icon',
-    ['@nuxtjs/google-fonts', {
-      display: 'swap',
-      download: true,
-      families: {
-        Lexend: [300,400,500,600,700,800,900],
-      }
-    }], 
+    '@nuxtjs/google-fonts', 
     '@nuxtjs/robots', 
     'nuxt-rate-limit', 
     '@nuxtjs/device', 
@@ -69,6 +85,14 @@ export default defineNuxtConfig({
 
   },
 
+  googleFonts: {
+    display: 'swap',
+    download: true,
+    families: {
+      Lexend: [300,400,500,600,700,800,900],
+    }
+  },
+
   nuxtRateLimit: {
     routes: {
       '/api/*': {
@@ -77,30 +101,6 @@ export default defineNuxtConfig({
       },
     },
   },
-
-  app: {
-    head: {
-      htmlAttrs: { lang: 'vi' },
-      charset: 'utf-8',
-      viewport: 'width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover',
-      meta: [
-        { name: 'theme-color', content: '#09121b' },
-        { name: 'apple-mobile-web-app-capable', content: 'yes' },
-        { name: 'mobile-web-app-capable', content: 'yes' },
-        { name: 'apple-mobile-web-app-status-bar-style', content: 'black' },
-        { name: 'apple-mobile-web-app-title', content: process.env.NAME },
-      ],
-      link: [
-        { rel: 'apple-touch-icon', href: '/pwa/apple-touch-icon.png' },
-        { rel: 'manifest', href: '/manifest.webmanifest' },
-      ]
-    },
-    pageTransition: { name: 'page', mode: 'out-in' }
-  },
-
-  css: [
-    '@/app.sass'
-  ],
 
   colorMode: {
     preference: 'dark'
