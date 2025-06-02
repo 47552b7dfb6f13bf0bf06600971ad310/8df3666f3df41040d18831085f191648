@@ -136,8 +136,7 @@ export default defineNuxtConfig({
     includeAssets: [
       'favicon.ico', 
       'robots.txt', 
-      'pwa/apple-touch-icon.png', 
-      '/'
+      'pwa/apple-touch-icon.png'
     ],
     manifest: {
       name: process.env.NAME,
@@ -160,7 +159,7 @@ export default defineNuxtConfig({
     workbox: {
       navigateFallback: '/',
       sourcemap: true,
-      globPatterns: ['**/*.{js,css,html,png,svg}', '/'],
+      globPatterns: ['**/*.{js,css,html,png,svg}'],
     }
   },
 
