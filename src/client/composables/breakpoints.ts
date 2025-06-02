@@ -1,7 +1,9 @@
 import { breakpointsTailwind, useBreakpoints } from '@vueuse/core'
-const breakpoints = useBreakpoints(breakpointsTailwind, { ssrWidth: 430 })
+
 
 export const useBreakpointsGlobal = () => {
+  const breakpoints = useBreakpoints(breakpointsTailwind, { ssrWidth: 430 })
+  
   const isSM = breakpoints.greaterOrEqual('sm')
   const isMD = breakpoints.greaterOrEqual('md')
   const isLG = breakpoints.greaterOrEqual('lg')
