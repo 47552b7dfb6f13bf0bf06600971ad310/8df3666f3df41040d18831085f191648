@@ -69,7 +69,7 @@ export default defineNuxtConfig({
     'nuxt-lazy-hydrate', 
     'nuxt-tiptap-editor', 
     'nuxt-swiper', 
-    '@vite-pwa/nuxt',
+    // '@vite-pwa/nuxt',
     '@nuxtjs/sitemap'
   ],
 
@@ -130,40 +130,39 @@ export default defineNuxtConfig({
     },
   },
 
-  pwa: {
-    registerType: 'autoUpdate',
-    injectRegister: 'auto',
-    includeAssets: [
-      'favicon.ico', 
-      'robots.txt', 
-      'pwa/apple-touch-icon.png', 
-      '/'
-    ],
-    manifest: {
-      name: process.env.NAME,
-      short_name: process.env.SHORT_NAME,
-      description: process.env.DESCRIPTION,
-      theme_color: '#09121b',
-      background_color: '#09121b',
-      display: 'standalone',
-      start_url: '/',
-      orientation: "portrait",
-      lang: 'vi',
-      icons: [
-        { src: '/pwa/64.png', sizes: "64x64", type: 'image/png' },
-        { src: '/pwa/144.png', sizes: "144x144", type: 'image/png' },
-        { src: '/pwa/192.png', sizes: "192x192", type: 'image/png' },
-        { src: '/pwa/512.png', sizes: "512x512", type: 'image/png', purpose: 'any'  },
-        { src: '/pwa/512.png', sizes: '512x512', type: 'image/png', purpose: 'maskable' }
-      ]
-    },
-    workbox: {
-      navigateFallback: '/',
-      sourcemap: true,
-      globPatterns: ['**/*.{js,css,html,png,svg}', '/'],
-    },
-    
-  },
+  // pwa: {
+  //   registerType: 'autoUpdate',
+  //   injectRegister: 'auto',
+  //   includeAssets: [
+  //     'favicon.ico', 
+  //     'robots.txt', 
+  //     'pwa/apple-touch-icon.png', 
+  //     '/'
+  //   ],
+  //   manifest: {
+  //     name: process.env.NAME,
+  //     short_name: process.env.SHORT_NAME,
+  //     description: process.env.DESCRIPTION,
+  //     theme_color: '#09121b',
+  //     background_color: '#09121b',
+  //     display: 'standalone',
+  //     start_url: '/',
+  //     orientation: "portrait",
+  //     lang: 'vi',
+  //     icons: [
+  //       { src: '/pwa/64.png', sizes: "64x64", type: 'image/png' },
+  //       { src: '/pwa/144.png', sizes: "144x144", type: 'image/png' },
+  //       { src: '/pwa/192.png', sizes: "192x192", type: 'image/png' },
+  //       { src: '/pwa/512.png', sizes: "512x512", type: 'image/png', purpose: 'any'  },
+  //       { src: '/pwa/512.png', sizes: '512x512', type: 'image/png', purpose: 'maskable' }
+  //     ]
+  //   },
+  //   workbox: {
+  //     navigateFallback: '/',
+  //     sourcemap: true,
+  //     globPatterns: ['**/*.{js,css,html,png,svg}', '/'],
+  //   }
+  // },
 
   compatibilityDate: '2025-06-01'
 })

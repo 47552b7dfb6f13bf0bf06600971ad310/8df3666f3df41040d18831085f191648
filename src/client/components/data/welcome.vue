@@ -4,7 +4,7 @@
       <UiImg src="/images/welcome.png" class="w-[95%] mx-auto " />
       <UiText align="center" color="gray" size="sm" class="mb-4">Chúng tôi tặng bạn những ưu đãi sau</UiText>
 
-      <DataEmpty :loading="!!loading" class="min-h-[300px]" v-if="!!loading || !promo"></DataEmpty>
+      <DataEmpty class="min-h-[300px]" v-if="!promo"></DataEmpty>
 
       <div v-else>
         <UiFlex type="col" class="gap-1">
@@ -31,15 +31,12 @@ const promo = ref()
 
 const getPromo = async () => {
   try {
-    loading.value = true
     const data = await useAPI('user/public/wellcome')
 
     promo.value = data
-    loading.value = false
     modal.value = true
   }
   catch(e){
-    loading.value = false
     modal.value = false
   }
 }
