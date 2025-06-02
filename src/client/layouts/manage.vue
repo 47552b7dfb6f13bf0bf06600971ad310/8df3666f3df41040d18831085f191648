@@ -6,8 +6,9 @@
       grid grid-cols-12 gap-0 
       min-h-[calc(100%-var(--header-size))]
     ">
-      <div v-if="!!isXL" class="
+      <div class="
         xl:col-span-2 col-span-12
+        xl:block hidden
         xl:sticky xl:top-[var(--header-size)]
         xl:max-h-[calc(100vh-var(--header-size))] xl:overflow-y-auto
         border-r border-gray-100 dark:border-gray-800
@@ -30,8 +31,6 @@
 </template>
 
 <script setup>
-const { isLG, isXL } = useBreakpointsGlobal()
-
 useSeoMeta({
   title: () => `Manage Pannel`,
   robots: 'none'

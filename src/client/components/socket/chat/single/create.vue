@@ -3,7 +3,6 @@
 </template>
 
 <script setup>
-const { isLG } = useBreakpointsGlobal()
 const socketStore = useSocketStore()
 const loading = ref(false)
 const emits = defineEmits(['done'])
@@ -16,7 +15,6 @@ const create = async (to) => {
     socketStore.changeTab('chat-single')
     
     loading.value = false
-    if(!isLG.value) socketStore.setSlideModal(true)
     emits('done')
   }
   catch(e){
