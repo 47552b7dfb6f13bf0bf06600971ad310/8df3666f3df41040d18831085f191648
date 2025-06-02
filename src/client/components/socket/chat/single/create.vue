@@ -3,7 +3,10 @@
 </template>
 
 <script setup>
-const { isLG } = useSizeCustom()
+import { useBreakpoints, breakpointsTailwind } from '@vueuse/core'
+const breakpoints = useBreakpoints(breakpointsTailwind, { ssrWidth: 430 })
+const isLG = breakpoints.greaterOrEqual('lg')
+const isXL = breakpoints.greaterOrEqual('xl')
 const socketStore = useSocketStore()
 const loading = ref(false)
 const emits = defineEmits(['done'])

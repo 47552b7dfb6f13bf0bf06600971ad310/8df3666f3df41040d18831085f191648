@@ -28,6 +28,9 @@
 </template>
 
 <script setup>
-const { isLG, isXL } = useSizeCustom()
+import { useBreakpoints, breakpointsTailwind } from '@vueuse/core'
+const breakpoints = useBreakpoints(breakpointsTailwind, { ssrWidth: 430 })
+const isLG = breakpoints.greaterOrEqual('lg')
+const isXL = breakpoints.greaterOrEqual('xl')
 const authStore = useAuthStore()
 </script>
