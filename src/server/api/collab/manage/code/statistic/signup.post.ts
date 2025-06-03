@@ -3,8 +3,7 @@ import type { IAuth, IDBCollab } from '~~/types'
 export default defineEventHandler(async (event) => {
   try {
     const auth = await getAuth(event) as IAuth
-    if(auth.type != 100) throw 'Bạn không phải quản trị viên cấp cao'
-
+    
     const { size, current, sort, range, collab : code } = await readBody(event)
     if(!size || !current || !sort) throw 'Dữ liệu phân trang sai'
     if(!sort.column || !sort.direction) throw 'Dữ liệu sắp xếp sai'

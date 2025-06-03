@@ -9,17 +9,17 @@
     px-4
     md:gap-1 gap-0.5
   ">
-    <LayoutPublicNavSlide class="flex lg:hidden" />
+    <LayoutPublicNavSlide class="flex xl:hidden" />
     
     <NuxtLink to="/">
-      <UiLogo class="hidden lg:flex mr-4"/>
+      <UiLogo class="hidden xl:flex mr-4"/>
     </NuxtLink>
 
     <LayoutPublicHeaderSearch class="mr-auto"/>
 
     <LazyAuthSign v-if="!authStore.isLogin" />
     <LazyAuthHeader v-else />
-    <SocketNavSlide class="flex xl:hidden" />
+    <SocketNavSlide class="flex lg:hidden" />
   </header>
 </template>
 

@@ -3,7 +3,7 @@
     <img :src="configStore.config.logo_image" :style="{ height: `${imgSize}px` }" v-if="!!configStore.config.logo_image" />
     
     <UiText weight="bold" size="2xl" color="primary" class="italic" v-else>
-      {{nameArr.fristWord}} <span class="text-white text-base">{{nameArr.ensWord}}</span>
+      {{nameArr.fristWord}}<span class="text-white text-base">{{nameArr.ensWord}}</span>
     </UiText>
   </UiFlex>
 </template>
