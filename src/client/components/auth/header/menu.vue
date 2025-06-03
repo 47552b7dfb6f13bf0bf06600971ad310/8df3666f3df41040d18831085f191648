@@ -100,7 +100,7 @@ const logout = async () => {
 const menuUser = computed(() => {
   const list = []
 
-  if(!!authStore.isAdmin){
+  if(!!authStore.isAdmin || !!authStore.isSMod){
     list.push({
       label: 'Quản trị viên',
       icon: 'i-bx-shield-quarter',
@@ -108,7 +108,7 @@ const menuUser = computed(() => {
     })
   }
 
-  if(!!authStore.isAdmin || !!authStore.isGMod){
+  if(!!authStore.isAdmin || !!authStore.isSMod || !!authStore.isGMod){
     list.push({
       label: 'Quản lý trò chơi',
       icon: 'i-hugeicons-ai-game',

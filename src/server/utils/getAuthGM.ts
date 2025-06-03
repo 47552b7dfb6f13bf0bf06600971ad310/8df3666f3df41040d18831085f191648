@@ -5,6 +5,7 @@ export default async (event : H3Event, auth : IAuth, game : IDBGameChina | IDBGa
   try {
     if(auth.type == 0) throw 'Không có quyền truy cập'
     if(auth.type == 100) return true
+    if(auth.type == 3) return true
 
     const manager = game.manager
     if(!manager.includes(auth._id)) throw 'Không có quyền truy cập'

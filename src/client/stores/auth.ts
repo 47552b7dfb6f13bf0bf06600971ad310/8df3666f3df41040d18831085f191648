@@ -6,6 +6,7 @@ export const useAuthStore = defineStore('auth', () => {
   const welcome = ref(false)
   const isLogin = ref(false)
   const isAdmin = ref(false)
+  const isSMod = ref(false)
   const isGMod = ref(false)
   const isFMod = ref(false)
   const vip : Ref<string | undefined>= ref(undefined)
@@ -24,6 +25,7 @@ export const useAuthStore = defineStore('auth', () => {
       key: `auth/public/get-${Date.now()}`,
     })
     isAdmin.value = auth.type == 100
+    isSMod.value = auth.type == 3
     isGMod.value = auth.type == 1
     isFMod.value = auth.type == 2
     isLogin.value = true
@@ -41,6 +43,7 @@ export const useAuthStore = defineStore('auth', () => {
   async function removeAuth () {
     await useAPI('auth/public/sign/out')
     isAdmin.value = false
+    isSMod.value = false
     isGMod.value = false
     isFMod.value = false
     isLogin.value = false
@@ -53,6 +56,7 @@ export const useAuthStore = defineStore('auth', () => {
     isLogin, 
     profile, 
     isAdmin, 
+    isSMod,
     isGMod, 
     isFMod,
     vip,
