@@ -3,7 +3,7 @@ import type { IAuth, IDBPayment } from "~~/types"
 export default defineEventHandler(async (event) => {
   try {
     const auth = await getAuth(event) as IAuth
-    if(auth.type != 100) throw 'Bạn không phải quản trị viên cấp cao'
+    await checkPermission('payment.coin.action', auth.type)
 
     const body = await readBody(event)
     if(!!body.redo){

@@ -229,7 +229,6 @@ const menu = [
 const getConfig = async () => {
   const config = await useAPI('collab/manage/code/config/info/get', { code: route.params._code })
   state.value = Object.assign(state.value, config)
-  console.log(state.value)
   load.value = false
 }
 

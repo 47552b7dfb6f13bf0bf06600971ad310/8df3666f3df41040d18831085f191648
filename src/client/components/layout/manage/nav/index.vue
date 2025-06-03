@@ -56,26 +56,27 @@ const navItems = [
     ]
   },
   {
-    label: 'Tài khoản',
-    icon: 'i-bxs-user',
-    defaultOpen: false,
-    slot: 'tab-1',
-    children: [
-      { label: 'Danh sách', to: '/manage/@eni/user' },
-      { label: 'Cấp độ', to: '/manage/@eni/user/level' }
-    ]
-  },
-  {
     label: 'Cài đặt',
     icon: 'i-bx-cog',
     defaultOpen: false,
-    slot: 'tab-2',
+    slot: 'tab-1',
     children: [
       { label: 'Thông tin trang', to: '/manage/@eni/config/page' },
       { label: 'API Mạng xã hội', to: '/manage/@eni/config/apisocial' },
       { label: 'Giá VIP và NDT', to: '/manage/@eni/config/price' },
       { label: 'Khuyễn mãi', to: '/manage/@eni/config/promo' },
+      { label: 'Quyền hạn QTV', to: '/manage/@eni/config/permission' },
       { label: 'Bảo mật hệ thống', to: '/manage/@eni/config/security' },
+    ]
+  },
+  {
+    label: 'Tài khoản',
+    icon: 'i-bxs-user',
+    defaultOpen: false,
+    slot: 'tab-2',
+    children: [
+      { label: 'Danh sách', to: '/manage/@eni/user' },
+      { label: 'Cấp độ', to: '/manage/@eni/user/level' }
     ]
   },
   {

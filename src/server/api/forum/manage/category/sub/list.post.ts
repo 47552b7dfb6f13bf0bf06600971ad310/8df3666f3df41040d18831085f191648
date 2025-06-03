@@ -4,7 +4,7 @@ import { Types } from "mongoose"
 export default defineEventHandler(async (event) => {
   try {
     const auth = await getAuth(event) as IAuth
-    if(auth.type != 100) throw 'Bạn không phải quản trị viên cấp cao'
+    await checkPermission('forum.category.edit', auth.type)
 
     const { category : categoryID, size, current, sort } = await readBody(event)
     if(!categoryID) throw 'Không tìm thấy ID danh mục mẹ'

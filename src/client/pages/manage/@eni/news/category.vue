@@ -14,8 +14,8 @@
         :columns="selectedColumns" 
         :rows="list"
       >
-        <template #color-data="{ row }">
-          <UBadge :color="row.color" variant="soft">{{ row.color }}</UBadge>
+        <template #name-data="{ row }">
+          <UBadge :color="row.color" variant="soft">{{ row.name }}</UBadge>
         </template>
 
         <template #createdAt-data="{ row }">
@@ -87,9 +87,6 @@ const columns = [
   {
     key: 'name',
     label: 'Tên',
-  },{
-    key: 'color',
-    label: 'Màu',
   },{
     key: 'count',
     label: 'Bài viết',

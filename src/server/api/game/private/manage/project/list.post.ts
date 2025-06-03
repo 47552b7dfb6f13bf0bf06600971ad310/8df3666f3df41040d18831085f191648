@@ -4,7 +4,7 @@ import { Types } from "mongoose"
 export default defineEventHandler(async (event) => {
   try {
     const auth = await getAuth(event) as IAuth
-    if(auth.type != 100) throw 'Bạn không phải quản trị viên cấp cao'
+    await checkPermission('game.private.list', auth.type)
 
     const { size, current, sort, search, category, platform } = await readBody(event)
     if(!size || !current || !search || !category || !platform) throw 'Dữ liệu phân trang sai'

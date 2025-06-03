@@ -11,7 +11,7 @@
             <div class="grow">
               <DataUserName :user="item.user.user" size="xs" class="mb-1" />
 
-              <div class="bg-gray p-2 px-3 rounded-r-2xl rounded-bl-2xl text-left">
+              <div class="p-2 px-3 rounded-r-2xl rounded-bl-2xl text-left" style="background-color: rgb(0, 0, 0, 0.12);">
                 <UiText class="mb-1" :style="{ wordBreak: 'break-word' }">{{ item.content }}</UiText>
                 <UiText color="gray"  class="leading-none text-[0.7rem]" mini>{{ useDayJs().fromTime(item.createdAt, null, true) }}</UiText>
               </div>

@@ -3,7 +3,7 @@ import type { IAuth, IDBUserLevel } from "~~/types"
 export default defineEventHandler(async (event) => {
   try {
     const auth = await getAuth(event) as IAuth
-    if(auth.type != 100) throw 'Bạn không phải quản trị viên cấp cao'
+    await checkPermission('user.level.edit', auth.type)
 
     const body = await readBody(event)
     const { _id, title, exp, limit, bonus, gift, voucher } = body

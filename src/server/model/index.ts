@@ -1,6 +1,8 @@
 import type { IGlobalDB } from '~~/types'
 import type { Mongoose } from 'mongoose'
-import { DBConfig } from './config'
+
+import { DBConfig, DBConfigPermission } from './config'
+
 import { DBNews, DBNewsCategory } from './news'
 
 import { DBAdsFrom } from './ads'
@@ -86,6 +88,7 @@ export default (mongoose : Mongoose) : IGlobalDB => {
   return {
     // Main DB
     Config: DBConfig(mongoose),
+    ConfigPermission: DBConfigPermission(mongoose),
     
     NewsCategory: DBNewsCategory(mongoose),
     News: DBNews(mongoose),

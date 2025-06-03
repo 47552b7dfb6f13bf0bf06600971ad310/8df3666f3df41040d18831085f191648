@@ -3,10 +3,10 @@ import type { IAuth } from "~~/types"
 export default defineEventHandler(async (event) => {
   try {
     const auth = await getAuth(event) as IAuth
-    await checkPermission('config.get', auth.type)
+    if(auth.type != 100) throw 'Bạn không phải quản trị viên cấp cao'
     
-    const config = await DB.Config.findOne().select('-article')
-    if(!config) throw 'Không tìm thấy cấu hình trang'
+    const config = await DB.ConfigPermission.findOne()
+    if(!config) throw 'Không tìm thấy cấu hình quyền hạn'
     
     return resp(event, { result: config })
   } 

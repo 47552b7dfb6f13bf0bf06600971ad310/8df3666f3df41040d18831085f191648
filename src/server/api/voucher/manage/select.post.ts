@@ -15,12 +15,10 @@ const mergeArray = (input : Array<IDBVoucher>, list : Array<IDBVoucher>) => {
 export default defineEventHandler(async (event) => {
   try {
     const auth = await getAuth(event) as IAuth
-    if(auth.type != 100) throw true
+    await checkPermission('voucher.list', auth.type)
     
     const { key, _id } = await readBody(event)
     const match : any = { display: true }
-
-    console.log(_id)
 
     if(!!key){
       match['$or'] = [

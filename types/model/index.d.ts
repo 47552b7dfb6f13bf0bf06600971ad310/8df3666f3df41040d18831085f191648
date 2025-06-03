@@ -1,6 +1,6 @@
 import type { Model } from 'mongoose'
 
-export { IDBConfig, IDBConfigStore } from './config'
+export { IDBConfig, IDBConfigStore, IDBConfigPermission } from './config'
 export { IDBNews, IDBNewsCategory } from './news'
 
 export { IDBAdsFrom } from './ads'
@@ -85,6 +85,7 @@ export {
 export interface IGlobalDB {
   // Main DB
   Config: Model<IDBConfig>
+  ConfigPermission: Model<IDBConfigPermission>
 
   News: Model<IDBNews>
   NewsCategory: Model<IDBNewsCategory>

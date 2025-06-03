@@ -45,7 +45,7 @@ export const DBUser = (mongoose : Mongoose) => {
       youxi: { type: Boolean, default: false },
     },
     vouchers: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Voucher', index: true }],
-    type: { type: Number, default: 0, index: true }, // 0 - Member, 1 - GMod, 2 - FMod, 100 - Admin, 99 - Robot
+    type: { type: Number, default: 0, index: true }, // 0 - Member, 1 - GMod, 2 - FMod, 3 - SMod, 100 - Admin, 99 - Robot
     online: { type: Boolean, default: false },
     block: { type: Boolean, default: false },
     token: { type: String },

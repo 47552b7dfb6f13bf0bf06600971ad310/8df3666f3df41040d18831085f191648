@@ -6,7 +6,7 @@
     </UiFlex>
     
     <!-- Table -->
-    <UCard :ui="{ body: { padding: 'p-0 sm:p-0' } }">
+    <UCard class="bg-gray" :ui="{ body: { padding: 'p-0 sm:p-0' } }">
       <LoadingTable v-if="loading.load" />
 
       <UTable 
@@ -42,7 +42,7 @@
 
     <!-- Modal Add -->
     <UModal v-model="modal.add" preventClose>
-      <UForm :state="stateAdd" @submit="addAction" class="p-4">
+      <UForm :state="stateAdd" @submit="addAction" class="bg-card rounded-2xl p-4">
         <UFormGroup label="Tên">
           <UInput v-model="stateAdd.name" />
         </UFormGroup>
@@ -64,7 +64,7 @@
 
     <!-- Modal Edit -->
     <UModal v-model="modal.edit" preventClose>
-      <UForm :state="stateEdit" @submit="editAction" class="p-4">
+      <UForm :state="stateEdit" @submit="editAction" class="bg-card rounded-2xl p-4">
         <UFormGroup label="Tên">
           <UInput v-model="stateEdit.name" />
         </UFormGroup>

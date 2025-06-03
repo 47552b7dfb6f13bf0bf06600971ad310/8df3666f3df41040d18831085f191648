@@ -3,6 +3,7 @@ import type { IAuth, IDBGameChina, IDBGameChinaPayment } from "~~/types"
 export default defineEventHandler(async (event) => {
   try {
     const auth = await getAuth(event) as IAuth
+    await checkPermission('payment.yuan.action', auth.type)
 
     const body = await readBody(event)
     const { _id : paymentID, status, reason, game : gameID } = body

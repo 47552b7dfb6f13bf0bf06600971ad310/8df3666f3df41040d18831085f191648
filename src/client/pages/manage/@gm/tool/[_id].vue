@@ -19,7 +19,7 @@
       <UContainer 
         class="px-0 sm:px-0 lg:px-0" 
         style="min-height: calc(100% - var(--header-size));"
-        :ui="{ constrained: 'max-w-[1200px] w-full' }"
+        :ui="{ constrained: 'max-w-[1200px] w-full overflow-x-hidden' }"
       >
         <ManageGameToolInfo :game="game" class="mb-4" @update="getGame()" />
         <NuxtPage :game="game"></NuxtPage>

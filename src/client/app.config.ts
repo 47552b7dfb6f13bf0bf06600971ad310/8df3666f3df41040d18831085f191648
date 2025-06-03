@@ -61,7 +61,7 @@ export default defineAppConfig({
     modal: {
       container: 'items-center',
       overlay: {
-        background: 'bg-white/25 dark:bg-black/50 backdrop-blur'
+        background: 'dark:bg-black/80 backdrop-blur'
       },
       base: 'overflow-x-hidden overflow-visible',
       rounded: 'rounded-2xl',
@@ -69,8 +69,9 @@ export default defineAppConfig({
 
     slideover: {
       overlay: {
-        background: 'bg-white/25 dark:bg-black/50 backdrop-blur'
-      }
+        background: 'dark:bg-black/80 backdrop-blur'
+      },
+      background: 'bg-gray-1000'
     },
 
     notifications: {

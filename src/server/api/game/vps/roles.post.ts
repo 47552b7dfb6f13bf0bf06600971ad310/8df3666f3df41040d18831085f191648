@@ -3,7 +3,6 @@ import type { IAuth } from "~~/types"
 export default defineEventHandler(async (event) => {
   try {
     const auth = await getAuth(event) as IAuth
-    if(auth.type != 100) throw 'Bạn không phải quản trị viên cấp cao'
 
     const body = await readBody(event)
     const { server_id, size, current, sort, search, game: code, type } = body
@@ -17,9 +16,10 @@ export default defineEventHandler(async (event) => {
     if(type == 'tool') DBSelect = DB.GameTool
     if(type == 'private') DBSelect = DB.GamePrivate
 
-    const game = await DBSelect.findOne({ code: code }).select('_id ip api secret')
+    const game = await DBSelect.findOne({ code: code }).select('_id ip api secret manager')
     if(!game) throw 'Trò chơi không tồn tại'
     if(!game.ip) throw 'Trò chơi đang bảo trì'
+    await getAuthGM(event, auth, game)
 
     const { list, total } = await gameGetRoles(event, {
       url: game.api.roles,

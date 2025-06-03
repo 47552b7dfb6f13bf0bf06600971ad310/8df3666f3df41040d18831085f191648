@@ -3,7 +3,7 @@ import type { IAuth, IDBGameCategory } from "~~/types"
 export default defineEventHandler(async (event) => {
   try {
     const auth = await getAuth(event) as IAuth
-    if(auth.type != 100) throw 'Bạn không phải quản trị viên cấp cao'
+    await checkPermission('game.category.add', auth.type)
 
     const body = await readBody(event)
     const { name, icon } = body

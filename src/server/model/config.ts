@@ -1,5 +1,5 @@
 import type { Mongoose } from 'mongoose'
-import type { IDBConfig } from '~~/types'
+import type { IDBConfig, IDBConfigPermission } from '~~/types'
 
 export const DBConfig = (mongoose : Mongoose) => {
   const schema = new mongoose.Schema<IDBConfig>({ 
@@ -112,6 +112,348 @@ export const DBConfig = (mongoose : Mongoose) => {
   const autoCreate = async () => {
     const count = await model.count({})
     if(count == 0) return await model.create({})
+  }
+
+  autoCreate()
+  return model 
+}
+
+export const DBConfigPermission = (mongoose : Mongoose) => {
+  const schema = new mongoose.Schema<IDBConfigPermission>({ 
+    statistic: [{ type: Number }],
+
+    log: [{ type: Number }],
+
+    config: {
+      get: [{ type: Number }],
+      edit: [{ type: Number }],
+      article: {
+        get: [{ type: Number }],
+        edit: [{ type: Number }],
+      }
+    },
+
+    spend: {
+      list: [{ type: Number }],
+      add: [{ type: Number }],
+      edit: [{ type: Number }],
+      del: [{ type: Number }],
+    },
+
+    user: {
+      list: [{ type: Number }],
+      edit: {
+        profile: [{ type: Number }],
+        currency: [{ type: Number }],
+      },
+      level: {
+        list: [{ type: Number }],
+        edit: [{ type: Number }],
+      }
+    },
+
+    ads: {
+      from: {
+        list: [{ type: Number }],
+        add: [{ type: Number }],
+        edit: [{ type: Number }],
+        del: [{ type: Number }],
+      }
+    },
+
+    ip: {
+      whitelist: {
+        list: [{ type: Number }],
+        action: [{ type: Number }],
+      },
+      list: [{ type: Number }],
+      action: [{ type: Number }],
+    },
+
+    device: {
+      list: [{ type: Number }],
+      action: [{ type: Number }],
+    },
+
+    news: {
+      category: {
+        list: [{ type: Number }],
+        add: [{ type: Number }],
+        edit: [{ type: Number }],
+        del: [{ type: Number }],
+      },
+      list: [{ type: Number }],
+      add: [{ type: Number }],
+      edit: [{ type: Number }],
+      del: [{ type: Number }],
+    },
+
+    gate: {
+      list: [{ type: Number }],
+      add: [{ type: Number }],
+      edit: [{ type: Number }],
+      del: [{ type: Number }],
+    },
+
+    payment: {
+      coin: {
+        list: [{ type: Number }],
+        action: [{ type: Number }],
+      },
+      yuan: {
+        list: [{ type: Number }],
+        action: [{ type: Number }],
+      }
+    },
+
+    game: {
+      category: {
+        list: [{ type: Number }],
+        add: [{ type: Number }],
+        edit: [{ type: Number }],
+        del: [{ type: Number }],
+      },
+      platform: {
+        list: [{ type: Number }],
+        add: [{ type: Number }],
+        edit: [{ type: Number }],
+        del: [{ type: Number }],
+      },
+      private: {
+        list: [{ type: Number }],
+        add: [{ type: Number }],
+        edit: [{ type: Number }],
+        del: [{ type: Number }],
+      },
+      tool: {
+        list: [{ type: Number }],
+        add: [{ type: Number }],
+        edit: [{ type: Number }],
+        del: [{ type: Number }],
+      },
+      china: {
+        list: [{ type: Number }],
+        add: [{ type: Number }],
+        edit: [{ type: Number }],
+        del: [{ type: Number }],
+      }
+    },
+
+    voucher: {
+      list: [{ type: Number }],
+      add: [{ type: Number }],
+      edit: [{ type: Number }],
+      del: [{ type: Number }],
+      history: {
+        list: [{ type: Number }],
+      }
+    },
+
+    forum: {
+      category: {
+        list: [{ type: Number }],
+        add: [{ type: Number }],
+        edit: [{ type: Number }],
+        del: [{ type: Number }],
+      },
+      list: [{ type: Number }],
+      edit: [{ type: Number }],
+      del: [{ type: Number }],
+    },
+
+    collab: {
+      level: {
+        list: [{ type: Number }],
+        add: [{ type: Number }],
+        edit: [{ type: Number }],
+        del: [{ type: Number }],
+      },
+      notify: {
+        list: [{ type: Number }],
+        add: [{ type: Number }],
+        edit: [{ type: Number }],
+        del: [{ type: Number }],
+      },
+      withdraw: {
+        list: [{ type: Number }],
+        action: [{ type: Number }],
+      },
+      list: [{ type: Number }],
+      add: [{ type: Number }],
+      edit: [{ type: Number }],
+      del: [{ type: Number }],
+    }
+  })
+
+  const model = mongoose.model('ConfigPermission', schema, 'ConfigPermission')
+
+  const autoCreate = async () => {
+    const count = await model.count({})
+    if(count == 0) return await model.create({
+      statistic: [3,100],
+
+      log: [3,100],
+
+      config: {
+        get: [3,100],
+        edit: [100],
+        article: {
+          get: [3,100],
+          edit: [3,100],
+        }
+      },
+
+      spend: {
+        list: [100],
+        add: [100],
+        edit: [100],
+        del: [100],
+      },
+
+      user: {
+        list: [3,100],
+        edit: {
+          profile: [100],
+          currency: [100],
+        },
+        level: {
+          list: [3,100],
+          edit: [100],
+        }
+      },
+
+      ads: {
+        from: {
+          list: [3,100],
+          add: [100],
+          edit: [100],
+          del: [100],
+        }
+      },
+
+      ip: {
+        whitelist: {
+          list: [3,100],
+          action: [100],
+        },
+        list: [3,100],
+        action: [100],
+      },
+
+      device: {
+        list: [3,100],
+        action: [100],
+      },
+
+      news: {
+        category: {
+          list: [3,100],
+          add: [100],
+          edit: [100],
+          del: [100],
+        },
+        list: [3,100],
+        add: [100],
+        edit: [100],
+        del: [100],
+      },
+
+      gate: {
+        list: [3,100],
+        add: [100],
+        edit: [100],
+        del: [100],
+      },
+
+      payment: {
+        coin: {
+          list: [3,100],
+          action: [100],
+        },
+        yuan: {
+          list: [3,100],
+          action: [100],
+        }
+      },
+
+      game: {
+        category: {
+          list: [3,100],
+          add: [100],
+          edit: [100],
+          del: [100],
+        },
+        platform: {
+          list: [3,100],
+          add: [100],
+          edit: [100],
+          del: [100],
+        },
+        private: {
+          list: [3,100],
+          add: [100],
+          edit: [100],
+          del: [100],
+        },
+        tool: {
+          list: [3,100],
+          add: [100],
+          edit: [100],
+          del: [100],
+        },
+        china: {
+          list: [3,100],
+          add: [100],
+          edit: [100],
+          del: [100],
+        }
+      },
+
+      voucher: {
+        list: [3,100],
+        add: [100],
+        edit: [100],
+        del: [100],
+        history: {
+          list: [3,100],
+        }
+      },
+
+      forum: {
+        category: {
+          list: [3,100],
+          add: [100],
+          edit: [100],
+          del: [100],
+        },
+        list: [3,100],
+        edit: [100],
+        del: [100],
+      },
+
+      collab: {
+        level: {
+          list: [3,100],
+          add: [100],
+          edit: [100],
+          del: [100],
+        },
+        notify: {
+          list: [3,100],
+          add: [100],
+          edit: [100],
+          del: [100],
+        },
+        withdraw: {
+          list: [3,100],
+          action: [100],
+        },
+        list: [3,100],
+        add: [100],
+        edit: [100],
+        del: [100],
+      }
+    })
   }
 
   autoCreate()

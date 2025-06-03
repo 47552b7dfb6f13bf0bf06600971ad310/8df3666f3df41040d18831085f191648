@@ -176,3 +176,169 @@ export interface IDBConfigStore {
     client_verify: string
   }
 }
+
+export interface IDBConfigPermission {
+  statistic: Array<number>
+
+  log: Array<number>
+
+  config: {
+    get: Array<number>
+    edit: Array<number>
+    article: {
+      get: Array<number>
+      edit: Array<number>
+    }
+  }
+
+  spend: {
+    list: Array<number>
+    add: Array<number>
+    edit: Array<number>
+    del: Array<number>
+  }
+
+  user: {
+    list: Array<number>
+    edit: {
+      profile: Array<number>
+      currency: Array<number>
+    }
+    level: {
+      list: Array<number>
+      edit: Array<number>
+    }
+  }
+
+  ads: {
+    from: {
+      list: Array<number>
+      add: Array<number>
+      edit: Array<number>
+      del: Array<number>
+    }
+  }
+
+  ip: {
+    whitelist: {
+      list: Array<number>
+      action: Array<number>
+    }
+    list: Array<number>
+    action: Array<number>
+  }
+
+  device: {
+    list: Array<number>
+    action: Array<number>
+  }
+
+  news: {
+    category: {
+      list: Array<number>
+      add: Array<number>
+      edit: Array<number>
+      del: Array<number>
+    }
+    list: Array<number>
+    add: Array<number>
+    edit: Array<number>
+    del: Array<number>
+  }
+
+  gate: {
+    list: Array<number>
+    add: Array<number>
+    edit: Array<number>
+    del: Array<number>
+  }
+
+  payment: {
+    coin: {
+      list: Array<number>
+      action: Array<number>
+    }
+    yuan: {
+      list: Array<number>
+      action: Array<number>
+    }
+  }
+
+  game: {
+    category: {
+      list: Array<number>
+      add: Array<number>
+      edit: Array<number>
+      del: Array<number>
+    }
+    platform: {
+      list: Array<number>
+      add: Array<number>
+      edit: Array<number>
+      del: Array<number>
+    }
+    private: {
+      list: Array<number>
+      add: Array<number>
+      edit: Array<number>
+      del: Array<number>
+    }
+    tool: {
+      list: Array<number>
+      add: Array<number>
+      edit: Array<number>
+      del: Array<number>
+    }
+    china: {
+      list: Array<number>
+      add: Array<number>
+      edit: Array<number>
+      del: Array<number>
+    }
+  }
+
+  voucher: {
+    list: Array<number>
+    add: Array<number>
+    edit: Array<number>
+    del: Array<number>
+    history: {
+      list: Array<number>
+    }
+  }
+
+  forum: {
+    category: {
+      list: Array<number>
+      add: Array<number>
+      edit: Array<number>
+      del: Array<number>
+    }
+    list: Array<number>
+    edit: Array<number>
+    del: Array<number>
+  }
+
+  collab: {
+    level: {
+      list: Array<number>
+      add: Array<number>
+      edit: Array<number>
+      del: Array<number>
+    }
+    notify: {
+      list: Array<number>
+      add: Array<number>
+      edit: Array<number>
+      del: Array<number>
+    }
+    withdraw: {
+      list: Array<number>
+      action: Array<number>
+    }
+    list: Array<number>
+    add: Array<number>
+    edit: Array<number>
+    del: Array<number>
+  }
+}

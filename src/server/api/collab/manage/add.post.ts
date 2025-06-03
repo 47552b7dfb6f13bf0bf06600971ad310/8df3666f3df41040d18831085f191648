@@ -3,7 +3,7 @@ import type { IAuth, IDBCollabLevel, IDBUser } from "~~/types"
 export default defineEventHandler(async (event) => {
   try {
     const auth = await getAuth(event) as IAuth
-    if(auth.type < 100) throw 'Bạn không phải quản trị viên'
+    await checkPermission('collab.add', auth.type)
 
     const body = await readBody(event)
     const { code, user, level, link } = body

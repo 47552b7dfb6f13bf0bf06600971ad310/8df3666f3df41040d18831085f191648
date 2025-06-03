@@ -4,7 +4,7 @@ import type { IAuth, IDBUser } from '~~/types'
 export default defineEventHandler(async (event) => {
   try {
     const auth = await getAuth(event) as IAuth
-    if(auth.type != 100) throw 'Bạn không phải quản trị viên cấp cao'
+    await checkPermission('user.edit.profile', auth.type)
 
     const { _id, email, phone, password, type, block } = await readBody(event)
     if(!_id) throw 'Dữ liệu đầu vào không hợp lệ'

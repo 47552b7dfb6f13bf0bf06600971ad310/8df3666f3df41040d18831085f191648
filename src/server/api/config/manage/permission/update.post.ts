@@ -3,14 +3,12 @@ import type { IAuth } from "~~/types"
 export default defineEventHandler(async (event) => {
   try {
     const auth = await getAuth(event) as IAuth
-    await checkPermission('config.article.edit', auth.type)
+    if(auth.type != 100) throw 'Bạn không phải quản trị viên cấp cao'
 
     const data = await readBody(event)
-    const { type, content } = data
-    if(!type) throw 'Không tìm thấy kiểu bài viết'
+    await DB.ConfigPermission.updateMany({}, data)
 
-    // Update
-    await DB.Config.updateMany({}, { [`article.${type}`]: content })
+    logAdmin(event, 'Cập nhật cấu hình <b>Quyền Hạn Quản Trị Viên</b>')
     return resp(event, { message: 'Cập nhật thành công' })
   } 
   catch (e:any) {

@@ -8,7 +8,7 @@
       <UContainer 
         class="p-4 sm:p-4 lg:p-4 w-full" 
         style="min-height: calc(100% - var(--header-size));"
-        :ui="{ constrained: 'max-w-[1200px] w-full' }"
+        :ui="{ constrained: 'max-w-[1200px] w-full overflow-x-hidden' }"
       >
         <ManageGameChinaInfo :game="game" class="mb-4" @update="getGame()" />
         <NuxtPage :game="game"></NuxtPage>

@@ -11,7 +11,10 @@
       :items="menu"
     >
       <template #default="{ item, open }">
-        <UButton size="md" class="bg-gray-1000 mb-2">
+        <UButton size="md" class="mb-2" :class="{
+          'bg-gray-1000' : !open,
+          'color-blue-light bg-anim-light': !!open
+        }">
           <UiText class="text-white">{{ item.label }}</UiText>
         </UButton>
       </template>

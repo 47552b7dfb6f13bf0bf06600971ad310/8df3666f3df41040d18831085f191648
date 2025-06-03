@@ -15,7 +15,7 @@ const mergeArray = (input : Array<IDBCollab>, list : Array<IDBCollab>) => {
 export default defineEventHandler(async (event) => {
   try {
     const auth = await getAuth(event) as IAuth
-    if(auth.type != 100) throw true
+    await checkPermission('collab.list', auth.type)
     
     const { key, _id } = await readBody(event)
     const match : any = {}

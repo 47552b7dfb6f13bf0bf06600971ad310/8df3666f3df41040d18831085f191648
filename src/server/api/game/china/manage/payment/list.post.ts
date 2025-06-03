@@ -3,6 +3,7 @@ import type { IAuth, IDBGameChina } from "~~/types"
 export default defineEventHandler(async (event) => {
   try {
     const auth = await getAuth(event) as IAuth
+    await checkPermission('payment.yuan.list', auth.type)
 
     const { size, current, sort, search, game : _id } = await readBody(event)
     if(!size || !current || !search) throw 'Dữ liệu phân trang sai'
