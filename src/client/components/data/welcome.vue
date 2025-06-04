@@ -1,7 +1,8 @@
 <template>
   <UModal v-model="modal" prevent-close :ui="{ width: 'sm:max-w-[350px] max-w-[350px]' }">
     <UCard class="bg-card" :ui="{ ring: false }" >
-      <UiImg src="/images/welcome.png" class="w-[95%] mx-auto " />
+      <UiImg src="/images/welcome.png" class="w-[95%] mx-auto" />
+      
       <UiText align="center" color="gray" size="sm" class="mb-4">Chúng tôi tặng bạn những ưu đãi sau</UiText>
 
       <DataEmpty class="min-h-[300px]" v-if="!promo"></DataEmpty>

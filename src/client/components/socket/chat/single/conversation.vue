@@ -14,8 +14,8 @@
         items="start"
         @click="socketStore.changeChatData('single', { now: item._id })"
       >
-        <DataUserAvatar :user="item.to" size="sm" v-if="item.from._id == authStore.profile._id" no-level no-action />
-        <DataUserAvatar :user="item.from" size="sm" v-else no-level no-action />
+        <DataUserAvatar :user="item.to" size="sm" v-if="item.from._id == authStore.profile._id" no-action />
+        <DataUserAvatar :user="item.from" size="sm" v-else no-action />
 
         <div class="grow">
           <DataUserName :user="item.to" size="xs" class="mb-1.5" v-if="item.from._id == authStore.profile._id" no-action />

@@ -28,13 +28,6 @@ export default defineEventHandler(async (event) => {
     await DB.CollabIncome.deleteMany({})
     await DB.CollabWithdraw.deleteMany({})
 
-    // Ecoin
-    await DB.EcoinSeason.deleteMany({})
-    await DB.EcoinP2PBuy.deleteMany({})
-    await DB.EcoinP2PBuyHistory.deleteMany({})
-    await DB.EcoinP2PSell.deleteMany({})
-    await DB.EcoinP2PSellHistory.deleteMany({})
-
     // Forum
     await DB.ForumPost.deleteMany({})
     await DB.ForumPostLike.deleteMany({})
@@ -53,9 +46,6 @@ export default defineEventHandler(async (event) => {
     // Log
     await DB.LogAdmin.deleteMany({})
     await DB.LogUser.deleteMany({})
-
-    // Mission
-    await DB.MissionHistory.deleteMany({})
 
     // News
     await DB.News.deleteMany({})

@@ -15,8 +15,6 @@ export { IDBGate } from './gate'
 export { IDBPayment } from './payment'
 export { IDBSpend } from './spend'
 
-export { IDBMission, IDBMissionHistory } from './mission'
-
 export { IDBVoucher, IDBVoucherHistory } from './voucher'
 
 export { IDBLogAdmin, IDBLogUser } from './log'
@@ -29,12 +27,6 @@ export {
   IDBCollabIncome,
   IDBCollabWithdraw
 } from './collab'
-
-export {
-  IDBEcoinSeason,
-  IDBEcoinP2PBuy, IDBEcoinP2PBuyHistory,
-  IDBEcoinP2PSell, IDBEcoinP2PSellHistory
-} from './ecoin'
 
 export { 
   IDBGamePlatform, 
@@ -114,9 +106,6 @@ export interface IGlobalDB {
   Voucher: Model<IDBVoucher>
   VoucherHistory: Model<IDBVoucherHistory>
 
-  Mission: Model<IDBMission>
-  MissionHistory: Model<IDBMissionHistory>
-
   LogAdmin: Model<IDBLogAdmin>
   LogUser: Model<IDBLogUser>
 
@@ -130,13 +119,6 @@ export interface IGlobalDB {
   CollabNotify: Model<IDBCollabNotify>
   CollabIncome: Model<IDBCollabIncome>
   CollabWithdraw: Model<IDBCollabWithdraw>
-
-  // Ecoin
-  EcoinSeason: Model<IDBEcoinSeason>
-  EcoinP2PBuy: Model<IDBEcoinP2PBuy>
-  EcoinP2PBuyHistory: Model<IDBEcoinP2PBuyHistory>
-  EcoinP2PSell: Model<IDBEcoinP2PSell>
-  EcoinP2PSellHistory: Model<IDBEcoinP2PSellHistory>
 
   // Game DB
   GamePlatform: Model<IDBGamePlatform>

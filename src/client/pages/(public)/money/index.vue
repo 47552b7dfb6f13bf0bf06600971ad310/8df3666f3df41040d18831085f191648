@@ -14,7 +14,7 @@
       <div class="grid grid-cols-12 @3xl:gap-4 gap-2">
         <NuxtLink to="/money/invite" class="@3xl:col-span-4 col-span-12" >
           <UiFlex class="color-yellow-light bg-box-light rounded-2xl p-6 gap-4 @3xl:flex-col">
-            <UiImg :src="`/images/banner/invite.png`" class="@3xl:min-w-[90%] @3xl:max-w-[90%] min-w-[30%] max-w-[30%] mx-auto" />
+            <UiImg :src="`/images/banner/invite.png`" w="1" h="1" img-size="500px" class="@3xl:min-w-[90%] @3xl:max-w-[90%] min-w-[30%] max-w-[30%] mx-auto" />
 
             <div class="grow z-[1]">
               <UiFlex type="col" class="mb-4" items="start">
@@ -35,7 +35,7 @@
 
         <NuxtLink to="/money/collab" class="@3xl:col-span-4 col-span-12">
           <UiFlex class="color-cyan-light bg-box-light rounded-2xl p-6 gap-4 @3xl:flex-col">
-            <UiImg :src="`/images/banner/collab.png`" class="@3xl:min-w-[90%] @3xl:max-w-[90%] min-w-[30%] max-w-[30%] mx-auto" />
+            <UiImg :src="`/images/banner/collab.png`" w="1" h="1" img-size="500px" class="@3xl:min-w-[90%] @3xl:max-w-[90%] min-w-[30%] max-w-[30%] mx-auto" />
 
             <div class="grow z-[1]">
               <UiFlex type="col" class="mb-4" items="start">
@@ -56,7 +56,7 @@
 
         <div to="#" class="@3xl:col-span-4 col-span-12" @click="useNotify().error('Tính năng đang bảo trì, vui lòng đợi thông báo mới nhất')">
           <UiFlex class="color-purple-light bg-box-light rounded-2xl p-6 gap-4 @3xl:flex-col">
-            <UiImg :src="`/images/banner/affiliate.png`" class="@3xl:min-w-[90%] @3xl:max-w-[90%] min-w-[30%] max-w-[30%] mx-auto" />
+            <UiImg :src="`/images/banner/affiliate.png`" w="1" h="1" img-size="500px" class="@3xl:min-w-[90%] @3xl:max-w-[90%] min-w-[30%] max-w-[30%] mx-auto" />
 
             <div class="grow z-[1]">
               <UiFlex type="col" class="mb-4" items="start">

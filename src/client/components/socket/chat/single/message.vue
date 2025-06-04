@@ -2,8 +2,8 @@
   <UiFlex type="col" class="grow w-full overflow-hidden">
     <!--User Info-->
     <UiFlex class="w-full space-x-2 p-2 border-b border-gray-800" v-if="!!conversation">
-      <DataUserAvatar :user="conversation.to" size="sm" no-level v-if="conversation.from._id == authStore.profile._id" />
-      <DataUserAvatar :user="conversation.from" size="sm" no-level v-else />
+      <DataUserAvatar :user="conversation.to" size="sm" v-if="conversation.from._id == authStore.profile._id" />
+      <DataUserAvatar :user="conversation.from" size="sm" v-else />
 
       <UiFlex class="grow" justify="between">
         <div>

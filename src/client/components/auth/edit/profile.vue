@@ -8,8 +8,17 @@
       </UiUploadImage>
     </UFormGroup>
 
+    <UFormGroup label="Mô tả" :hint="`${state.description ? state.description.length : 0}/100`" name="description">
+      <UTextarea v-model="state.description" autoresize placeholder="Nhập thông tin giới thiệu ngắn"/>
+    </UFormGroup>
+
+
     <UFormGroup name="facebook" label="Địa chỉ Facebook">
       <UInput v-model="state.social.facebook" />
+    </UFormGroup>
+
+    <UFormGroup name="facebook" label="Địa chỉ Messenger">
+      <UInput v-model="state.social.messenger" />
     </UFormGroup>
 
     <UFormGroup name="zalo" label="Địa chỉ Zalo">
@@ -25,12 +34,14 @@
     </UFormGroup>
 
     <UiFlex justify="end" class="mt-4">
-      <UButton type="submit" :loading="loading.edit">Lưu Thông Tin</UButton>
+      <UButton type="submit" :loading="loading.edit" color="yellow">Cập Nhật</UButton>
+      <UButton color="gray" @click="emit('close')" :disabled="loading.edit" class="ml-1">Đóng</UButton>
     </UiFlex>
   </UForm>
 </template>
 
 <script setup>
+const emit = defineEmits(['done', 'close'])
 const authStore = useAuthStore()
 const profile = ref(undefined)
 
@@ -40,9 +51,11 @@ const loading = ref({
 })
 
 const state = ref({
+  description: null,
   avatar: null,
   social: {
     facebook: null,
+    messenger: null,
     zalo: null,
     telegram: null,
     tiktok: null
@@ -55,6 +68,7 @@ const submit = async () => {
     await useAPI('auth/public/edit/profile', JSON.parse(JSON.stringify(state.value)))
 
     loading.value.edit = false
+    emit('done')
   }
   catch(e){
     loading.value.edit = false
@@ -70,6 +84,7 @@ const getUser = async () => {
 
     profile.value = data
     state.value.avatar = data.avatar
+    state.value.description = data.description
     state.value.social = Object.assign(state.value.social, data.social)
     loading.value.profile = false
   }

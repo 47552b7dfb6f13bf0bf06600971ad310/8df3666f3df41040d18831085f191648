@@ -8,7 +8,7 @@
     >
       <UiFlex type="col">
         <UiText weight="bold" class="text-sm md:text-base">{{ option.name }}</UiText>
-        <UiText color="gray" class="text-xs" weight="semibold">{{ option.type == 1 ? 'Card' : option.type == 2 ? 'QR Pay' : 'QR Wallet' }}</UiText>
+        <UiText color="gray" class="text-xs" weight="semibold">{{ option.type == 1 ? 'Card' : option.type == 2 ? 'QR Bank' : 'QR Wallet' }}</UiText>
       </UiFlex>
     </UiButtonSelect>
   </UiFlex>

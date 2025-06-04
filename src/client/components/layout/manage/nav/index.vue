@@ -167,28 +167,6 @@ const navItems = [
       { label: 'Bài viết', to: '/manage/@eni/forum/post' },
     ]
   },
-  // {
-  //   label: 'Nhiệm vụ',
-  //   icon: 'i-bxs-book-open',
-  //   defaultOpen: false,
-  //   slot: 'tab-11',
-  //   children: [
-  //     { label: 'Danh sách', to: '/manage/@eni/mission' },
-  //     { label: 'Lịch sử', to: '/manage/@eni/mission/history' },
-  //   ]
-  // },
-  // {
-  //   label: 'Ecoin',
-  //   icon: 'i-bxl-edge',
-  //   defaultOpen: false,
-  //   slot: 'tab-12',
-  //   children: [
-  //     { label: 'Mùa giải', to: '/manage/@eni/ecoin/season' },
-  //     { label: 'Thương gia mua', to: '/manage/@eni/ecoin/p2p/buyer' },
-  //     { label: 'Thương gia bán', to: '/manage/@eni/ecoin/p2p/seller' },
-  //     { label: 'Lịch sử giao dịch', to: '/manage/@eni/ecoin/p2p/history' },
-  //   ]
-  // },
   {
     label: 'Cộng tác viên',
     icon: 'i-bxs-user-badge',

@@ -4,8 +4,9 @@ export default defineEventHandler(async (event) => {
   try {
     const auth = await getAuth(event) as IAuth
 
-    const { avatar, social } = await readBody(event)
+    const { avatar, social, description } = await readBody(event)
     if(!avatar || !social) throw 'Thông tin đầu vào chưa đủ'
+    if(description.length > 100) throw 'Mô tả không vượt quá 100 ký tự'
   
     const user = await DB.User
     .findOne({ _id: auth._id })
@@ -15,6 +16,7 @@ export default defineEventHandler(async (event) => {
     if(!!user.block) throw 'Tài khoản đang bị khóa, không thể cập nhật'
 
     user.avatar = avatar
+    user.description = description
     user.social = {
       facebook: social.facebook || null,
       zalo: social.zalo || null,

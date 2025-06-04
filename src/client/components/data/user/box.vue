@@ -4,16 +4,29 @@
     <DataEmpty v-if="!user || !!loading.load" :loading="loading.load" text="Không có thông tin" class="min-h-[300px]" />
 
     <div v-else class="rounded-2xl p-6">
-      <UiFlex class="gap-2 mb-6 relative z-[3]">
+      <UiFlex class="gap-2 mb-6 relative">
         <DataUserAvatar size="lg" :user="user" no-action />
         
         <div class="grow">
-          <DataUserName :user="user" size="sm" no-action class="mb-1.5"  />
+          <UiFlex justify="between" class="gap-1">
+            <DataUserName :user="user" size="sm" no-action class="mb-1.5"  />
+
+            <UDropdown :items="actions" v-if="!!authStore.isLogin && authStore.profile._id == user._id">
+              <UButton :padded="false" variant="link" color="gray" icon="i-bxs-edit" />
+            </UDropdown>
+          </UiFlex>
+    
           <DataUserLevel :user="user" />
         </div>
       </UiFlex>
+
+      <!-- <DataUserCharacter class="mb-4" /> -->
+
+      <UiFlex justify="center" class="bg-gray rounded-2xl p-4 mb-4" v-if="!!user.description">
+        <UiText align="center" color="gray" size="sm" weight="semibold" class="italic">{{ user.description }}</UiText>
+      </UiFlex>
       
-      <UiFlex type="col" class="gap-4 relative z-[3]">
+      <UiFlex type="col" class="gap-4 relative">
         <UiFlex justify="between" class="w-full">
           <UiText weight="semibold" color="gray" size="xs">Chức vụ</UiText>
           <UiText weight="semibold" size="xs" :color="typeFormat[user.type]['color']">{{ typeFormat[user.type]['label'] }}</UiText>
@@ -33,6 +46,22 @@
           <UiText weight="semibold" color="gray" size="xs">ECoin</UiText>
           <UiText weight="semibold" size="xs" color="primary">{{ toMoney(user.currency.ecoin) }}</UiText>
         </UiFlex>
+
+        <UiFlex justify="between" items="start" class="w-full gap-2" v-if="!!social">
+          <UiText weight="semibold" color="gray" size="xs">Mạng xã hội</UiText>
+
+          <UiFlex justify="center" class="gap-1" wrap>
+            <UiImg 
+              v-for="item in social" :key="item.key"
+              class="max-w-[30px] max-h-[30px] cursor-pointer rounded-full"
+              :src="`/images/social/${item.key}.png`"
+              w="1" h="1"
+              img-size="100px"
+              :alt="key"
+              @click="useTo().openNewTab(item.value)"
+            ></UiImg>
+          </UiFlex>
+        </UiFlex>
       </UiFlex>
       
       <UiFlex justify="center" class="mt-4 gap-1" v-if="!!showChat">
@@ -43,6 +72,26 @@
         </SocketChatSingleCreate>
       </UiFlex>
     </div>
+
+    <UModal v-model="modal.profile" preventClose>
+      <UiContent title="Chỉnh Sửa" sub="Cập nhật thông tin cá nhân" class="bg-card rounded-2xl p-4" no-dot>
+        <template #more>
+          <UButton icon="i-bx-x" class="ml-auto" size="2xs" color="gray" square @click="modal.profile = false"></UButton>
+        </template>
+
+        <AuthEditProfile @done="modal.profile = false, getProfile()" @close="modal.profile = false" />
+      </UiContent>
+    </UModal>
+
+    <UModal v-model="modal.password" preventClose>
+      <UiContent title="Bảo Mật" sub="Thay đổi mật khẩu" class="bg-card rounded-2xl p-4" no-dot>
+        <template #more>
+          <UButton icon="i-bx-x" class="ml-auto" size="2xs" color="gray" square @click="modal.password = false"></UButton>
+        </template>
+        
+        <AuthEditPassword @done="modal.password = false" @close="modal.password = false" />
+      </UiContent>
+    </UModal>
   </div>
 </template>
 
@@ -70,8 +119,36 @@ const typeFormat = {
 const loading = ref({
   load: true
 })
+
+const modal = ref({
+  password: false,
+  profile: false
+})
+
 const user = ref(undefined)
-watch(() => props.reload, (val) => !!val && getProfile())
+
+const actions = [
+  [{
+    label: 'Sửa thông tin',
+    icon: 'i-bxs-id-card',
+    click: () => modal.value.profile = true
+  },
+{
+    label: 'Đổi mật khẩu',
+    icon: 'i-bxs-lock',
+    click: () => modal.value.password = true
+  }]
+]
+
+const social = computed(() => {
+  if(!user.value) return null
+  if(!user.value.social) return null
+  const list = []
+  for (const [key, value] of Object.entries(user.value.social)) {
+    if(!!value && value != '') list.push({ key, value })
+  }
+  return list.length > 0 ? list : null
+})
 
 const showChat = computed(() => {
   if(!!props.noChat) return false
@@ -99,5 +176,6 @@ const getProfile = async () => {
   }
 }
 
+watch(() => props.reload, (val) => !!val && getProfile())
 onMounted(() => setTimeout(getProfile, 1))
 </script>

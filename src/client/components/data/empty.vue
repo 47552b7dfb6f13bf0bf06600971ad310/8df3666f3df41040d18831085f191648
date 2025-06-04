@@ -1,6 +1,6 @@
 <template>
   <UiFlex type="col" justify="center" class="p-4">
-    <UiImg src="/images/icon/empty.png" w="1" h="1" imgW="300" imgH="300" class="w-[120px] h-[120px] mb-2" v-if="!loading" />
+    <UiImg src="/images/icon/empty.png" w="1" h="1" img-size="300px"  class="w-[120px] h-[120px] mb-2" v-if="!loading" />
 
     <UiFlex class="mb-3" justify="center" v-else>
       <Loading />

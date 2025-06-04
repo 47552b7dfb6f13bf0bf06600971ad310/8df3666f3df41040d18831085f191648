@@ -16,7 +16,7 @@
     }">
       <template #header>
         <div class="relative overflow-hidden rounded-t-2xl">
-          <UiImg :src="game.image?.banner" w="16" h="9" class="box-blue" />
+          <UiImg :src="game.image?.banner" w="16" h="9" img-size="500px" class="box-blue" />
           <UiIcon class="absolute top-2 left-2 jump-anim" v-if="!!game.pin" color="primary" name="i-bxs-star" size="5" />
         </div>
       </template>

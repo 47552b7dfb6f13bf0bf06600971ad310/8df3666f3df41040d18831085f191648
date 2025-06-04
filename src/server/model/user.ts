@@ -8,6 +8,7 @@ export const DBUser = (mongoose : Mongoose) => {
     email: { type: String },
     phone: { type: String },
     avatar: { type: String, default: '/images/user/default.png' },
+    description: { type: String },
     level: { type: mongoose.Schema.Types.ObjectId, ref: 'UserLevel', index: true },
     guild: { type: mongoose.Schema.Types.ObjectId, ref: 'Guild', index: true },
     vip: {

@@ -15,7 +15,7 @@
       }
     }">
       <template #header>
-        <UiImg :src="news.og_image" w="16" h="9" class="box-blue" />
+        <UiImg :src="news.og_image" w="16" h="9" img-size="500px" class="box-blue" />
       </template>
 
       <template #default>

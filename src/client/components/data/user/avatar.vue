@@ -4,7 +4,7 @@
     ${user.online ? 'bg-green-500' : 'bg-rose-500'}
     rounded-full
     p-0.5
-  `">
+  `" @click="viewAction">
     <UAvatar 
       :class="`
         UserAvatar 
@@ -14,10 +14,9 @@
         h-${sizeAvatar[size]} w-${sizeAvatar[size]}
       `"
       :ui="{wrapper: 'overflow-hidden'}"
-      :src="user.avatar" 
-      :alt="user.username"
-      @click="viewAction"
+      
     >
+      <UiImg :src="user.avatar" w="1" h="1" img-size="100px" class="w-full !rounded-full" />
     </UAvatar>
 
     <UiFlex 
@@ -33,19 +32,18 @@
     >
       <UiText size="xs" weight="bold">VIP</UiText>
     </UiFlex>
-
-    <UModal v-model="modal" :ui="{width: 'sm:max-w-[400px]'}">
-      <DataUserBox :fetch-id="user._id" @close="modal = false" />
-    </UModal>
   </UiFlex>
+
+  <UModal v-model="modal" :ui="{width: 'sm:max-w-[400px]'}">
+    <DataUserBox :fetch-id="user._id" @close="modal = false" />
+  </UModal>
 </template>
 
 <script setup>
 const props = defineProps({
   user: { type: Object },
   size: { type: String, default: 'xs' },
-  noAction: { type: Boolean, default: false },
-  noLevel: { type: Boolean, default: false },
+  noAction: { type: Boolean, default: false }
 })
 
 const vip = computed(() => {

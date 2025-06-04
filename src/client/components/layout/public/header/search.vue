@@ -30,12 +30,12 @@
           :loading="loading" 
         />
 
-        <div class="max-h-[60vh] overflow-y-auto">
+        <div class="max-h-[60vh] overflow-y-auto HideScroll">
           <DataEmpty :text="textInfo" v-if="Object.keys(result).length == 0" />
 
           <UiFlex type="col" class="gap-2" v-else>
             <div v-for="(list, key) in result" :key="key" class="w-full">
-              <UiText size="xs" color="gray" weight="semibold" class="mb-2 capitalize">Game {{ key }}</UiText>
+              <UiText size="sm" color="yellow" weight="semibold" class="mb-2 capitalize">Game {{ key }}</UiText>
 
               <DataGameListMini :list="list" :os="key" @to="modal = false" :show-os="true" />
             </div>

@@ -13,6 +13,7 @@ export interface IDBUser {
   email: string
   phone: string
   avatar: string
+  description: string
   level: Types.ObjectId | IDBUserLevel
   guild: Types.ObjectId | IDBGuild
   vip: {

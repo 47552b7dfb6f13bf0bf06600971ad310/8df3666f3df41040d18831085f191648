@@ -18,7 +18,7 @@
       >
         <template #header>
           <UiFlex justify="between">
-            <UiImg :src="`/images/user/vip/${item.type}.webp`" class="w-[60px]"/>
+            <UiImg :src="`/images/user/vip/${item.type}.webp`" class="w-[60px]" img-size="200px"/>
 
             <div>
               <UiText align="right" weight="bold" size="lg">{{  item.title }}</UiText>

@@ -11,7 +11,7 @@
           <NuxtLink :to="`/news/${item.key}`">
             <UCard  :ui="{ body: { padding: 'p-0 sm:p-0'} }">
               <UiFlex items="start">
-                <UiImg :src="item.og_image" w="16" h="9" class="bg-card @3xl:max-w-[55%] @3xl:min-w-[55%] @3xl:w-[55%] w-full" />
+                <UiImg :src="item.og_image" w="16" h="9" img-size="700px" class="bg-card @3xl:max-w-[55%] @3xl:min-w-[55%] @3xl:w-[55%] w-full" />
 
                 <div class="@3xl:p-6 p-4 @3xl:relative absolute bottom-0 bg-gray-blur backdrop-blur-sm w-full">
                   <UiFlex class="@3xl:mb-4 mb-1 @2xl:mb-2 gap-2">

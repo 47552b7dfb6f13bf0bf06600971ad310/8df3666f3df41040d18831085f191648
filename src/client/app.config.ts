@@ -156,7 +156,7 @@ export default defineAppConfig({
       rounded: 'rounded-2xl',
       color: {
         gray: {
-          outline: 'ring-0 bg-gray'
+          outline: 'dark:ring-gray-800 bg-gray'
         }
       }
     },

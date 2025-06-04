@@ -25,25 +25,6 @@
       <DataUserBox :fetch-id="authStore.profile._id" :no-chat="true" />
     </UModal>
 
-    <UModal v-model="modal.edit.info" preventClose>
-      <UiContent title="Chỉnh Sửa" sub="Cập nhật thông tin cá nhân" class="bg-card rounded-2xl p-4" no-dot>
-        <template #more>
-          <UButton icon="i-bx-x" class="ml-auto" size="2xs" color="gray" square @click="modal.edit.info = false"></UButton>
-        </template>
-        <AuthEditProfile />
-      </UiContent>
-    </UModal>
-
-    <UModal v-model="modal.edit.password" preventClose>
-      <UiContent title="Bảo Mật" sub="Thay đổi mật khẩu" class="bg-card rounded-2xl p-4" no-dot>
-        <template #more>
-          <UButton icon="i-bx-x" class="ml-auto" size="2xs" color="gray" square @click="modal.edit.password = false"></UButton>
-        </template>
-        
-        <AuthEditPassword @done="modal.edit.password = false" @close="modal.edit.password = false" />
-      </UiContent>
-    </UModal>
-
     <UModal v-model="modal.history.payment" :ui="{width: 'sm:max-w-[900px]'}">
       <UiContent title="Lịch Sử Nạp" sub="Danh sách các giao dịch nạp Xu" class="bg-card rounded-2xl p-4" no-dot>
         <template #more>
@@ -79,10 +60,6 @@ const open = ref(false)
 
 const modal = ref({
   view: false,
-  edit: {
-    info: false,
-    password: false
-  },
   history: {
     game: false,
     payment: false
@@ -132,10 +109,6 @@ const menuUser = computed(() => {
       label: 'Thông tin',
       icon: 'i-bx-user',
       click: () => { open.value = false, modal.value.view = true }
-    },{
-      label: 'Đổi mật khẩu',
-      icon: 'i-bx-lock',
-      click: () => { open.value = false, modal.value.edit.password = true }
     },{
       label: 'Lịch sử nạp',
       icon: 'i-bx-credit-card',

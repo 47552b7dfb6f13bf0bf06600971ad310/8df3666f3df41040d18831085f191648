@@ -84,9 +84,9 @@
         <DataEmpty loading class="min-h-[200px]" v-if="!gateSelect"/>
 
         <div v-else>
-          <UiImg :src="`/images/payment/create-card.png`" class="w-[90%] mb-6 mx-auto bounce-anim" v-if="gateSelect.type == 1"/>
-          <UiImg :src="`/images/payment/create-qr.png`" class="w-[90%] mb-6 mx-auto bounce-anim" v-if="gateSelect.type == 2"/>
-          <UiImg :src="`/images/payment/create-momo.png`" class="w-[90%] mb-6 mx-auto bounce-anim" v-if="gateSelect.type == 3"/>
+          <UiImg :src="`/images/payment/create-card.png`" w="1" h="1" img-size="500px" class="w-[90%] mb-6 mx-auto bounce-anim" v-if="gateSelect.type == 1"/>
+          <UiImg :src="`/images/payment/create-qr.png`" w="1" h="1" img-size="500px" class="w-[90%] mb-6 mx-auto bounce-anim" v-if="gateSelect.type == 2"/>
+          <UiImg :src="`/images/payment/create-momo.png`" w="1" h="1" img-size="500px" class="w-[90%] mb-6 mx-auto bounce-anim" v-if="gateSelect.type == 3"/>
 
           <UiText weight="bold" color="primary" class="text-lg md:text-xl mb-1" align="center">
             {{ gateSelect.type == 1 ? 'Card Pay' : gateSelect.type == 2 ? 'QR Bank' : 'QR Wallet'}}

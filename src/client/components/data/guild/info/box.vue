@@ -8,11 +8,11 @@
         <DataGuildInfoLevel :guild="guild" class="w-full" />
       </DataGuildInfoMini>
 
-      <UiFlex justify="center" class="bg-gray rounded-2xl p-4 mx-2 mt-3 mb-4">
-        <UiText align="center" size="sm" weight="semibold" class="italic">{{ guild.description }}</UiText>
+      <UiFlex justify="center" class="bg-gray rounded-2xl p-4 mx-2 mt-3 mb-4" v-if="!!guild.description">
+        <UiText align="center" size="sm" weight="semibold" class="italic" color="gray">{{ guild.description }}</UiText>
       </UiFlex>
       
-      <UiFlex type="col" class="gap-5 relative z-[3] px-2 my-3">
+      <UiFlex type="col" class="gap-5 relative px-2 my-3">
         <UiFlex justify="between" class="w-full">
           <UiText weight="semibold" color="gray" size="xs">Bang chủ</UiText>
           <DataUserName :user="guild.master" no-guild />

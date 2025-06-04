@@ -30,7 +30,7 @@
             class="max-w-[45px] max-h-[45px] cursor-pointer rounded-full"
             :src="`/images/social/${key}.png`"
             w="1" h="1"
-            imgW="90" imgH="90"
+            img-size="100px"
             :alt="key"
             @click="toLink(value)"
           ></UiImg>

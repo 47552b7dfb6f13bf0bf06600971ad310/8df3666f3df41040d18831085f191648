@@ -10,6 +10,7 @@
           md:h-[80px] md:min-h-[80px] md:max-h-[80px]
           h-[50px] min-h-[50px] max-h-[50px]
         "
+        w="1" h="1" img-size="200px"
         v-if="!!type || !!img"
       />
       <div>
