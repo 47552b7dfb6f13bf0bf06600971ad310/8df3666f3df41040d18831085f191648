@@ -9,6 +9,39 @@ export const DBUser = (mongoose : Mongoose) => {
     phone: { type: String },
     avatar: { type: String, default: '/images/user/default.png' },
     description: { type: String },
+    character: {
+      sex: { type: Number, default: 0 },
+      body: {
+        bag: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Equip', index: true }],
+        use: { type: mongoose.Schema.Types.ObjectId, ref: 'Equip', index: true },
+        level: { type: Number, default: 0 }
+      },
+      wing: {
+        bag: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Equip', index: true }],
+        use: { type: mongoose.Schema.Types.ObjectId, ref: 'Equip', index: true },
+        level: { type: Number, default: 0 }
+      },
+      weapon: {
+        bag: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Equip', index: true }],
+        use: { type: mongoose.Schema.Types.ObjectId, ref: 'Equip', index: true },
+        level: { type: Number, default: 0 }
+      },
+      pet: {
+        bag: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Equip', index: true }],
+        use: { type: mongoose.Schema.Types.ObjectId, ref: 'Equip', index: true },
+        level: { type: Number, default: 0 }
+      },
+      circle: {
+        bag: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Equip', index: true }],
+        use: { type: mongoose.Schema.Types.ObjectId, ref: 'Equip', index: true },
+        level: { type: Number, default: 0 }
+      },
+      title: {
+        bag: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Equip', index: true }],
+        use: { type: mongoose.Schema.Types.ObjectId, ref: 'Equip', index: true },
+        level: { type: Number, default: 0 }
+      }
+    },
     level: { type: mongoose.Schema.Types.ObjectId, ref: 'UserLevel', index: true },
     guild: { type: mongoose.Schema.Types.ObjectId, ref: 'Guild', index: true },
     vip: {

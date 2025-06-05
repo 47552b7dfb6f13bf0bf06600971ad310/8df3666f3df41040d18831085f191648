@@ -61,7 +61,10 @@ export default defineEventHandler(async (event) => {
     await DB.SocketChatGuild.deleteMany({})
 
     // Spend
-    await DB.Spend.deleteMany()
+    await DB.Spend.deleteMany({})
+
+    // Voucher
+    await DB.VoucherHistory.deleteMany({})
 
     // Game Private
     await DB.GamePrivateNews.deleteMany({})

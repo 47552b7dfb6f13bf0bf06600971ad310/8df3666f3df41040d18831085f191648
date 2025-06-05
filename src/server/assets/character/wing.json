@@ -1,0 +1,742 @@
+[
+  {
+    "name": "104001",
+    "description": "104001",
+    "type": "wing",
+    "sex": 0,
+    "res": "104001",
+    "power": 0,
+    "offset": {
+      "info": {
+        "x": 0,
+        "y": 390,
+        "scale": 1.5
+      },
+      "idle": {
+        "x": 0,
+        "y": 200,
+        "scale": 1
+      }
+    }
+  },
+  {
+    "name": "104002",
+    "description": "104002",
+    "type": "wing",
+    "sex": 0,
+    "res": "104002",
+    "power": 0,
+    "offset": {
+      "info": {
+        "x": 0,
+        "y": 390,
+        "scale": 1.5
+      },
+      "idle": {
+        "x": 0,
+        "y": 210,
+        "scale": 1
+      }
+    }
+  },
+  {
+    "name": "104003",
+    "description": "104003",
+    "type": "wing",
+    "sex": 0,
+    "res": "104003",
+    "power": 0,
+    "offset": {
+      "info": {
+        "x": 0,
+        "y": 390,
+        "scale": 1.4
+      },
+      "idle": {
+        "x": 0,
+        "y": 232,
+        "scale": 1
+      }
+    }
+  },
+  {
+    "name": "104004",
+    "description": "104004",
+    "type": "wing",
+    "sex": 0,
+    "res": "104004",
+    "power": 0,
+    "offset": {
+      "info": {
+        "x": 0,
+        "y": 390,
+        "scale": 1.4
+      },
+      "idle": {
+        "x": 0,
+        "y": 255,
+        "scale": 1.2
+      }
+    }
+  },
+  {
+    "name": "104005",
+    "description": "104005",
+    "type": "wing",
+    "sex": 0,
+    "res": "104005",
+    "power": 0,
+    "offset": {
+      "info": {
+        "x": 10,
+        "y": 378,
+        "scale": 1.3
+      },
+      "idle": {
+        "x": 0,
+        "y": 264,
+        "scale": 1.2
+      }
+    }
+  },
+  {
+    "name": "104006",
+    "description": "104006",
+    "type": "wing",
+    "sex": 0,
+    "res": "104006",
+    "power": 0,
+    "offset": {
+      "info": {
+        "x": 10,
+        "y": 348,
+        "scale": 1.3
+      },
+      "idle": {
+        "x": 0,
+        "y": 264,
+        "scale": 1.2
+      }
+    }
+  },
+  {
+    "name": "104007",
+    "description": "104007",
+    "type": "wing",
+    "sex": 0,
+    "res": "104007",
+    "power": 0,
+    "offset": {
+      "info": {
+        "x": 10,
+        "y": 278,
+        "scale": 1.1
+      },
+      "idle": {
+        "x": 0,
+        "y": 234,
+        "scale": 1.1
+      }
+    }
+  },
+  {
+    "name": "104008",
+    "description": "104008",
+    "type": "wing",
+    "sex": 0,
+    "res": "104008",
+    "power": 0,
+    "offset": {
+      "info": {
+        "x": 10,
+        "y": 346,
+        "scale": 1.2
+      },
+      "idle": {
+        "x": 0,
+        "y": 201,
+        "scale": 1
+      }
+    }
+  },
+  {
+    "name": "104009",
+    "description": "104009",
+    "type": "wing",
+    "sex": 0,
+    "res": "104009",
+    "power": 0,
+    "offset": {
+      "info": {
+        "x": 10,
+        "y": 259,
+        "scale": 1
+      },
+      "idle": {
+        "x": 0,
+        "y": 218,
+        "scale": 1
+      }
+    }
+  },
+  {
+    "name": "104010",
+    "description": "104010",
+    "type": "wing",
+    "sex": 0,
+    "res": "104010",
+    "power": 0,
+    "offset": {
+      "info": {
+        "x": 10,
+        "y": 292,
+        "scale": 1.2
+      },
+      "idle": {
+        "x": 0,
+        "y": 212,
+        "scale": 1.15
+      }
+    }
+  },
+  {
+    "name": "104011",
+    "description": "104011",
+    "type": "wing",
+    "sex": 0,
+    "res": "104011",
+    "power": 0,
+    "offset": {
+      "info": {
+        "x": 4,
+        "y": 302,
+        "scale": 1.2
+      },
+      "idle": {
+        "x": 0,
+        "y": 203,
+        "scale": 1.1
+      }
+    }
+  },
+  {
+    "name": "104012",
+    "description": "104012",
+    "type": "wing",
+    "sex": 0,
+    "res": "104012",
+    "power": 0,
+    "offset": {
+      "info": {
+        "x": 0,
+        "y": 378,
+        "scale": 1.2
+      },
+      "idle": {
+        "x": 0,
+        "y": 249,
+        "scale": 1.1
+      }
+    }
+  },
+  {
+    "name": "104013",
+    "description": "104013",
+    "type": "wing",
+    "sex": 0,
+    "res": "104013",
+    "power": 0,
+    "offset": {
+      "info": {
+        "x": 0,
+        "y": 228,
+        "scale": 0.9
+      },
+      "idle": {
+        "x": 0,
+        "y": 180,
+        "scale": 0.9
+      }
+    }
+  },
+  {
+    "name": "104014",
+    "description": "104014",
+    "type": "wing",
+    "sex": 0,
+    "res": "104014",
+    "power": 0,
+    "offset": {
+      "info": {
+        "x": 106,
+        "y": 331,
+        "scale": 1.2
+      },
+      "idle": {
+        "x": 43,
+        "y": 232,
+        "scale": 1.1
+      }
+    }
+  },
+  {
+    "name": "104015",
+    "description": "104015",
+    "type": "wing",
+    "sex": 0,
+    "res": "104015",
+    "power": 0,
+    "offset": {
+      "info": {
+        "x": 10,
+        "y": 290,
+        "scale": 1.1
+      },
+      "idle": {
+        "x": 0,
+        "y": 181,
+        "scale": 1
+      }
+    }
+  },
+  {
+    "name": "104016",
+    "description": "104016",
+    "type": "wing",
+    "sex": 0,
+    "res": "104016",
+    "power": 0,
+    "offset": {
+      "info": {
+        "x": 5,
+        "y": 220,
+        "scale": 0.9
+      },
+      "idle": {
+        "x": 0,
+        "y": 166,
+        "scale": 0.85
+      }
+    }
+  },
+  {
+    "name": "104017",
+    "description": "104017",
+    "type": "wing",
+    "sex": 0,
+    "res": "104017",
+    "power": 0,
+    "offset": {
+      "info": {
+        "x": 5,
+        "y": 251,
+        "scale": 1
+      },
+      "idle": {
+        "x": 0,
+        "y": 214,
+        "scale": 1
+      }
+    }
+  },
+  {
+    "name": "104018",
+    "description": "104018",
+    "type": "wing",
+    "sex": 0,
+    "res": "104018",
+    "power": 0,
+    "offset": {
+      "info": {
+        "x": 5,
+        "y": 364,
+        "scale": 1.7
+      },
+      "idle": {
+        "x": 0,
+        "y": 287,
+        "scale": 1.6
+      }
+    }
+  },
+  {
+    "name": "104019",
+    "description": "104019",
+    "type": "wing",
+    "sex": 0,
+    "res": "104019",
+    "power": 0,
+    "offset": {
+      "info": {
+        "x": 5,
+        "y": 180,
+        "scale": 1.2
+      },
+      "idle": {
+        "x": 0,
+        "y": 82,
+        "scale": 1.1
+      }
+    }
+  },
+  {
+    "name": "104020",
+    "description": "104020",
+    "type": "wing",
+    "sex": 0,
+    "res": "104020",
+    "power": 0,
+    "offset": {
+      "info": {
+        "x": 0,
+        "y": 173,
+        "scale": 1.4
+      },
+      "idle": {
+        "x": 0,
+        "y": 141,
+        "scale": 1.4
+      }
+    }
+  },
+  {
+    "name": "104021",
+    "description": "104021",
+    "type": "wing",
+    "sex": 0,
+    "res": "104021",
+    "power": 0,
+    "offset": {
+      "info": {
+        "x": 0,
+        "y": 306,
+        "scale": 1.7
+      },
+      "idle": {
+        "x": 0,
+        "y": 208,
+        "scale": 1.4
+      }
+    }
+  },
+  {
+    "name": "105001",
+    "description": "105001",
+    "type": "wing",
+    "sex": 0,
+    "res": "105001",
+    "power": 0,
+    "offset": {
+      "info": {
+        "x": 0,
+        "y": 306,
+        "scale": 1.7
+      },
+      "idle": {
+        "x": 0,
+        "y": 208,
+        "scale": 1.4
+      }
+    }
+  },
+  {
+    "name": "105002",
+    "description": "105002",
+    "type": "wing",
+    "sex": 0,
+    "res": "105002",
+    "power": 0,
+    "offset": {
+      "info": {
+        "x": 0,
+        "y": 306,
+        "scale": 1.7
+      },
+      "idle": {
+        "x": 0,
+        "y": 208,
+        "scale": 1.4
+      }
+    }
+  },
+  {
+    "name": "105003",
+    "description": "105003",
+    "type": "wing",
+    "sex": 0,
+    "res": "105003",
+    "power": 0,
+    "offset": {
+      "info": {
+        "x": 0,
+        "y": 306,
+        "scale": 1.7
+      },
+      "idle": {
+        "x": 0,
+        "y": 208,
+        "scale": 1.4
+      }
+    }
+  },
+  {
+    "name": "105004",
+    "description": "105004",
+    "type": "wing",
+    "sex": 0,
+    "res": "105004",
+    "power": 0,
+    "offset": {
+      "info": {
+        "x": 30,
+        "y": 306,
+        "scale": 1.2
+      },
+      "idle": {
+        "x": 11,
+        "y": 220,
+        "scale": 1
+      }
+    }
+  },
+  {
+    "name": "105005",
+    "description": "105005",
+    "type": "wing",
+    "sex": 0,
+    "res": "105005",
+    "power": 0,
+    "offset": {
+      "info": {
+        "x": 30,
+        "y": 306,
+        "scale": 1.2
+      },
+      "idle": {
+        "x": 11,
+        "y": 220,
+        "scale": 1
+      }
+    }
+  },
+  {
+    "name": "105006",
+    "description": "105006",
+    "type": "wing",
+    "sex": 0,
+    "res": "105006",
+    "power": 0,
+    "offset": {
+      "info": {
+        "x": 30,
+        "y": 306,
+        "scale": 1.2
+      },
+      "idle": {
+        "x": 11,
+        "y": 220,
+        "scale": 1
+      }
+    }
+  },
+  {
+    "name": "105007",
+    "description": "105007",
+    "type": "wing",
+    "sex": 0,
+    "res": "105007",
+    "power": 0,
+    "offset": {
+      "info": {
+        "x": 30,
+        "y": 321,
+        "scale": 1.2
+      },
+      "idle": {
+        "x": 11,
+        "y": 220,
+        "scale": 1
+      }
+    }
+  },
+  {
+    "name": "105008",
+    "description": "105008",
+    "type": "wing",
+    "sex": 0,
+    "res": "105008",
+    "power": 0,
+    "offset": {
+      "info": {
+        "x": -10,
+        "y": 392,
+        "scale": 1.7
+      },
+      "idle": {
+        "x": 0,
+        "y": 320,
+        "scale": 1.7
+      }
+    }
+  },
+  {
+    "name": "105009",
+    "description": "105009",
+    "type": "wing",
+    "sex": 0,
+    "res": "105009",
+    "power": 0,
+    "offset": {
+      "info": {
+        "x": -10,
+        "y": 318,
+        "scale": 1.4
+      },
+      "idle": {
+        "x": -10,
+        "y": 250,
+        "scale": 1.4
+      }
+    }
+  },
+  {
+    "name": "105010",
+    "description": "105010",
+    "type": "wing",
+    "sex": 0,
+    "res": "105010",
+    "power": 0,
+    "offset": {
+      "info": {
+        "x": -17,
+        "y": 305,
+        "scale": 1.3
+      },
+      "idle": {
+        "x": -12,
+        "y": 207,
+        "scale": 1.2
+      }
+    }
+  },
+  {
+    "name": "105011",
+    "description": "105011",
+    "type": "wing",
+    "sex": 0,
+    "res": "105011",
+    "power": 0,
+    "offset": {
+      "info": {
+        "x": -6,
+        "y": 270,
+        "scale": 1.1
+      },
+      "idle": {
+        "x": -1,
+        "y": 178,
+        "scale": 1
+      }
+    }
+  },
+  {
+    "name": "105012",
+    "description": "105012",
+    "type": "wing",
+    "sex": 0,
+    "res": "105012",
+    "power": 0,
+    "offset": {
+      "info": {
+        "x": -10,
+        "y": 334,
+        "scale": 1.4
+      },
+      "idle": {
+        "x": -10,
+        "y": 245,
+        "scale": 1.3
+      }
+    }
+  },
+  {
+    "name": "105013",
+    "description": "105013",
+    "type": "wing",
+    "sex": 0,
+    "res": "105013",
+    "power": 0,
+    "offset": {
+      "info": {
+        "x": -10,
+        "y": 425,
+        "scale": 1.4
+      },
+      "idle": {
+        "x": -2,
+        "y": 315,
+        "scale": 1.2
+      }
+    }
+  },
+  {
+    "name": "105014",
+    "description": "105014",
+    "type": "wing",
+    "sex": 0,
+    "res": "105014",
+    "power": 0,
+    "offset": {
+      "info": {
+        "x": 27,
+        "y": 288,
+        "scale": 1.2
+      },
+      "idle": {
+        "x": -2,
+        "y": 224,
+        "scale": 1.1
+      }
+    }
+  },
+  {
+    "name": "105015",
+    "description": "105015",
+    "type": "wing",
+    "sex": 0,
+    "res": "105015",
+    "power": 0,
+    "offset": {
+      "info": {
+        "x": 0,
+        "y": 243,
+        "scale": 1.2
+      },
+      "idle": {
+        "x": 0,
+        "y": 166,
+        "scale": 1
+      }
+    }
+  },
+  {
+    "name": "105016",
+    "description": "105016",
+    "type": "wing",
+    "sex": 0,
+    "res": "105016",
+    "power": 0,
+    "offset": {
+      "info": {
+        "x": 0,
+        "y": 243,
+        "scale": 1.2
+      },
+      "idle": {
+        "x": 0,
+        "y": 166,
+        "scale": 1
+      }
+    }
+  }
+]

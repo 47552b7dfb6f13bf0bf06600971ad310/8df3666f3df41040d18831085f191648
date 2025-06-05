@@ -84,7 +84,7 @@ const getUser = async () => {
 
     profile.value = data
     state.value.avatar = data.avatar
-    state.value.description = data.description
+    state.value.description = data.description || ''
     state.value.social = Object.assign(state.value.social, data.social)
     loading.value.profile = false
   }

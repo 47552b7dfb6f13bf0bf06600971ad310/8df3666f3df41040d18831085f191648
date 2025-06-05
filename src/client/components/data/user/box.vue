@@ -4,7 +4,7 @@
     <DataEmpty v-if="!user || !!loading.load" :loading="loading.load" text="Không có thông tin" class="min-h-[300px]" />
 
     <div v-else class="rounded-2xl p-6">
-      <UiFlex class="gap-2 mb-6 relative">
+      <UiFlex class="gap-2 mb-4 relative">
         <DataUserAvatar size="lg" :user="user" no-action />
         
         <div class="grow">
@@ -20,7 +20,14 @@
         </div>
       </UiFlex>
 
-      <!-- <DataUserCharacter class="mb-4" /> -->
+      <DataUserCharacter 
+        class="mb-4" 
+        :character="character" 
+        :user="fetchId"
+        @use="changeUseCharacter"
+        @sex="getCharacter"
+        v-if="!loading.character && ((!!authStore.isLogin && authStore.profile._id == user._id) || (!!character && character.sex > 0))"
+      />
 
       <UiFlex justify="center" class="bg-gray rounded-2xl p-4 mb-4" v-if="!!user.description">
         <UiText align="center" color="gray" size="sm" weight="semibold" class="italic">{{ user.description }}</UiText>
@@ -117,7 +124,8 @@ const typeFormat = {
 }
 
 const loading = ref({
-  load: true
+  load: true,
+  character: true
 })
 
 const modal = ref({
@@ -126,6 +134,7 @@ const modal = ref({
 })
 
 const user = ref(undefined)
+const character = ref(undefined)
 
 const actions = [
   [{
@@ -158,17 +167,36 @@ const showChat = computed(() => {
   return true
 })
 
+const changeUseCharacter = (data) => {
+  if(!character.value) return
+  if(!character.value[data.type]) return
+
+  character.value[data.type].use = data.equip
+}
+
+const getCharacter = async () => {
+  try {
+    loading.value.character = true
+    const data = await useAPI('user/public/character/get', { _id: props.fetchId })
+    character.value = data
+
+    loading.value.character = false
+  }
+  catch(e){
+    loading.value.character = false
+  }
+}
+
 const getProfile = async () => {
   try {
     if(!props.fetchId) return false
 
     loading.value.load = true
-    const get = await useAPI('user/public/profile', {
-      _id: props.fetchId
-    })
+    const get = await useAPI('user/public/profile', { _id: props.fetchId })
 
     user.value = get
     emit('update:userData', get)
+    getCharacter()
     setTimeout(() => loading.value.load = false, 700)
   }
   catch(e) {

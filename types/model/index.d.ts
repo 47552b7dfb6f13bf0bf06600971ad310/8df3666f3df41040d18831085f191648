@@ -7,6 +7,8 @@ export { IDBAdsFrom } from './ads'
 
 export { IDBUser, IDBUserLevel, IDBUserStore, IDBUserDevice, IDBUserIP, IDBUserLogin } from './user'
 
+export { IDBEquip } from './equip'
+
 export { IDBInvite, IDBInviteReward } from './invite'
 
 export { IDBGuild, IDBGuildLevel, IDBGuildRequest, IDBGuildMember, IDBGuildDonate } from './guild'
@@ -89,6 +91,8 @@ export interface IGlobalDB {
   UserIP: Model<IDBUserIP>
   UserDevice: Model<IDBUserDevice>
   UserLogin: Model<IDBUserLogin>
+
+  Equip: Model<IDBEquip>
 
   Invite: Model<IDBInvite>
   InviteReward: Model<IDBInviteReward>

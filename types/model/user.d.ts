@@ -14,6 +14,39 @@ export interface IDBUser {
   phone: string
   avatar: string
   description: string
+  character: {
+    sex: number
+    body: {
+      bag: Array<Types.ObjectId>
+      use: Types.ObjectId
+      level: number
+    }
+    wing: {
+      bag: Array<Types.ObjectId>
+      use: Types.ObjectId
+      level: number
+    }
+    weapon: {
+      bag: Array<Types.ObjectId>
+      use: Types.ObjectId
+      level: number
+    }
+    pet: {
+      bag: Array<Types.ObjectId>
+      use: Types.ObjectId
+      level: number
+    }
+    circle: {
+      bag: Array<Types.ObjectId>
+      use: Types.ObjectId
+      level: number
+    }
+    title: {
+      bag: Array<Types.ObjectId>
+      use: Types.ObjectId
+      level: number
+    }
+  }
   level: Types.ObjectId | IDBUserLevel
   guild: Types.ObjectId | IDBGuild
   vip: {

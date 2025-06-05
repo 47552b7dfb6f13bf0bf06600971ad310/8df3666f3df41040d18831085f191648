@@ -9,6 +9,8 @@ import { DBAdsFrom } from './ads'
 
 import { DBUser, DBUserLevel, DBUserIP, DBUserDevice, DBUserLogin } from './user'
 
+import { DBEquip } from './equip'
+
 import { DBInvite, DBInviteReward } from './invite'
 
 import { DBGuild, DBGuildLevel, DBGuildRequest, DBGuildMember, DBGuildDonate } from './guild'
@@ -92,6 +94,8 @@ export default (mongoose : Mongoose) : IGlobalDB => {
     UserIP: DBUserIP(mongoose),
     UserDevice: DBUserDevice(mongoose),
     UserLogin: DBUserLogin(mongoose),
+
+    Equip: DBEquip(mongoose),
 
     Invite: DBInvite(mongoose),
     InviteReward: DBInviteReward(mongoose),
