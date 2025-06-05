@@ -4,7 +4,7 @@
       <UiText class="text-[10px]" align="center" color="gray">{{ textFormat[type] }}</UiText>
     </UiFlex>
 
-    <UModal v-model="modal" prevent-close :ui="{width: 'sm:max-w-[400px]'}">
+    <UModal v-model="modal" :ui="{width: 'sm:max-w-[400px]'}">
       <UiContent :title="textFormat[type]" class="bg-card rounded-2xl p-4">
          <template #more>
           <UButton icon="i-bx-x" color="gray" class="ml-auto" size="2xs" square @click="modal = false"></UButton>

@@ -8,12 +8,14 @@
         <DataUserAvatar size="lg" :user="user" no-action />
         
         <div class="grow">
-          <UiFlex justify="between" class="gap-1">
-            <DataUserName :user="user" size="sm" no-action class="mb-1.5"  />
+          <UiFlex class="gap-1 mb-1.5">
+            <DataUserName :user="user" size="sm" no-action class="mr-auto" />
 
             <UDropdown :items="actions" v-if="!!authStore.isLogin && authStore.profile._id == user._id">
-              <UButton :padded="false" variant="link" color="gray" icon="i-bxs-edit" />
+              <UButton icon="i-bx-cog" size="2xs" color="gray" square></UButton>
             </UDropdown>
+
+            <UButton icon="i-bx-x" size="2xs" color="gray" square @click="emit('close')"></UButton>
           </UiFlex>
     
           <DataUserLevel :user="user" />

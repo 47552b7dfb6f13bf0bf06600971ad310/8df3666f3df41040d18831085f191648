@@ -15,6 +15,7 @@ export const DBEquip = (mongoose : Mongoose) => {
     sex: { type: Number },
     res: { type: String },
     power: { type: Number, default: 0, index: true },
+    price: { type: Number, default: 0, index: true },
     offset: {
       info: {
         x: { type: Number, default: 0 },

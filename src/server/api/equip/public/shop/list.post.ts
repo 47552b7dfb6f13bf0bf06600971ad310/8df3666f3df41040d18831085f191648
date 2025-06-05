@@ -18,7 +18,7 @@ export default defineEventHandler(async (event) => {
       default: false, 
       type: type
     }
-    if(type == 'body') match['sex'] = sex
+    if(type == 'body' || type == 'weapon') match['sex'] = sex
 
     const list = await DB.Equip.find(match)
     return resp(event, { result: list })

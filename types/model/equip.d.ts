@@ -9,6 +9,7 @@ export interface IDBEquip {
   sex: number
   res: string
   power: number
+  price: number
   offset: {
     info: {
       x: number

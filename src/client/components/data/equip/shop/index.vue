@@ -15,8 +15,7 @@ const getList = async () => {
     loading.value = true
     const data = await useAPI('equip/public/shop/list', { type: props.type })
     list.value = data
-
-    setTimeout(() => loading.value = false, 500)
+    loading.value = false
   }
   catch(e){
     loading.value = false

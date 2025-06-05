@@ -42,7 +42,6 @@
 </template>
 
 <script setup>
-const runtimeConfig = useRuntimeConfig()
 const emit = defineEmits(['to'])
 const navItems = [
   {
@@ -76,7 +75,8 @@ const navItems = [
     slot: 'tab-2',
     children: [
       { label: 'Danh sách', to: '/manage/@eni/user' },
-      { label: 'Cấp độ', to: '/manage/@eni/user/level' }
+      { label: 'Cấp độ', to: '/manage/@eni/user/level' },
+      { label: 'Trang bị', to: '/manage/@eni/user/equip' },
     ]
   },
   {

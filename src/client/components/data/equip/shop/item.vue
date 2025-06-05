@@ -12,7 +12,7 @@
 
         <DataEquipInfo :source="source" :type="type" />
 
-        <UButton color="yellow" icon="i-bx-cart" block class="mt-4" :loading="loading" @click="buy">{{ useMoney().toMoney(10000) }} Xu</UButton>
+        <UButton color="yellow" icon="i-bx-cart" block class="mt-4" :loading="loading" @click="buy">{{ useMoney().toMoney(source.price) }} Xu</UButton>
       </UiContent>
     </UModal>
   </UiFlex>
@@ -41,6 +41,7 @@ const buy = async () => {
 
     loading.value = false
     modal.value = false
+    await nextTick()
     emits('done')
   }
   catch(e){

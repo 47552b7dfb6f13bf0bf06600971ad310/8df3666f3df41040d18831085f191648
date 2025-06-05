@@ -16,7 +16,7 @@ export default defineEventHandler(async (event) => {
     const bag = user.character ? user.character[equip.type] ? user.character[equip.type]['bag'] || [] : [] : []
     if(bag.includes(equip._id)) throw 'Bạn đã có trang bị này trong kho đồ'
     
-    const price = 0
+    const price = equip.price
     if(user.currency.coin < price) throw 'Số dư xu không đủ'
 
     await DB.User.updateOne({ _id: user._id }, { 
