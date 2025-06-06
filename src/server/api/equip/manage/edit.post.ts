@@ -14,12 +14,9 @@ export default defineEventHandler(async (event) => {
     const equip = await DB.Equip.findOne({ _id: _id }).select('name') as IDBEquip
     if(!equip) throw 'Trang bị không tồn tại'
 
-    if(!body.name.includes(type.toUpperCase())) body.name = `${type} - ${name}`.toUpperCase()
-    body.description = ''
     body.offset.idle.scale = body.offset.idle.scale ? body.offset.idle.scale['$numberDecimal'] || 1 : 1
     body.offset.info.scale = body.offset.info.scale ? body.offset.info.scale['$numberDecimal'] || 1 : 1
     body.offset.attack.scale = body.offset.attack.scale ? body.offset.attack.scale['$numberDecimal'] || 1 : 1
-
     delete body['_id']
     await DB.Equip.updateOne({ _id: _id }, body)
 
