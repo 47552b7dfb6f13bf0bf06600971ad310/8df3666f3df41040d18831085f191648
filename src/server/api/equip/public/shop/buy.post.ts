@@ -1,13 +1,24 @@
 import type { IAuth, IDBEquip, IDBUser } from "~~/types"
 
+const textFormat = {
+  body: 'Trang Phục',
+  wing: 'Cánh',
+  weapon: 'Vũ Khí',
+  pet: 'Thú Cưng',
+  circle: 'Pháp Trận',
+  title: 'Danh Hiệu',
+}
+
 export default defineEventHandler(async (event) => {
   try {
+    const runtimeConfig = useRuntimeConfig()
     const auth = await getAuth(event) as IAuth
     const { _id } = await readBody(event)
     if(!_id) throw 'Không tìm thấy ID trang bị'
 
-    const equip = await DB.Equip.findOne({ _id: _id }) as IDBEquip
+    const equip = await DB.Equip.findOne({ _id: _id }).select('name type display price') as IDBEquip
     if(!equip) throw 'Trang bị không tồn tại'
+    if(!equip.display) throw 'Trang bị chưa được mở bán'
 
     const user = await DB.User.findOne({ _id: auth._id }).select(`character.${equip.type} currency`) as IDBUser
     if(!user) throw 'Không tìm thấy thông tin tài khoản'
@@ -16,20 +27,22 @@ export default defineEventHandler(async (event) => {
     const bag = user.character ? user.character[equip.type] ? user.character[equip.type]['bag'] || [] : [] : []
     if(bag.includes(equip._id)) throw 'Bạn đã có trang bị này trong kho đồ'
     
-    const price = equip.price
+    let price = equip.price
+    if(!runtimeConfig.public.dev && auth.type == 100) price = 0 // Admin Free Only Prod
     if(user.currency.coin < price) throw 'Số dư xu không đủ'
 
     await DB.User.updateOne({ _id: user._id }, { 
       $inc: { 'currency.coin': price * -1 },
       $push: { [`character.${equip.type}.bag`] : equip._id }
     })
+
     logUser({
       user: user._id,
-      action: `Dùng <b>${price.toLocaleString('vi-VN')} Xu</b> mua trang bị nhân vật <b>${equip.name}</b>`,
+      // @ts-expect-error
+      action: `Dùng <b>${price.toLocaleString('vi-VN')} Xu</b> mua trang bị [${textFormat[equip.type]}] ${equip.name}</b>`,
       type: `character.equip.${equip.type}.buy`,
     })
 
-    // Socket Update Auth
     IO.to(user._id.toString()).emit('auth-update')
 
     return resp(event, { message: 'Mua thành công' })

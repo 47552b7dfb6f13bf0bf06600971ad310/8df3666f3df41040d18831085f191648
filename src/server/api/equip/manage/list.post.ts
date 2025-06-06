@@ -3,7 +3,7 @@ import type { IAuth } from "~~/types"
 export default defineEventHandler(async (event) => {
   try {
     const auth = await getAuth(event) as IAuth
-    // await checkPermission('user.equip.list', auth.type)
+    await checkPermission('equip.list', auth.type)
 
     const { size, current, sort, search, type } = await readBody(event)
     if(!size || !current) throw 'Dữ liệu phân trang sai'

@@ -11,6 +11,7 @@ const textFormat = {
 
 export default defineEventHandler(async (event) => {
   try {
+    const runtimeConfig = useRuntimeConfig()
     const auth = await getAuth(event) as IAuth
     const { type } = await readBody(event)
     if(!type) throw 'Không tìm thấy loại trang bị nâng cấp'
@@ -24,7 +25,7 @@ export default defineEventHandler(async (event) => {
 
     // Make Price
     let price = next * 10000
-    if(auth.type == 100) price = 0 // Admin Free
+    if(!runtimeConfig.public.dev && auth.type == 100) price = 0 // Admin Free Only Prod
     if(user.currency.coin < price) throw 'Số dư không đủ'
 
     // Make Rate
@@ -33,7 +34,7 @@ export default defineEventHandler(async (event) => {
 
     // Minus Coin
     price > 0 && await DB.User.updateOne({ _id: user._id }, { $inc: { 'currency.coin': price * -1 } })
-    IO.to(user._id.toString()).emit('auth-update')
+    
 
     // Upgrade
     const success = Math.random() < (rate / 100) ? true : false
@@ -46,7 +47,7 @@ export default defineEventHandler(async (event) => {
         action: `Dùng <b>${price.toLocaleString('vi-VN')} Xu</b> nâng cấp <b>${textFormat[type]}</b> lên <b>+${next}</b> thành công`,
         type: `character.equip.${type}.upgrade.success`,
       })
-
+      IO.to(user._id.toString()).emit('auth-update')
       return resp(event, { message: 'Nâng cấp thành công' })
     }
     else {
@@ -56,6 +57,7 @@ export default defineEventHandler(async (event) => {
         action: `Dùng <b>${price.toLocaleString('vi-VN')} Xu</b> nâng cấp <b>${textFormat[type]}</b> lên <b>+${next}</b> thất bại`,
         type: `character.equip.${type}.upgrade.fail`,
       })
+      IO.to(user._id.toString()).emit('auth-update')
       throw 'Thật đáng tiếc, bạn đã nâng cấp thất bại'
     }
   } 

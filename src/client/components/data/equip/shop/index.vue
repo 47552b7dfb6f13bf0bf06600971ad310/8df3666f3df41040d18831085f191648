@@ -36,8 +36,8 @@ const page = ref({
   size: 9,
   current: 1,
   sort: {
-    column: 'power',
-    direction: 'desc'
+    column: 'price',
+    direction: 'asc'
   },
   search: null,
   total: 0,

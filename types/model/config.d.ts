@@ -210,6 +210,13 @@ export interface IDBConfigPermission {
     }
   }
 
+  equip: {
+    list: Array<number>
+    add: Array<number>
+    edit: Array<number>
+    del: Array<number>
+  }
+
   ads: {
     from: {
       list: Array<number>

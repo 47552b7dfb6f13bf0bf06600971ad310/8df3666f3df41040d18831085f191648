@@ -33,12 +33,20 @@
           ]" placeholder="Tất cả" />
         </UFormGroup>
 
+        <UFormGroup label="Mã Res">
+          <UInput v-model="state.res" type="number" />
+        </UFormGroup>
+
         <UFormGroup label="Lực chiến">
           <UInput v-model="state.power" type="number" />
         </UFormGroup>
 
         <UFormGroup label="Giá mua">
           <UInput v-model="state.price" type="number" />
+        </UFormGroup>
+
+        <UFormGroup label="Hiển thị">
+          <SelectDisplay v-model="state.display" />
         </UFormGroup>
       </template>
 
@@ -83,8 +91,8 @@
     </UTabs>
 
     <UiFlex class="mt-4">
-      <UButton class="mr-auto" color="green" @click="createItemImage">Tạo ảnh</UButton>
-      <UButton type="submit" @click="save">Lưu</UButton>
+      <!-- <UButton class="mr-auto" color="green" @click="createItemImage">Tạo ảnh</UButton> -->
+      <UButton type="submit" @click="save" class="ml-auto">Lưu</UButton>
       <UButton color="gray" @click="emits('close')" class="ml-1">Đóng</UButton>
     </UiFlex>
   </UiContent>

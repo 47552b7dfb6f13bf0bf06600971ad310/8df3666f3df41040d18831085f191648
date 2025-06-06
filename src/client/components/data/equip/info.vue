@@ -4,7 +4,7 @@
 
     <UiFlex class="gap-4" items="start" v-else>
       <UiFlex type="col" class="max-w-[30%]">
-        <DataCharacterView :source="data" view="info" class="w-full bg-gray rounded-2xl" />
+        <DataCharacterView w="550" h="550" :source="data" view="info" class="w-full bg-gray rounded-2xl" />
         <slot name="right"></slot>
       </UiFlex>
 

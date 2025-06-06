@@ -43,9 +43,13 @@
           {{ useMoney().toMoney(row.price || 0) }}
         </template>
 
+        <template #display-data="{ row }">
+          <UBadge :color="!!row.display ? 'green' : 'gray'" variant="soft">{{ !!row.display ? 'Hiện' : 'Ẩn' }}</UBadge>
+        </template>
+
         <template #actions-data="{ row }">
           <UDropdown :items="actions(row)">
-            <UButton color="gray" icon="i-bx-dots-horizontal-rounded" />
+            <UButton color="gray" icon="i-bx-dots-horizontal-rounded" :disabled="loading.del" />
           </UDropdown>
         </template>
       </UTable>
@@ -142,6 +146,10 @@ const columns = [
     label: 'Giá bán',
     sortable: true
   },{
+    key: 'display',
+    label: 'Hiển thị',
+    sortable: true
+  },{
     key: 'actions',
     label: 'Chức năng',
   }
@@ -200,6 +208,7 @@ const loading = ref({
   load: true,
   add: false,
   edit: false,
+  del: false,
   export: false
 })
 
@@ -212,6 +221,10 @@ const actions = (row) => [
       stateEdit.value = row
       modal.value.edit = true
     }
+  }],[{
+    label: 'Xóa trang bị',
+    icon: 'i-bx-trash',
+    click: () => delAction(row._id)
   }]
 ]
  
@@ -255,6 +268,19 @@ const editAction = async (data) => {
   }
   catch (e) {
     loading.value.edit = false
+  }
+}
+
+const delAction = async (_id) => {
+  try {
+    loading.value.del = true
+    await useAPI('equip/manage/del', { _id })
+
+    loading.value.del = false
+    getList()
+  }
+  catch (e) {
+    loading.value.del = false
   }
 }
 

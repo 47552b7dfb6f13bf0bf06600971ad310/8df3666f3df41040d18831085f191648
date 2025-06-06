@@ -23,4 +23,5 @@ export interface IDBEquip {
     }
   }
   default: boolean
+  display: boolean
 }

@@ -2,8 +2,8 @@
   <UiFlex type="col" justify="center" class="inline-flex bg-gray rounded-2xl cursor-pointer overflow-hidden pb-3" @click="modal = true">
     <UiImg :src="`/character/${type}/${data[type].res}/item.png`" :w="1" :h="1" img-size="100px" class="w-full overflow-hidden" />
 
-    <UButton size="2xs" icon="i-game-icons-two-coins" :color="source.price == 0 ? 'rose' : 'gray'" class="px-4 max-w-full">
-      {{ source.price > 0 ? useMoney().miniMoney(source.price) : 'Free' }}
+    <UButton size="2xs" :icon="!!source.display && 'i-game-icons-two-coins'" :color="!!source.display ? (source.price == 0 ? 'rose' : 'primary') : 'gray'" class="px-4 max-w-full">
+      {{ !!source.display ? (source.price > 0 ? useMoney().miniMoney(source.price) : 'Free') : 'Out Stock' }}
     </UButton>
 
     <UModal v-model="modal" :ui="{width: 'sm:max-w-[400px]'}">
@@ -15,12 +15,14 @@
         <DataEquipInfo :source="source" :type="type">
           <UiFlex justify="between" class="w-full gap-2">
             <UiText weight="semibold" color="gray" size="xs">Giá bán</UiText>
-            <UiText weight="semibold" size="xs" :color="source.price == 0 ? 'rose' : 'primary'">{{ source.price > 0 ? useMoney().toMoney(source.price) : 'Free' }}</UiText>
+            <UiText weight="semibold" size="xs" :color="!!source.display ? (source.price == 0 ? 'rose' : 'primary') : 'gray'">
+              {{ !!source.display ? (source.price > 0 ? useMoney().toMoney(source.price) : 'Free') : 'Chưa mở bán' }}
+            </UiText>
           </UiFlex>
         </DataEquipInfo>
 
         <UiFlex justify="end" class="gap-0.5 mt-4">
-          <UButton color="yellow" :loading="loading" @click="buy" size="xs">Mua Ngay</UButton>
+          <UButton color="yellow" :loading="loading" @click="buy" size="xs" v-if="!!source.display">Mua Ngay</UButton>
           <UButton color="gray" :disabled="!!loading" @click="modal = false" size="xs">Đóng</UButton>
         </UiFlex>
       </UiContent>

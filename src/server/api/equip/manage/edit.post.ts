@@ -3,7 +3,7 @@ import type { IAuth, IDBEquip } from "~~/types"
 export default defineEventHandler(async (event) => {
   try {
     const auth = await getAuth(event) as IAuth
-    // await checkPermission('user.level.edit', auth.type)
+    await checkPermission('equip.edit', auth.type)
 
     const body = await readBody(event)
     const { _id, name, type, res, power, price } = body

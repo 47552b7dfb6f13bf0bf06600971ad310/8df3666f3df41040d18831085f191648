@@ -22,8 +22,8 @@ export default defineEventHandler(async (event) => {
       default: false, 
       type: type
     }
-    if(type == 'body' || type == 'weapon') match['sex'] = sex
-    if(!!search) match['name'] = { key : { $regex : search, $options : 'i' }}
+    if((type == 'body' || type == 'weapon') && auth.type < 100) match['sex'] = sex
+    if(!!search) match['name'] = { $regex : search, $options : 'i' }
 
     const list = await DB.Equip
     .find(match)

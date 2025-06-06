@@ -152,6 +152,13 @@ export const DBConfigPermission = (mongoose : Mongoose) => {
       }
     },
 
+    equip: {
+      list: [{ type: Number }],
+      add: [{ type: Number }],
+      edit: [{ type: Number }],
+      del: [{ type: Number }],
+    },
+
     ads: {
       from: {
         list: [{ type: Number }],
@@ -320,6 +327,13 @@ export const DBConfigPermission = (mongoose : Mongoose) => {
           list: [3,100],
           edit: [100],
         }
+      },
+
+      equip: {
+        list: [100],
+        add: [100],
+        edit: [100],
+        del: [100],
       },
 
       ads: {

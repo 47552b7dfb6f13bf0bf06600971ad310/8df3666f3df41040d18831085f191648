@@ -16,20 +16,21 @@ export const DBEquip = (mongoose : Mongoose) => {
       info: {
         x: { type: Number, default: 0 },
         y: { type: Number, default: 0 },
-        scale: { type: Types.Decimal128 },
+        scale: { type: Types.Decimal128, default: 1 },
       },
       idle: {
         x: { type: Number, default: 0 },
         y: { type: Number, default: 0 },
-        scale: { type: Types.Decimal128 },
+        scale: { type: Types.Decimal128, default: 1 },
       },
       attack: {
         x: { type: Number, default: 0 },
         y: { type: Number, default: 0 },
-        scale: { type: Types.Decimal128 },
+        scale: { type: Types.Decimal128, default: 1 },
       }
     },
-    default: { type: Boolean, default: false }
+    default: { type: Boolean, default: false },
+    display: { type: Boolean, default: true },
   })
 
   schema.index({ name: 'text' })

@@ -1,9 +1,9 @@
 <template>
-  <canvas ref="cs" width="600" height="600" class="mx-auto w-[100%]" style="aspect-ratio: 1 / 1; pointer-events: none; user-select: none;"></canvas>
+  <canvas ref="cs" :width="w || 600" :height="h || 600" class="mx-auto w-[100%]" style="aspect-ratio: 1 / 1; pointer-events: none; user-select: none;"></canvas>
 </template>
 
 <script setup>
-const props = defineProps(['source', 'view'])
+const props = defineProps(['source', 'view', 'w', 'h'])
 
 const cs = ref()
 const anim = ref()

@@ -11,7 +11,7 @@
         </UiFlex>
 
         <UiFlex class="grow z-[1]" style="aspect-ratio: 1 / 1; pointer-events: none; user-select: none;">
-          <DataCharacterView class="" :source="source" view="idle" v-if="!!source"/>
+          <DataCharacterView w="620" h="620" :source="source" view="idle" v-if="!!source"/>
         </UiFlex>
 
         <UiFlex type="col" class="gap-4 absolute -right-4 z-0">

@@ -132,6 +132,32 @@
         </UCard>
       </template>
 
+      <template #equip>
+        <UCard>
+          <UiFlex type="col" class="gap-1">
+            <UiFlex justify="between" class="gap-1 w-full">
+              <UiText color="gray" size="sm">Xem</UiText>
+              <SelectPermission v-model="state.equip.list" />
+            </UiFlex>
+
+            <UiFlex justify="between" class="gap-1 w-full">
+              <UiText color="gray" size="sm">Thêm</UiText>
+              <SelectPermission v-model="state.equip.add" />
+            </UiFlex>
+
+            <UiFlex justify="between" class="gap-1 w-full">
+              <UiText color="gray" size="sm">Sửa</UiText>
+              <SelectPermission v-model="state.equip.edit" />
+            </UiFlex>
+
+            <UiFlex justify="between" class="gap-1 w-full">
+              <UiText color="gray" size="sm">Xóa</UiText>
+              <SelectPermission v-model="state.equip.del" />
+            </UiFlex>
+          </UiFlex>
+        </UCard>
+      </template>
+
       <template #ads>
         <UCard>
           <UiFlex type="col" class="gap-1">
@@ -655,6 +681,13 @@ const state = ref({
     }
   },
 
+  equip: {
+    list: [],
+    add: [],
+    edit: [],
+    del: [],
+  },
+
   ads: {
     from: {
       list: [],
@@ -794,6 +827,7 @@ const menu = [
   { label: 'Cài đặt', slot: 'config' },
   { label: 'Chi tiêu', slot: 'spend' },
   { label: 'Tài khoản', slot: 'user' },
+  { label: 'Trang bị', slot: 'equip' },
   { label: 'Quảng cáo', slot: 'ads' },
   { label: 'IP & Device', slot: 'ip-device' },
   { label: 'Tin tức', slot: 'news' },

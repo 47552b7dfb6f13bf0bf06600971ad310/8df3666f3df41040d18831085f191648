@@ -17,7 +17,7 @@ export default defineEventHandler(async (event) => {
     // @ts-expect-error
     const bag = user.character ? user.character[type] ? user.character[type]['bag'] || [] : [] : []
     const match : any = { _id: { $in: bag }}
-    if(!!search) match['name'] = { key : { $regex : search, $options : 'i' }}
+    if(!!search) match['name'] = { $regex : search, $options : 'i' }
     
     const list = await DB.Equip
     .find(match)
