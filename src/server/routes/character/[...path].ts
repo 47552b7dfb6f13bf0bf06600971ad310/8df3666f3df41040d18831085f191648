@@ -1,16 +1,14 @@
-import { createError, sendStream, getHeader } from 'h3'
+import { createError, sendStream } from 'h3'
 import { createReadStream, existsSync, statSync } from 'fs'
-import { join } from 'path'
+import { join, normalize } from 'path'
 
 export default defineEventHandler(async (event) => {
-  const runtimeConfig = useRuntimeConfig(event)
   const pathParam = event.context.params?.path
   const pathParts = Array.isArray(pathParam) ? pathParam : [pathParam]
 
-  const referer = getHeader(event, 'referer') || ''
-  const allowedHost = runtimeConfig.public.clientURL
-  if (!referer.startsWith(allowedHost)) {
-    throw createError({ statusCode: 403, statusMessage: 'Không có quyền tải về tài nguyên' })
+  const safePath = normalize(join(...pathParts))
+  if (safePath.includes('..')) {
+    throw createError({ statusCode: 400, statusMessage: 'Đường dẫn không hợp lệ' })
   }
 
   const filePath = join(process.cwd(), 'assets/character', ...pathParts)
