@@ -26,8 +26,11 @@ export default defineEventHandler(async (event) => {
     logUser({
       user: user._id,
       action: `Dùng <b>${price.toLocaleString('vi-VN')} Xu</b> mua trang bị nhân vật <b>${equip.name}</b>`,
-      type: `character.buy.${equip.type}`,
+      type: `character.equip.${equip.type}.buy`,
     })
+
+    // Socket Update Auth
+    IO.to(user._id.toString()).emit('auth-update')
 
     return resp(event, { message: 'Mua thành công' })
   } 

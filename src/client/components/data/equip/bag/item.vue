@@ -1,18 +1,19 @@
 <template>
-  <UiFlex class="inline-flex">
-    <UiFlex justify="center" class="bg-gray border-1 border-gray rounded-2xl w-[50px] h-[50px] px-1 cursor-pointer" @click="modal = true">
-      <UiText class="text-[10px]" align="center" color="gray">{{ textFormat[type] }}</UiText>
-    </UiFlex>
+  <UiFlex justify="center" class="inline-flex bg-gray rounded-2xl cursor-pointer overflow-hidden" @click="modal = true">
+    <DataCharacterView :source="data" view="info" />
 
     <UModal v-model="modal" :ui="{width: 'sm:max-w-[400px]'}">
-      <UiContent :title="textFormat[type]" class="bg-card rounded-2xl p-4">
-         <template #more>
+      <UiContent :title="`${textFormat[type]}`" sub="Thông tin trang bị" class="bg-card rounded-2xl p-4">
+        <template #more>
           <UButton icon="i-bx-x" color="gray" class="ml-auto" size="2xs" square :disabled="!!loading" @click="modal = false"></UButton>
         </template>
 
-        <DataEquipInfo :source="source" :type="type" />
-
-        <UButton color="yellow" icon="i-bxs-t-shirt" block class="mt-4" :loading="loading" @click="use">Trang Bị</UButton>
+        <DataEquipInfo :source="source" :type="type">
+          <UiFlex justify="end" class="w-full gap-0.5">
+            <UButton color="yellow" :loading="loading" @click="use" size="xs">Mặc Ngay</UButton>
+            <UButton color="gray" :disabled="!!loading" @click="modal = false" size="xs">Đóng</UButton>
+          </UiFlex>
+        </DataEquipInfo>
       </UiContent>
     </UModal>
   </UiFlex>
@@ -34,6 +35,14 @@ const textFormat = {
   title: 'Danh Hiệu',
 }
 
+const data = computed(() => {
+  if(!props.source) return null
+  if(!props.type) return null
+  const result = {}
+  result[props.type] = props.source
+  return result
+})
+
 const use = async () => {
   try {
     loading.value = true
@@ -41,6 +50,7 @@ const use = async () => {
 
     loading.value = false
     modal.value = false
+    await nextTick()
     emits('done', data)
   }
   catch(e){

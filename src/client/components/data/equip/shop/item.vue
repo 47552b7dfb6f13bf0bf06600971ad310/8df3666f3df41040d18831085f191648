@@ -1,18 +1,28 @@
 <template>
-  <UiFlex class="inline-flex">
-    <UiFlex justify="center" class="bg-gray border-1 border-gray rounded-2xl w-[50px] h-[50px] px-1 cursor-pointer" @click="modal = true">
-      <UiText class="text-[10px]" align="center" color="gray">{{ textFormat[type] }}</UiText>
-    </UiFlex>
+  <UiFlex type="col" justify="center" class="inline-flex bg-gray rounded-2xl cursor-pointer overflow-hidden pb-3" @click="modal = true">
+    <DataCharacterView :source="data" view="info" />
+
+    <UButton size="2xs" icon="i-game-icons-two-coins" :color="source.price == 0 ? 'rose' : 'gray'" class="px-4 max-w-full">
+      {{ source.price > 0 ? useMoney().miniMoney(source.price) : 'Free' }}
+    </UButton>
 
     <UModal v-model="modal" :ui="{width: 'sm:max-w-[400px]'}">
-      <UiContent :title="textFormat[type]" class="bg-card rounded-2xl p-4">
-         <template #more>
+      <UiContent :title="`Mua ${textFormat[type]}`" sub="Thông tin đơn hàng" class="bg-card rounded-2xl p-4">
+        <template #more>
           <UButton icon="i-bx-x" color="gray" class="ml-auto" size="2xs" square :disabled="!!loading" @click="modal = false"></UButton>
         </template>
 
-        <DataEquipInfo :source="source" :type="type" />
+        <DataEquipInfo :source="source" :type="type">
+          <UiFlex justify="between" class="w-full gap-2">
+            <UiText weight="semibold" color="gray" size="xs">Giá bán</UiText>
+            <UiText weight="semibold" size="xs" :color="source.price == 0 ? 'rose' : 'primary'">{{ source.price > 0 ? useMoney().toMoney(source.price) : 'Free' }}</UiText>
+          </UiFlex>
+        </DataEquipInfo>
 
-        <UButton color="yellow" icon="i-bx-cart" block class="mt-4" :loading="loading" @click="buy">{{ useMoney().toMoney(source.price) }} Xu</UButton>
+        <UiFlex justify="end" class="gap-0.5 mt-4">
+          <UButton color="yellow" :loading="loading" @click="buy" size="xs">Mua Ngay</UButton>
+          <UButton color="gray" :disabled="!!loading" @click="modal = false" size="xs">Đóng</UButton>
+        </UiFlex>
       </UiContent>
     </UModal>
   </UiFlex>
@@ -33,6 +43,14 @@ const textFormat = {
   circle: 'Pháp Trận',
   title: 'Danh Hiệu',
 }
+
+const data = computed(() => {
+  if(!props.source) return null
+  if(!props.type) return null
+  const result = {}
+  result[props.type] = props.source
+  return result
+})
 
 const buy = async () => {
   try {

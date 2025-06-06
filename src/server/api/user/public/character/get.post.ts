@@ -6,24 +6,44 @@ export default defineEventHandler(async (event) => {
     if(!_id) throw 'Không tìm thấy ID tài khoản'
 
     const user = await DB.User.findOne({ _id: _id })
-    .select(`
-      character.sex 
-      character.body.use character.body.level
-      character.wing.use character.wing.level
-      character.weapon.use character.weapon.level
-      character.pet.use character.pet.level
-      character.circle.use character.circle.level
-      character.title.use character.title.level
-    `) 
+    .select(`character`) 
     .populate({ path: 'character.body.use' }) 
     .populate({ path: 'character.wing.use' }) 
     .populate({ path: 'character.weapon.use' }) 
     .populate({ path: 'character.pet.use' }) 
     .populate({ path: 'character.circle.use' }) 
     .populate({ path: 'character.title.use' }) as IDBUser
-
     if(!user) throw 'Không tìm thấy thông tin tài khoản'
-    return resp(event, { result: user.character })
+
+    // Merge Bag
+    let bag : any = {
+      body: user.character.body ? user.character.body.bag || [] : [],
+      wing: user.character.wing ? user.character.wing.bag || [] : [],
+      weapon: user.character.weapon ? user.character.weapon.bag || [] : [],
+      pet: user.character.pet ? user.character.pet.bag || [] : [],
+      circle: user.character.circle ? user.character.circle.bag || [] : [],
+      title: user.character.title ? user.character.title.bag || [] : [],
+    }
+    bag = bag.body.concat(bag.wing, bag.weapon, bag.pet, bag.circle, bag.title)
+
+
+    // Get All Equip in Bag
+    let powers : any = { 
+      body: { level: user.character.body.level || 0, power: 0 },
+      wing: { level: user.character.wing.level || 0, power: 0 },
+      weapon: { level: user.character.weapon.level || 0, power: 0 },
+      circle: { level: user.character.circle.level || 0, power: 0 },
+      pet: { level: user.character.pet.level || 0, power: 0 },
+      title: { level: user.character.title.level || 0, power: 0 },
+    }
+    const equips = await DB.Equip.aggregate([
+      { $match: { _id: { $in: bag }}},
+      { $project: { type: 1, power: 1 }},
+      { $group: { _id: '$type', power: { $sum: '$power' }}}
+    ])
+    equips.forEach((i : any) => powers[`${i._id}`]['power'] = i.power)
+
+    return resp(event, { result: { character: user.character, powers } })
   } 
   catch (e:any) {
     return resp(event, { code: 400, message: e.toString() })

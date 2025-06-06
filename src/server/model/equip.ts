@@ -1,10 +1,6 @@
 import { Types, type Mongoose } from 'mongoose'
 import type { IDBEquip } from '~~/types'
-import body from '../assets/character/body.json'
-import weapon from '../assets/character/weapon.json'
-import wing from '../assets/character/wing.json'
-import pet from '../assets/character/pet.json'
-import circle from '../assets/character/circle.json'
+// import configs from '../assets/character/config.json'
 
 
 export const DBEquip = (mongoose : Mongoose) => {
@@ -43,12 +39,7 @@ export const DBEquip = (mongoose : Mongoose) => {
     const count = await model.count({})
     if(count > 0) return
 
-    await model.insertMany(body)
-    await model.insertMany(weapon)
-    await model.insertMany(wing)
-    await model.insertMany(pet)
-    await model.insertMany(circle)
-    
+    // await model.insertMany(configs)
   }
 
   autoCreate()

@@ -19,6 +19,7 @@
       </UForm>
 
       <UButton color="yellow" class="ml-auto" @click="modal.add = true">Thêm mới</UButton>
+      <UButton color="green" @click="exportJson">Xuất JSON</UButton>
     </UiFlex>
     
     <!-- Table -->
@@ -82,7 +83,7 @@
           <USelectMenu v-model="stateAdd.sex" value-attribute="value" size="lg" :options="[
             { label: 'Tất cả', value: 0},
             { label: 'Nam', value: 1},
-            { label: 'Nũ', value: 2}
+            { label: 'Nữ', value: 2}
           ]" placeholder="Tất cả" />
         </UFormGroup>
 
@@ -198,7 +199,8 @@ watch(() => modal.value.add, (val) => !val && (stateAdd.value = {
 const loading = ref({
   load: true,
   add: false,
-  edit: false
+  edit: false,
+  export: false
 })
 
 // Actions
@@ -253,6 +255,30 @@ const editAction = async (data) => {
   }
   catch (e) {
     loading.value.edit = false
+  }
+}
+
+const exportJson = async (data) => {
+  try {
+    loading.value.export = true
+    const file = await useAPI('equip/manage/json/export')
+
+    fetch(file.url)
+    .then(response => response.json())
+    .then(data => {
+      const blob = new Blob([JSON.stringify(data)], { type: 'application/json' })
+      const url = URL.createObjectURL(blob)
+      const a = document.createElement('a')
+      a.href = url
+      a.download = file.name
+      a.click()
+      URL.revokeObjectURL(url)
+
+      loading.value.export = false
+    })
+  }
+  catch (e) {
+    loading.value.export = false
   }
 }
 

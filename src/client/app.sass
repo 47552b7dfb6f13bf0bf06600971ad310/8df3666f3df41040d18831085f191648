@@ -160,6 +160,37 @@ body
   100%
     background-position: 100% 0%
 
+// Equip
+.equip-level-0
+  --equip-level-color: rgb(var(--color-gray-800))
+.equip-level-1
+  --equip-level-color: #1892d4
+.equip-level-2
+  --equip-level-color: #b1d418
+.equip-level-3
+  --equip-level-color: #f1a222
+.equip-level-4
+  --equip-level-color: #ef32ec
+.equip-level-5
+  --equip-level-color: #f02e2e
+.EquipItem
+  position: relative
+  overflow: hidden
+  background: rgb(var(--color-gray-800)) !important
+  &::before
+    content: ''
+    position: absolute
+    width: 80%
+    height: 150%
+    background: var(--equip-level-color)
+    animation: spin 1s linear infinite
+  &::after
+    content: ''
+    position: absolute
+    inset: 1px
+    border-radius: inherit
+    background: #09121b
+
 // Menu Item
 .MenuItem
   width: 100%
@@ -288,6 +319,14 @@ body
     transform: scale(1.5)
 .beat-anim
   animation: beat 1s infinite alternate
+
+@keyframes spin
+  to
+    transform: rotate(0)
+  to
+    transform: rotate(360deg)
+.spin-anim
+  animation: spin 1s linear infinite
 
 // Phone
 .Android

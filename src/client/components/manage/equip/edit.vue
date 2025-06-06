@@ -29,7 +29,7 @@
           <USelectMenu v-model="state.sex" value-attribute="value" size="lg" :options="[
             { label: 'Tất cả', value: 0},
             { label: 'Nam', value: 1},
-            { label: 'Nũ', value: 2}
+            { label: 'Nữ', value: 2}
           ]" placeholder="Tất cả" />
         </UFormGroup>
 

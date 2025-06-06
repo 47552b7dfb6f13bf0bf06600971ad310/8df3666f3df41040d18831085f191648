@@ -23,11 +23,12 @@
       </UiFlex>
 
       <DataUserCharacter 
-        class="mb-4" 
         :character="character" 
+        :powers="powers"
         :user="fetchId"
         @use="changeUseCharacter"
         @sex="getCharacter"
+        @upgrade="changeUseEquipLevel"
         v-if="!loading.character && ((!!authStore.isLogin && authStore.profile._id == user._id) || (!!character && character.sex > 0))"
       />
 
@@ -137,6 +138,7 @@ const modal = ref({
 
 const user = ref(undefined)
 const character = ref(undefined)
+const powers = ref(undefined)
 
 const actions = [
   [{
@@ -176,11 +178,19 @@ const changeUseCharacter = (data) => {
   character.value[data.type].use = data.equip
 }
 
+const changeUseEquipLevel = (data) => {
+  if(!character.value) return
+  if(!character.value[data.type]) return
+
+  character.value[data.type].level = data.level
+}
+
 const getCharacter = async () => {
   try {
     loading.value.character = true
     const data = await useAPI('user/public/character/get', { _id: props.fetchId })
-    character.value = data
+    character.value = data.character
+    powers.value = data.powers
 
     loading.value.character = false
   }
