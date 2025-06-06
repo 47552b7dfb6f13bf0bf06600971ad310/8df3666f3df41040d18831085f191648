@@ -109,8 +109,8 @@ const drawAnimation = () => {
 }
 
 const runAnimation = () => {
-  let lastTime = 0
-  const interval = 1000 / 10
+  let lastTime = performance.now()
+  const interval = 1000 / 15
   function animate(time) {
     if (time - lastTime >= interval) {
       drawAnimation()

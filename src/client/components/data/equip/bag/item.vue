@@ -1,6 +1,6 @@
 <template>
   <UiFlex justify="center" class="inline-flex bg-gray rounded-2xl cursor-pointer overflow-hidden" @click="modal = true">
-    <DataCharacterView :source="data" view="info" />
+    <UiImg :src="`/character/${type}/${data[type].res}/item.png`" w="1" h="1" img-size="100px" class="z-[1]" />
 
     <UModal v-model="modal" :ui="{width: 'sm:max-w-[400px]'}">
       <UiContent :title="`${textFormat[type]}`" sub="Thông tin trang bị" class="bg-card rounded-2xl p-4">

@@ -4,7 +4,7 @@ import md5 from 'md5'
 const uploadImage = multer({ 
   storage: multer.diskStorage({
     destination: function(req, file, cb) {
-      cb(null, './dist/upload')
+      cb(null, './assets/upload')
     },
     filename: function(req, file, cb) {
       const hash = md5(file.originalname + '-' + Date.now())

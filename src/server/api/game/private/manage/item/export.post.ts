@@ -18,7 +18,7 @@ export default defineEventHandler(async (event) => {
     const items = await DB.GamePrivateItem.find({ game: game._id }).select('item_id item_name item_image -_id') as IDBGamePrivateItem[]
     const createdAt = formatDate(event, new Date())
     const filename = `json-items-${game.code}-${createdAt.day}${createdAt.month}${createdAt.year}-${createdAt.hour}-${createdAt.minute}-${createdAt.timestamp}.json`
-    const filePath = join('dist/json', filename)
+    const filePath = join('assets/json', filename)
     writeFileSync(filePath, JSON.stringify(items, null, 2))
 
     return resp(event, { result: { url: `/json/${filename}`, name: filename }})

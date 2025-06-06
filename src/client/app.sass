@@ -163,6 +163,7 @@ body
 // Equip
 .equip-level-0
   --equip-level-color: rgb(var(--color-gray-800))
+  box-shadow: none !important
 .equip-level-1
   --equip-level-color: #1892d4
 .equip-level-2
@@ -177,6 +178,7 @@ body
   position: relative
   overflow: hidden
   background: rgb(var(--color-gray-800)) !important
+  box-shadow: 0px 0px 12px 0px var(--equip-level-color)
   &::before
     content: ''
     position: absolute
@@ -187,7 +189,7 @@ body
   &::after
     content: ''
     position: absolute
-    inset: 1px
+    inset: 2px
     border-radius: inherit
     background: #09121b
 

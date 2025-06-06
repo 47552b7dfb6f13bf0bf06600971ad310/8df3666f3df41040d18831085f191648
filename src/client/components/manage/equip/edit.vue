@@ -47,7 +47,7 @@
           <div class="col-span-6">
             <UiText size="sm" color="gray" class="mb-2">Hoạt ảnh thông tin</UiText>
 
-            <DataCharacterView class="bg-gray rounded-2xl border-1 border-gray mb-2" :source="sourceInfo" view="info" />
+            <DataCharacterView id="CanvasInfo" class="bg-gray rounded-2xl border-1 border-gray mb-2" :source="sourceInfo" view="info" />
 
             <UFormGroup :label="`Offset X (${state.offset.info.x})`">
               <URange :min="-1000" :max="1000" v-model="state.offset.info.x" />
@@ -82,7 +82,8 @@
       </template>
     </UTabs>
 
-    <UiFlex justify="end" class="mt-4">
+    <UiFlex class="mt-4">
+      <UButton class="mr-auto" color="green" @click="createItemImage">Tạo ảnh</UButton>
       <UButton type="submit" @click="save">Lưu</UButton>
       <UButton color="gray" @click="emits('close')" class="ml-1">Đóng</UButton>
     </UiFlex>
@@ -118,6 +119,29 @@ const sourceInfo = computed(() => {
   result[type] = state.value
   return result 
 })
+
+const createItemImage = () => {
+  const canvas = document.getElementById('CanvasInfo')
+
+  canvas.toBlob(async (blob) => {
+    try {
+      const formData = new FormData()
+      formData.append('image', blob, `${state.value.type}-${state.value.res}.png`)
+
+      const response = await fetch('/api/equip/manage/image/item', {
+        method: 'POST',
+        body: formData
+      })
+      const responseJSON = await response.json()
+      if(responseJSON.code != 200) throw responseJSON.message
+
+      emits('close')
+    }
+    catch(e){
+      useNotify().error(err.toString())
+    }
+  })
+}
 
 const save = () => emits('save', state.value)
 </script>

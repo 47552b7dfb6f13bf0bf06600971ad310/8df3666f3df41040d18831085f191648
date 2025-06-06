@@ -4,17 +4,17 @@
       <UiFlex class="relative gap-2">
         <DataCharacterPower :powers="characterPower" class="absolute top-0 left-0" />
 
-        <UiFlex type="col" class="gap-4 absolute -left-4">
+        <UiFlex type="col" class="gap-4 absolute -left-4 z-0">
           <DataEquipUseItem class="relative left-4" :source="character.title?.use" :level="character.title?.level" :user="user" :power="characterPower['title']" type="title" @use="use" @buy="updatePower" @upgrade="upgrade" />
           <DataEquipUseItem class="relative" :source="character.body?.use" :level="character.body?.level" :user="user" :power="characterPower['body']" type="body" @use="use" @buy="updatePower" @upgrade="upgrade" />
           <DataEquipUseItem class="relative left-4" :source="character.weapon?.use" :level="character.weapon?.level" :user="user" :power="characterPower['weapon']" type="weapon" @use="use" @buy="updatePower" @upgrade="upgrade" />
         </UiFlex>
 
-        <UiFlex class="grow" style="aspect-ratio: 1 / 1; pointer-events: none; user-select: none;">
+        <UiFlex class="grow z-[1]" style="aspect-ratio: 1 / 1; pointer-events: none; user-select: none;">
           <DataCharacterView class="" :source="source" view="idle" v-if="!!source"/>
         </UiFlex>
 
-        <UiFlex type="col" class="gap-4 absolute -right-4">
+        <UiFlex type="col" class="gap-4 absolute -right-4 z-0">
           <DataEquipUseItem class="relative right-4" :source="character.wing?.use" :level="character.wing?.level" :user="user" :power="characterPower['wing']" type="wing" @use="use" @buy="updatePower" @upgrade="upgrade" />
           <DataEquipUseItem class="relative":source="character.pet?.use" :level="character.pet?.level" :user="user" :power="characterPower['pet']" type="pet" @use="use" @buy="updatePower" @upgrade="upgrade" />
           <DataEquipUseItem class="relative right-4" :source="character.circle?.use" :level="character.circle?.level" :user="user" :power="characterPower['circle']" type="circle" @use="use" @buy="updatePower" @upgrade="upgrade" />

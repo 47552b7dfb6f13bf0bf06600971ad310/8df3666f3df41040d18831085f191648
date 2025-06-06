@@ -6,7 +6,7 @@
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",
-    "start": "env-cmd node dist/server/core/index.mjs",
+    "start": "env-cmd node .output/server/index.mjs",
     "upgrade": "nuxi upgrade --force"
   },
   "devDependencies": {

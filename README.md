@@ -16,10 +16,6 @@ IPX_MAX_AGE = 31536000
 
 ## URL Rewrite
 ```
-location /upload {
-  alias /data/web/ENI/dist/upload;
-}
-
 location /items {
   alias /data/web/items;
 }

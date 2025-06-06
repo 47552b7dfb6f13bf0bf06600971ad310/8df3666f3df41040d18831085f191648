@@ -7,14 +7,6 @@ export default defineNuxtConfig({
 
   serverDir: join(__dirname, './src/server'),
 
-  nitro: {
-    output: { 
-      dir: './dist/server',
-      serverDir: './dist/server/core', 
-      publicDir: './dist/server/public' 
-    }
-  },
-
   runtimeConfig: {
     dev: process.env.NODE_ENV === 'production' ? false : true,
     mongoURI: process.env.MONGO_URI,
