@@ -7,7 +7,7 @@
       @click="modal = true"
     >
       <UiText class="text-[10px] z-[1]" align="center" color="gray" v-if="!data">{{ textFormat[type] }}</UiText>
-      <UiImg :src="`/character/${type}/${data[type].res}/item.png`" w="1" h="1" img-size="100px" class="w-full z-[1]" v-else />
+      <UiImg :src="`/character/${type}/${data[type].res}/item.png`" :w="1" :h="1" img-size="100px" class="w-full rounded-2xl overflow-hidden z-[1]" v-else />
     </UiFlex>
 
     <UModal v-model="modal" :ui="{width: 'sm:max-w-[400px]'}">

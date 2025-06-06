@@ -1,6 +1,6 @@
 <template>
   <UiFlex type="col" justify="center" class="inline-flex bg-gray rounded-2xl cursor-pointer overflow-hidden pb-3" @click="modal = true">
-    <UiImg :src="`/character/${type}/${data[type].res}/item.png`" w="1" h="1" img-size="100px" class="z-[1]" />
+    <UiImg :src="`/character/${type}/${data[type].res}/item.png`" :w="1" :h="1" img-size="100px" class="w-full overflow-hidden" />
 
     <UButton size="2xs" icon="i-game-icons-two-coins" :color="source.price == 0 ? 'rose' : 'gray'" class="px-4 max-w-full">
       {{ source.price > 0 ? useMoney().miniMoney(source.price) : 'Free' }}
