@@ -1,6 +1,6 @@
 <template>
   <UiContent title="Game Item" sub="Danh sách vật phẩm trò chơi">
-    <UiFlex class="mb-4 gap-1">
+    <UiFlex class="mb-2 gap-1">
       <USelectMenu v-model="page.size" :options="[5,10,20,50,100]"/>
       <UForm :state="page" @submit="page.current = 1, getList()" class="mr-auto">
         <UInput v-model="page.search" placeholder="Tìm kiếm..." icon="i-bx-search" size="sm" />
@@ -33,14 +33,14 @@
     </UCard>
 
     <!-- Pagination -->
-    <UiFlex justify="between" class="py-4">
+    <UiFlex justify="between" class="mt-2">
       <USelectMenu v-model="selectedColumns" :options="columns" multiple placeholder="Chọn cột" />
       <UPagination v-model="page.current" :page-count="page.size" :total="page.total" :max="5" />
     </UiFlex>
 
     <!-- Modal Multiple -->
     <UModal v-model="modal.multiple" preventClose>
-      <UForm :state="stateMultiple" @submit="multipleAction" class="p-4">
+      <UForm :state="stateMultiple" @submit="multipleAction" class="bg-card rounded-2xl p-4">
         <UFormGroup label="File Vật Phẩm">
           <UiUploadJson v-model="stateMultiple.items">
             <template #default="{ select, loading : loadingFile }">
@@ -49,16 +49,16 @@
           </UiUploadJson>
         </UFormGroup>
 
-        <UiFlex justify="end" class="mt-4">
-          <UButton type="submit" :loading="loading.multiple">Thêm</UButton>
-          <UButton color="gray" @click="modal.multiple = false" :disabled="loading.multiple" class="ml-1">Đóng</UButton>
+        <UiFlex justify="end" class="mt-4 gap-1">
+          <UButton type="submit" color="yellow" :loading="loading.multiple">Thêm</UButton>
+          <UButton color="gray" @click="modal.multiple = false" :disabled="loading.multiple">Đóng</UButton>
         </UiFlex>
       </UForm>
     </UModal>
 
     <!-- Modal Single -->
     <UModal v-model="modal.single" preventClose>
-      <UForm :state="stateSingle" @submit="singleAction" class="p-4">
+      <UForm :state="stateSingle" @submit="singleAction" class="bg-card rounded-2xl p-4">
         <UFormGroup label="ID">
           <UInput v-model="stateSingle.item_id" />
         </UFormGroup>
@@ -71,16 +71,16 @@
           <UInput v-model="stateSingle.item_image" />
         </UFormGroup>
 
-        <UiFlex justify="end" class="mt-4">
-          <UButton type="submit" :loading="loading.single">Thêm</UButton>
-          <UButton color="gray" @click="modal.single = false" :disabled="loading.single" class="ml-1">Đóng</UButton>
+        <UiFlex justify="end" class="mt-4 gap-1">
+          <UButton type="submit" color="yellow" :loading="loading.single">Thêm</UButton>
+          <UButton color="gray" @click="modal.single = false" :disabled="loading.single">Đóng</UButton>
         </UiFlex>
       </UForm>
     </UModal>
 
     <!-- Modal Edit -->
     <UModal v-model="modal.edit" preventClose>
-      <UForm :state="stateEdit" @submit="editAction" class="p-4">
+      <UForm :state="stateEdit" @submit="editAction" class="bg-card rounded-2xl p-4">
         <UFormGroup label="ID">
           <UInput v-model="stateEdit.item_id" />
         </UFormGroup>
@@ -93,9 +93,9 @@
           <UInput v-model="stateEdit.item_image" />
         </UFormGroup>
 
-        <UiFlex justify="end" class="mt-4">
-          <UButton type="submit" :loading="loading.edit">Thêm</UButton>
-          <UButton color="gray" @click="modal.edit = false" :disabled="loading.edit" class="ml-1">Đóng</UButton>
+        <UiFlex justify="end" class="mt-4 gap-1">
+          <UButton type="submit" color="yellow" :loading="loading.edit">Thêm</UButton>
+          <UButton color="gray" @click="modal.edit = false" :disabled="loading.edit">Đóng</UButton>
         </UiFlex>
       </UForm>
     </UModal>

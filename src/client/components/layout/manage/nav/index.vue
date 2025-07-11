@@ -168,10 +168,20 @@ const navItems = [
     ]
   },
   {
+    label: 'Nhiệm vụ',
+    icon: 'i-material-symbols-light-other-admission',
+    defaultOpen: false,
+    slot: 'tab-11',
+    children: [
+      { label: 'Danh sách', to: '/manage/@eni/mission' },
+      { label: 'Lịch sử', to: '/manage/@eni/mission/history' },
+    ]
+  },
+  {
     label: 'Cộng tác viên',
     icon: 'i-bxs-user-badge',
     defaultOpen: false,
-    slot: 'tab-11',
+    slot: 'tab-12',
     children: [
       { label: 'Cấp độ', to: '/manage/@eni/collab/level' },
       { label: 'Danh sách', to: '/manage/@eni/collab' },

@@ -1,6 +1,6 @@
 <template>
   <UiContent title="Payment" sub="Danh sách nạp tệ trò chơi">
-    <UiFlex class="mb-4 gap-1">
+    <UiFlex class="mb-2 gap-1">
       <USelectMenu v-model="page.size" :options="[5,10,20,50,100]" />
       <UForm :state="page" @submit="page.current = 1, getList()">
         <UiFlex class="gap-1">
@@ -64,14 +64,14 @@
     </UCard>
 
     <!-- Pagination -->
-    <UiFlex justify="between" class="mt-4">
+    <UiFlex justify="between" class="mt-2">
       <USelectMenu v-model="selectedColumns" :options="columns" multiple placeholder="Chọn cột" />
       <UPagination v-model="page.current" :page-count="page.size" :total="page.total" :max="4" />
     </UiFlex>
 
     <!-- Modal Success -->
     <UModal v-model="modal.success" preventClose>
-      <UForm :state="stateSuccess" @submit="successAction" class="p-4">
+      <UForm :state="stateSuccess" @submit="successAction" class="bg-card rounded-2xl p-4">
         <UFormGroup label="Mã giao dịch">
           <UInput :model-value="stateSuccess.code" readonly />
         </UFormGroup>
@@ -80,16 +80,16 @@
           <UInput :model-value="toMoney(stateSuccess.coin)" readonly />
         </UFormGroup>
 
-        <UiFlex justify="end" class="mt-4">
-          <UButton type="submit" :loading="loading.success">Duyệt</UButton>
-          <UButton color="gray" @click="modal.success = false" :disabled="loading.success" class="ml-1">Đóng</UButton>
+        <UiFlex justify="end" class="mt-4 gap-1">
+          <UButton type="submit" color="yellow" :loading="loading.success">Duyệt</UButton>
+          <UButton color="gray" @click="modal.success = false" :disabled="loading.success">Đóng</UButton>
         </UiFlex>
       </UForm>
     </UModal>
 
     <!-- Modal Refuse -->
     <UModal v-model="modal.refuse" preventClose>
-      <UForm :state="stateRefuse" @submit="refuseAction" class="p-4">
+      <UForm :state="stateRefuse" @submit="refuseAction" class="bg-card rounded-2xl p-4">
         <UFormGroup label="Mã giao dịch">
           <UInput :model-value="stateRefuse.code" readonly />
         </UFormGroup>
@@ -98,9 +98,9 @@
           <UTextarea v-model="stateRefuse.reason" />
         </UFormGroup>
 
-        <UiFlex justify="end" class="mt-4">
+        <UiFlex justify="end" class="mt-4 gap-1">
           <UButton type="submit" :loading="loading.refuse" color="red">Từ chối</UButton>
-          <UButton color="gray" @click="modal.refuse = false" :disabled="loading.refuse" class="ml-1">Đóng</UButton>
+          <UButton color="gray" @click="modal.refuse = false" :disabled="loading.refuse">Đóng</UButton>
         </UiFlex>
       </UForm>
     </UModal>

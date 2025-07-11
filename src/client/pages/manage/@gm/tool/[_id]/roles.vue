@@ -1,11 +1,11 @@
 <template>
   <UiContent title="Nhân Vật" sub="Quản lý nhân vật trò chơi">
-    <UiFlex class="mb-4 gap-1">
+    <UiFlex class="mb-2 gap-1">
       <USelectMenu v-model="page.size" :options="[5,10,20,50,100]" :disabled="!page.server_id"/>
 
       <UForm :state="page" @submit="page.current = 1, getList()" class="mr-auto">
-        <UiFlex>
-          <UInput v-model="page.search.key" placeholder="Tìm kiếm..." icon="i-bx-search" size="sm" class="mr-1" :disabled="!page.server_id" />
+        <UiFlex class="gap-1">
+          <UInput v-model="page.search.key" placeholder="Tìm kiếm..." icon="i-bx-search" size="sm" :disabled="!page.server_id" />
           <USelectMenu v-model="page.search.by" :options="['USER', 'ROLE', 'ID']" :disabled="!page.server_id" />
         </UiFlex>
       </UForm>
@@ -47,14 +47,14 @@
     </UCard>
 
     <!-- Pagination -->
-    <UiFlex justify="between" class="py-4">
+    <UiFlex justify="between" class="mt-2">
       <USelectMenu v-model="selectedColumns"  :options="columns" multiple placeholder="Chọn cột" />
       <UPagination v-model="page.current" :page-count="page.size" :total="page.total" :max="5"/>
     </UiFlex>
 
     <!-- Modal Send -->
     <UModal v-model="modal.send" prevent-close :ui="{width: 'sm:max-w-[800px]'}">
-      <UiContent title="Gửi Thư" sub="Gửi thư nhanh cho nhân vật" no-dot class="p-4">
+      <UiContent title="Gửi Thư" sub="Gửi thư nhanh cho nhân vật" no-dot class="bg-card rounded-2xl p-4">
         <template #more>
           <UButton icon="i-bx-x" class="ml-auto" size="2xs" color="gray" square @click="modal.send = false, resetStateSend()" :disabled="!!loading.send"></UButton>
         </template>
@@ -84,8 +84,8 @@
             <SelectGameToolItems v-model="stateSend.gift" :game="game.code" />
           </UFormGroup>
 
-          <UiFlex justify="end" class="gap-1">
-            <UButton type="submit" :loading="loading.send">Gửi</UButton>
+          <UiFlex justify="end" class="mt-4 gap-1">
+            <UButton type="submit" color="yellow" :loading="loading.send">Gửi</UButton>
             <UButton color="gray" @click="modal.send = false, resetStateSend()" :disabled="!!loading.send">Đóng</UButton>
           </UiFlex>
         </UForm>

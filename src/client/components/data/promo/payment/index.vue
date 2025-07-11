@@ -1,6 +1,6 @@
 <template>
   <UiFlex class="gap-2">
-    <DataPromoPaymentFrist class="grow" />
+    <DataPromoPaymentFirst class="grow" />
     <DataPromoPaymentSecond class="grow" />
   </UiFlex>
 </template>

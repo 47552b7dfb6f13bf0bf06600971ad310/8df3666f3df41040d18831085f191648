@@ -10,7 +10,7 @@
       <div v-else>
         <UiFlex type="col" class="gap-1">
           <DataPromoRegisterCoin v-if="promo.register.coin"/>
-          <DataPromoPaymentFrist v-if="promo.payment.first" />
+          <DataPromoPaymentFirst v-if="promo.payment.first" />
           <DataPromoPaymentSecond v-if="promo.payment.second"/>
           <DataPromoRegisterVoucher v-for="voucher in promo.vouchers" :key="voucher._id" :voucher="voucher" />
         </UiFlex>

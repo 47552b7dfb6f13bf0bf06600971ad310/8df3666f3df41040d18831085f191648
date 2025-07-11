@@ -1,6 +1,6 @@
 <template>
   <UiContent title="Player" sub="Danh sách người chơi">
-    <UiFlex class="mb-4 gap-1">
+    <UiFlex class="mb-2 gap-1">
       <USelectMenu v-model="page.size" :options="[5,10,20,50,100]" />
       <UForm :state="page" @submit="page.current = 1, getList()">
         <UInput v-model="page.search" placeholder="Tìm kiếm..." icon="i-bx-search" size="sm" />
@@ -42,28 +42,28 @@
     </UCard>
 
     <!-- Pagination -->
-    <UiFlex justify="between" class="mt-4">
+    <UiFlex justify="between" class="mt-2">
       <USelectMenu v-model="selectedColumns" :options="columns" multiple placeholder="Chọn cột" />
       <UPagination v-model="page.current" :page-count="page.size" :total="page.total" :max="4" />
     </UiFlex>
 
 		<!-- Modal Edit Auth-->
     <UModal v-model="modal.editAuth" preventClose>
-      <UForm :state="stateEditAuth" @submit="editAuthAction" class="p-4">
+      <UForm :state="stateEditAuth" @submit="editAuthAction" class="bg-card rounded-2xl p-4">
         <UFormGroup label="Khóa">
           <SelectAuthBlock v-model="stateEditAuth.block" />
         </UFormGroup>
 
-        <UiFlex justify="end" class="mt-4">
-          <UButton type="submit" :loading="loading.edit">Sửa</UButton>
-          <UButton color="gray" @click="modal.editAuth = false" :disabled="loading.edit" class="ml-1">Đóng</UButton>
+        <UiFlex justify="end" class="mt-4 gap-1">
+          <UButton type="submit" color="yellow" :loading="loading.edit">Sửa</UButton>
+          <UButton color="gray" @click="modal.editAuth = false" :disabled="loading.edit">Đóng</UButton>
         </UiFlex>
       </UForm>
     </UModal>
 
     <!-- Modal Edit Spend-->
     <UModal v-model="modal.editSpend" preventClose>
-      <UForm :state="stateEditSpend" @submit="editSpendAction" class="p-4" v-if="stateEditSpend.spend">
+      <UForm :state="stateEditSpend" @submit="editSpendAction" class="bg-card rounded-2xl p-4" v-if="stateEditSpend.spend">
         <UFormGroup label="Ngày">
           <UInput v-model="stateEditSpend.spend.day.coin" type="number" />
         </UFormGroup>
@@ -80,16 +80,16 @@
           <UInput v-model="stateEditSpend.spend.total.coin" type="number" />
         </UFormGroup>
 
-        <UiFlex justify="end" class="mt-4">
-          <UButton type="submit" :loading="loading.edit">Sửa</UButton>
-          <UButton color="gray" @click="modal.editSpend = false" :disabled="loading.edit" class="ml-1">Đóng</UButton>
+        <UiFlex justify="end" class="mt-4 gap-1">
+          <UButton type="submit" color="yellow" :loading="loading.edit">Sửa</UButton>
+          <UButton color="gray" @click="modal.editSpend = false" :disabled="loading.edit">Đóng</UButton>
         </UiFlex>
       </UForm>
     </UModal>
 
     <!-- Modal Edit Login-->
     <UModal v-model="modal.editLogin" preventClose>
-      <UForm :state="stateEditLogin" @submit="editLoginAction" class="p-4" v-if="stateEditLogin.login">
+      <UForm :state="stateEditLogin" @submit="editLoginAction" class="bg-card rounded-2xl p-4" v-if="stateEditLogin.login">
         <UFormGroup label="Tuần">
           <UInput v-model="stateEditLogin.login.week" type="number" />
         </UFormGroup>
@@ -102,9 +102,9 @@
           <UInput v-model="stateEditLogin.login.total" type="number" />
         </UFormGroup>
 
-        <UiFlex justify="end" class="mt-4">
-          <UButton type="submit" :loading="loading.edit">Sửa</UButton>
-          <UButton color="gray" @click="modal.editLogin = false" :disabled="loading.edit" class="ml-1">Đóng</UButton>
+        <UiFlex justify="end" class="mt-4 gap-1">
+          <UButton type="submit" color="yellow" :loading="loading.edit">Sửa</UButton>
+          <UButton color="gray" @click="modal.editLogin = false" :disabled="loading.edit">Đóng</UButton>
         </UiFlex>
       </UForm>
     </UModal>

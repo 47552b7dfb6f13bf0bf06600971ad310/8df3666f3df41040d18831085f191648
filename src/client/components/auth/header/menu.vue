@@ -8,7 +8,7 @@
       ></UButton>
 
       <template #panel>
-        <div class="w-[220px] max-w-sreen p-2">
+        <div class="bg-gray-1000 w-[220px] max-w-sreen p-2">
           <UiFlex
             v-for="(item, index) in menuUser" :key="index"
             class="MenuItem gap-2 text-gray-500 rounded-2xl"

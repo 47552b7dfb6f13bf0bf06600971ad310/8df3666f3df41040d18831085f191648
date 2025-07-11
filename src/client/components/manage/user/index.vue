@@ -42,6 +42,10 @@
           <template #device>
             <ManageUserDevice :user="user._id" />
           </template>
+
+          <template #mission>
+            <DataMissionHistory :user="user._id" />
+          </template>
         </UAccordion>
       </ManageUserBox>
     </UModal>
@@ -60,5 +64,6 @@ const menu = [
   { label: 'Bạn bè đã mời', slot: 'invite' },
   { label: 'Địa chỉ IP', slot: 'ip' },
   { label: 'Thiết bị', slot: 'device' },
+  { label: 'Nhiệm vụ', slot: 'mission' },
 ]
 </script>

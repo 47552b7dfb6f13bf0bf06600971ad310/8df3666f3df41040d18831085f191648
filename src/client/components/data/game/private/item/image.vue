@@ -4,12 +4,12 @@
     :img-w="Number(size) * 2"
     :img-h="Number(size) * 2"
     w="1" h="1" 
+    img-size="200px"
     class="
-      bg-gray-800
       transition-all 
       rounded-2xl 
       overflow-hidden
-      ring-1 ring-gray-800
+      p-1
     "
     :style="{
       minWidth: size ? `${size}px` : null,
@@ -26,7 +26,8 @@
 const props = defineProps({
   game: String,
   src: String,
-  size: { type: [ String, Number, undefined ], default: 55 }
+  size: { type: [ String, Number, undefined ], default: 55 },
+  type: { type: [ String ], default: 'item' },
 })
 
 const imgLink = computed(() => {
@@ -34,7 +35,7 @@ const imgLink = computed(() => {
     return `/items/${props.game}/${props.src}`
   }
   else {
-    return null
+    return `/images/icon/${props.type}.png`
   }
 })
 </script>

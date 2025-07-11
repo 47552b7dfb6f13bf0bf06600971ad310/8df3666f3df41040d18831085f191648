@@ -6,7 +6,13 @@
 
     <div>
       <UiText class="text-xs md:text-base mb-1">Đăng ký tặng xu</UiText>
-      <UiText class="text-xl md:text-3xl" weight="bold">{{ useMoney().toMoney(configStore.config.promo.register.coin) }}</UiText>
+      <UiText class="text-xl md:text-3xl" weight="bold">
+        <UiNumber :num="configStore.config.promo.register.coin">
+          <template #default="{ display }">
+            {{ useMoney().toMoney(display) }}
+          </template>
+        </UiNumber>
+      </UiText>
     </div>
   </UiFlex>
 </template>

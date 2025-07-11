@@ -39,7 +39,7 @@ export default defineEventHandler(async (event) => {
 
     // Create Collab Income
     price > 0 && await createCollabIncome(event, {
-      type: 'vip.update',
+      type: 'vip.upgrade',
       user: user._id,
       content: `Nâng VIP <b>${type == 'forever' ? 'Trọn Đời' : 'Tháng'}</b> cho tài khoản`,
       coin: price
@@ -49,7 +49,8 @@ export default defineEventHandler(async (event) => {
     logUser({
       user: user._id,
       action: `Dùng <b>${price.toLocaleString('vi-VN')} Xu</b> mua <b>VIP ${type == 'forever' ? 'Trọn Đời' : 'Tháng'}</b>`,
-      type: 'vip.upgrade',
+      type: `vip.upgrade`,
+      target: type
     })
 
     // Notify Global

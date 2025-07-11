@@ -33,6 +33,27 @@
           </UiFlex>
         </NuxtLink>
 
+        <NuxtLink to="/money/mission" class="@3xl:col-span-4 col-span-12">
+          <UiFlex class="color-purple-light bg-box-light rounded-2xl p-6 gap-4 @3xl:flex-col">
+            <UiImg :src="`/images/banner/mission.png`" w="1" h="1" img-size="500px" class="@3xl:min-w-[90%] @3xl:max-w-[90%] min-w-[30%] max-w-[30%] mx-auto" />
+
+            <div class="grow z-[1]">
+              <UiFlex type="col" class="mb-4" items="start">
+                <UiText weight="bold" color="purple" class="text-lg md:text-xl mb-1">
+                  Nhiệm Vụ
+                </UiText>
+                <UiText weight="semibold"class="text-sm md:text-base">
+                  Hoàn thành các nhiệm vụ để nhận về ECoin tương ứng
+                </UiText>
+              </UiFlex>
+            
+              <UiFlex justify="center">
+                <UButton color="gray" size="lg" class="grow justify-center bg-anim-light">XEM CHI TIẾT</UButton>
+              </UiFlex>
+            </div>
+          </UiFlex>
+        </NuxtLink>
+
         <NuxtLink to="/money/collab" class="@3xl:col-span-4 col-span-12">
           <UiFlex class="color-cyan-light bg-box-light rounded-2xl p-6 gap-4 @3xl:flex-col">
             <UiImg :src="`/images/banner/collab.png`" w="1" h="1" img-size="500px" class="@3xl:min-w-[90%] @3xl:max-w-[90%] min-w-[30%] max-w-[30%] mx-auto" />
@@ -53,27 +74,6 @@
             </div>
           </UiFlex>
         </NuxtLink>
-
-        <div to="#" class="@3xl:col-span-4 col-span-12" @click="useNotify().error('Tính năng đang bảo trì, vui lòng đợi thông báo mới nhất')">
-          <UiFlex class="color-purple-light bg-box-light rounded-2xl p-6 gap-4 @3xl:flex-col">
-            <UiImg :src="`/images/banner/affiliate.png`" w="1" h="1" img-size="500px" class="@3xl:min-w-[90%] @3xl:max-w-[90%] min-w-[30%] max-w-[30%] mx-auto" />
-
-            <div class="grow z-[1]">
-              <UiFlex type="col" class="mb-4" items="start">
-                <UiText weight="bold" color="purple" class="text-lg md:text-xl mb-1">
-                  Tiếp Thị Liên Kết
-                </UiText>
-                <UiText weight="semibold"class="text-sm md:text-base">
-                  Chia sẻ nền tảng bằng liên kết kiếm tiền lên các MXH
-                </UiText>
-              </UiFlex>
-            
-              <UiFlex justify="center">
-                <UButton color="gray" size="lg" class="grow justify-center bg-anim-light">XEM CHI TIẾT</UButton>
-              </UiFlex>
-            </div>
-          </UiFlex>
-        </div>
       </div>
     </UiContent>
   </div>

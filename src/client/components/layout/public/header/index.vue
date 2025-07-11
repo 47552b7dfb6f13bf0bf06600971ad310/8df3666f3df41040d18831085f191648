@@ -19,7 +19,7 @@
 
     <LazyAuthSign v-if="!authStore.isLogin" />
     <LazyAuthHeader v-else />
-    <SocketNavSlide class="flex lg:hidden" />
+    <SocketNavSlide class="flex lg:hidden" v-if="!authStore.isLogin" />
   </header>
 </template>
 

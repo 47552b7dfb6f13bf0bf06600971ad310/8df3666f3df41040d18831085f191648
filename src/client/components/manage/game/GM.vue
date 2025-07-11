@@ -6,7 +6,7 @@
 
     <SelectGameOs v-model="page.os" class="mb-1" :disabled="!!loading"/>
 
-    <UiFlex class="mb-4 gap-1 sm:flex-row flex-col" justify="between">
+    <UiFlex class="mb-2 gap-1 sm:flex-row flex-col" justify="between">
       <UForm :state="page" @submit="page.current = 1, getList()" class="grow w-full sm:w-auto">
         <UInput v-model="page.search" placeholder="Tìm kiếm..." icon="i-bx-search" size="md" :disabled="!!loading" />
       </UForm>
@@ -17,7 +17,9 @@
       </UiFlex>
     </UiFlex>
 
-    <DataGameList :loading="loading" :list="list" :os="page.os" :gm="true" max="6" @click="emits('to')"/>
+    <div class="HideScroll max-h-[60vh] overflow-y-auto">
+      <DataGameList :loading="loading" :list="list" :os="page.os" :gm="true" max="6" @click="emits('to')"/>
+    </div>
 
     <!-- Pagination -->
     <UiFlex justify="end" class="mt-4" v-if="page.total > page.size">

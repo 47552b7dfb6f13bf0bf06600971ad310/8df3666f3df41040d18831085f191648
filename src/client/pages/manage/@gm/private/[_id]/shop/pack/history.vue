@@ -1,6 +1,6 @@
 <template>
   <UiContent title="History Shop Pack" sub="Giao dịch mua gói vật phẩm của người chơi" no-dot>
-    <UiFlex class="mb-4 gap-1">
+    <UiFlex class="mb-2 gap-1">
       <USelectMenu v-model="page.size" :options="[5,10,20,50,100]" />
       <UForm :state="page" @submit="page.current = 1, getList()">
         <UInput v-model="page.search" placeholder="Tìm kiếm..." icon="i-bx-search" size="sm" />
@@ -40,7 +40,7 @@
     </UCard>
 
     <!-- Pagination -->
-    <UiFlex justify="between" class="mt-4">
+    <UiFlex justify="between" class="mt-2">
       <USelectMenu v-model="selectedColumns" :options="columns" multiple placeholder="Chọn cột" />
       <UPagination v-model="page.current" :page-count="page.size" :total="page.total" :max="4" />
     </UiFlex>

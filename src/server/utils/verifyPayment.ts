@@ -66,22 +66,22 @@ export default async (
   if(realStatus == 1){
     // Set Coin
     let realCoin = realMoney
-    let fristCoin = 0
+    let firstCoin = 0
     let secondCoin = 0
     
     // Thẻ cào chiết khấu 20%
     if(gate.type == 1) realCoin = Math.floor((realCoin * 80) / 100) 
 
-    // Check Frist Pay
-    const countFristPay = await DB.LogUser.count({ user: user._id, type: 'pay.first' })
-    if(countFristPay == 0) fristCoin = Math.floor((realCoin * config.promo.payment.first) / 100) // Tặng thêm Xu cho nạp lần đầu
+    // Check First Pay
+    const countFirstPay = await DB.LogUser.count({ user: user._id, type: 'pay.first' })
+    if(countFirstPay == 0) firstCoin = Math.floor((realCoin * config.promo.payment.first) / 100) // Tặng thêm Xu cho nạp lần đầu
 
     // Check Second Pay
     const countSecondPay = await DB.LogUser.count({ user: user._id, type: 'pay.second' })
-    if(countFristPay == 1 && countSecondPay == 0) secondCoin = Math.floor((realCoin * config.promo.payment.second) / 100) // Tặng thêm Xu cho nạp lần 2
+    if(countFirstPay == 1 && countSecondPay == 0) secondCoin = Math.floor((realCoin * config.promo.payment.second) / 100) // Tặng thêm Xu cho nạp lần 2
 
     // Sum Coin To Receive
-    const coinReceived = realCoin + fristCoin + secondCoin
+    const coinReceived = realCoin + firstCoin + secondCoin
 
     // Check Invite
     const invite = await DB.Invite
@@ -136,9 +136,9 @@ export default async (
       type: 'pay.success',
       target: realMoney.toString()
     })
-    if(fristCoin > 0) logUser({
+    if(firstCoin > 0) logUser({
       user: user._id, 
-      action: `Tặng thêm <b>${fristCoin.toLocaleString('vi-VN')} Xu</b> vì nạp lần đầu`,
+      action: `Tặng thêm <b>${firstCoin.toLocaleString('vi-VN')} Xu</b> vì nạp lần đầu`,
       type: 'pay.first',
       target: realMoney.toString()
     })

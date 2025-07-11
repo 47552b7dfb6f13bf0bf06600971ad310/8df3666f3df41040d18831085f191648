@@ -6,6 +6,8 @@
       </template>
     </DataPaymentFast>
 
+    <SocketNavSlide class="flex lg:hidden" />
+
     <AuthHeaderMenu />
   </UiFlex>
 </template>

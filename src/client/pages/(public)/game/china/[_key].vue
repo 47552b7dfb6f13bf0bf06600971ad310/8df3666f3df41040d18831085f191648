@@ -141,11 +141,7 @@
 
     <!--Payment-->
     <UModal v-model="modal.payment" prevent-close :ui="{width: 'sm:max-w-[800px]'}">
-      <DataGameChinaPayment
-        :game="game" 
-        @close="modal.payment = false" 
-        class="p-4"
-      /> 
+      <DataGameChinaPayment :game="game" @close="modal.payment = false" class="p-4" /> 
     </UModal>
 
     <!--Tutorial-->
@@ -159,7 +155,6 @@
 const runtimeConfig = useRuntimeConfig()
 const configStore = useConfigStore()
 const { miniMoney } = useMoney()
-const { img } = useMakeLink()
 const authStore = useAuthStore()
 const route = useRoute()
 const game = ref({
@@ -175,7 +170,7 @@ useSeoMeta({
   ogTitle: () => `${game.value.name} - Game China - ${configStore.config.name}`,
   description: () => game.value.description,
   ogDescription: () => game.value.description,
-  ogImage: () => img(game.value.image.banner), 
+  ogImage: () => new URL(game.value.image.banner || '/images/null.webp', runtimeConfig.public.clientURL),  
   ogImageAlt: () => game.value.name,
 })
 

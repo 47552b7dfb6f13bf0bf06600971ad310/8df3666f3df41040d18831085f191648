@@ -4,10 +4,10 @@
       <UButton icon="i-bx-x" class="ml-auto" size="2xs" color="gray" square @click="emits('close')"></UButton>
     </template>
 
-    <UiFlex class="mb-4 gap-1 md:gap-2">
+    <UiFlex class="mb-2 gap-1 md:gap-2">
       <UiButtonSelect
         v-for="(item, index) in tabs" :key="index"
-        class="p-4 md:min-w-[130px] min-w-auto grow md:grow-0"
+        class="p-4 min-w-[130px]"
         :active="tab == item.key"
         @click="tab = item.key"
       >

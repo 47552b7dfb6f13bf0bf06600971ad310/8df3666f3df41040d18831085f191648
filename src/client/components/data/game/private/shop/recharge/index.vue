@@ -2,7 +2,7 @@
   <DataEmpty v-if="!!game.paygame" class="h-[300px]" text="Trò chơi có thể nạp trực tiếp trong game" />
 
   <div v-else>
-    <UiFlex class="mb-4 md:gap-2 gap-1" justify="between">
+    <UiFlex class="mb-2 md:gap-2 gap-1" justify="between">
       <UForm :state="page" @submit="page.current = 1, getList()" class="w-full">
         <UInput v-model="page.search" placeholder="Tìm kiếm..." icon="i-bx-search" size="lg" />
       </UForm>
@@ -17,14 +17,14 @@
     <DataEmpty class="h-[300px]" text="Không có gói nạp nào bày bán" :loading="loading" v-if="!!loading || list.length == 0" />
 
     <div v-else>
-      <div class="grid grid-cols-12 gap-2">
+      <div class="@container grid grid-cols-12 gap-1 HideScroll max-h-[60vh] overflow-y-auto">
         <UCard 
           v-for="(item, index) in list" :key="index" 
-          class="bg-gray md:col-span-4 col-span-6 cursor-pointer" 
+          class="bg-gray @4xl:col-span-3 @xl:col-span-4 col-span-6 cursor-pointer" 
           @click="startBuy(item)"
         >
           <UiFlex type="col">
-            <UAvatar icon="i-bx-package" size="3xl"/>
+            <DataGamePrivateItemImage :src="null" size="80" :game="game.code" type="recharge" />
 
             <UiText mini weight="semibold" class="text-sm md:text-lg line-clamp-1 mt-4 mb-0.5 max-w-[90%]">
               {{ item.recharge_name || 'Gói Nạp' }}
@@ -40,7 +40,7 @@
       </div>
 
       <!-- Pagination -->
-      <UiFlex justify="center" class="mt-4" >
+      <UiFlex justify="end" class="mt-2" >
         <UPagination :max="5" :page-count="page.size" :total="page.total" v-model="page.current" />
       </UiFlex>
     </div>

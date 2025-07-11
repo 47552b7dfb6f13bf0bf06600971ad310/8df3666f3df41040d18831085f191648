@@ -4,7 +4,7 @@ import md5 from 'md5'
 const uploadImage = multer({ 
   storage: multer.diskStorage({
     destination: function(req, file, cb) {
-      cb(null, './assets/upload')
+      cb(null, './assets/json')
     },
     filename: function(req, file, cb) {
       const hash = md5(file.originalname + '-' + Date.now())
@@ -31,10 +31,10 @@ export default defineEventHandler(async (event) => {
     await callNodeListener(uploadImage.single('json'), event.node.req, event.node.res)
     // @ts-expect-error
     const file = event.node.req.file
-    const url = `/upload/${file.filename}`
+    const url = `/json/${file.filename}`
     return resp(event, { message: 'Tải file thành công', result: url })
   } 
   catch (e:any) {
-    return resp(event, { code: 400, message: e.toString() })
+    return resp(event, { result: false })
   }
 })

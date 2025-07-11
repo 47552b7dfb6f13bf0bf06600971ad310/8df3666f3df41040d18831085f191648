@@ -18,7 +18,7 @@
         <!-- <Setting /> -->
 
         <AuthHeader v-if="!!authStore.isLogin" />
-        <SocketNavSlide />
+        <SocketNavSlide class="hidden lg:flex" />
         <NuxtLink to="/">
           <UButton  icon="i-bx-power-off" color="red" size="lg" square />
         </NuxtLink>

@@ -16,6 +16,7 @@
       }"
       :autoplay="{ delay: 2500, disableOnInteraction: false }" 
       :loop="true"
+      class="rounded-2xl overflow-hidden"
     >
       <swiper-slide v-for="(item, idx) in list" :key="idx" >
         <DataGameBox :game="item" :os="os" />

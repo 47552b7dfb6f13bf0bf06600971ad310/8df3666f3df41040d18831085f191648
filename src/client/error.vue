@@ -11,7 +11,7 @@
 </template>
 
 <script setup>
-const { img } = useMakeLink()
+const runtimeConfig = useRuntimeConfig()
 const configStore = useConfigStore()
 const router = useRouter()
 const props = defineProps({
@@ -22,7 +22,7 @@ useSeoMeta({
   title: `${props.error.statusCode} - ${configStore.config.name}`,
   description: props.error.message || props.error.statusMessage,
   ogDescription: props.error.message || props.error.statusMessage,
-  ogImage: img(configStore.config.og_image),
+  ogImage: new URL(configStore.config.og_image || '/images/null.webp', runtimeConfig.public.clientURL), 
   ogImageAlt: props.error.statusCode,
   ogImageType: 'image/png',
   ogType: 'website',

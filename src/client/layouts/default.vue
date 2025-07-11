@@ -28,7 +28,7 @@
         lg:min-w-[300px] lg:max-w-[300px] lg:w-[300px]
         hidden lg:flex flex-col gap-2
       ">
-        <UiFlex type="col">
+        <UiFlex type="col" class="gap-1">
           <DataSocial class="w-full" />
           <DataDownload class="w-full"/>
         </UiFlex>

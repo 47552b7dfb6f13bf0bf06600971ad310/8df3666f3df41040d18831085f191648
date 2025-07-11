@@ -1,26 +1,28 @@
 <template>
-  <div v-if="list.length > 0">
-    <UCard class="bg-gray" :ui="{ 
-      body: { padding: 'p-0 sm:p-0' },
-    }">
-      <LoadingTable v-if="loading.load" />
+  <div>
+    <DataEmpty :loading="loading.load" text="Chưa có mã công khai nào" v-if="!!loading.load || list.length == 0" />
 
-      <UTable v-model:sort="page.sort" :columns="columns" :rows="list" :ui="{
-        th: { padding: 'py-2' },
-        td: { padding: 'py-2' },
+    <div v-else="list.length > 0">
+      <UCard class="bg-gray" :ui="{ 
+        body: { padding: 'p-0 sm:p-0' },
       }">
-        <template #code-data="{ row }">
-          <UBadge @click="fast(row.code)" size="md" variant="soft" class="cursor-pointer">
-            <UiText weight="bold" class="mr-1">{{ row.code }}</UiText>
-            <UiIcon name="i-bx-copy" />
-          </UBadge>
-        </template>
+        <UTable v-model:sort="page.sort" :columns="columns" :rows="list" :ui="{
+          th: { padding: 'py-2' },
+          td: { padding: 'py-2' },
+        }">
+          <template #code-data="{ row }">
+            <UBadge @click="fast(row.code)" size="md" variant="soft" class="cursor-pointer">
+              <UiText weight="bold" class="mr-1">{{ row.code }}</UiText>
+              <UiIcon name="i-bx-copy" />
+            </UBadge>
+          </template>
 
-        <template #gift-data="{ row }">
-          <DataGamePrivateItemList :items="row.gift" :size="45" :game="game.code" />
-        </template>
-      </UTable>
-    </UCard>
+          <template #gift-data="{ row }">
+            <DataGamePrivateItemList :items="row.gift" :size="45" :game="game.code" />
+          </template>
+        </UTable>
+      </UCard>
+    </div>
   </div>
 </template>
 

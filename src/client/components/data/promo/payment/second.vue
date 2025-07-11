@@ -6,7 +6,13 @@
 
     <div>
       <UiText class="text-xs md:text-base mb-1">Thưởng nạp lần 2</UiText>
-      <UiText class="text-xl md:text-3xl" weight="bold">{{ configStore.config.promo.payment.second }}%</UiText>
+      <UiText class="text-xl md:text-3xl" weight="bold">
+        <UiNumber :num="configStore.config.promo.payment.second">
+          <template #default="{ display }">
+            {{ display }}%
+          </template>
+        </UiNumber>
+      </UiText>
     </div>
   </UiFlex>
 </template>

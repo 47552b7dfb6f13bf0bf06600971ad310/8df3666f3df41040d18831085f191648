@@ -17,9 +17,8 @@
       </UiText>
     </NuxtLink>
 
-    <LazyAuthSign v-if="!authStore.isLogin" />
-    <LazyAuthHeader v-else />
-    <SocketNavSlide />
+    <AuthHeader v-if="!!authStore.isLogin" />
+    <SocketNavSlide class="hidden lg:flex" />
     <NuxtLink to="/">
       <UButton  icon="i-bx-power-off" color="red" size="lg" square />
     </NuxtLink>

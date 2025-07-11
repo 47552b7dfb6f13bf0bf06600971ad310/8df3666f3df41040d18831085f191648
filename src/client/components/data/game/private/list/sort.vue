@@ -10,7 +10,7 @@ const props = defineProps(['sort'])
 const list = ref([])
 const loading = ref(true)
 const page = ref({
-  size: 10,
+  size: 4,
   current: 1,
   sort: {
     column: props.sort,

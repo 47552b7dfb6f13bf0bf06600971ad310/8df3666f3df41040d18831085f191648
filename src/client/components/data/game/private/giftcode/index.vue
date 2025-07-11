@@ -8,10 +8,10 @@
       <UFormGroup name="code" label="Mã quà tặng">
         <UiFlex class="gap-1">
           <UInput class="grow" size="md" v-model="state.code" placeholder="Nhập mã tại đây" />
-          <UButton size="sm" class="color-blue-light bg-anim-light" :loading="loading.check" :disabled="!!loading.receive" @click="check">Kiểm tra</UButton>
+          <UButton size="md" class="color-blue-light bg-anim-light" :loading="loading.check" :disabled="!!loading.receive" @click="check">Kiểm tra</UButton>
         </UiFlex>
 
-        <UiText color="orange" size="xs" weight="semibold" class="italic pl-3 mt-2" v-if="!!giftcode">Xóa mã đã nhập để quay lại</UiText>
+        <UiText color="orange" size="xs" weight="semibold" class="italic pl-3 mt-2" v-if="!!giftcode">Xóa mã đã nhập để quay lại xem các mã công khai</UiText>
       </UFormGroup>
 
       <div v-if="!!giftcode">
@@ -38,8 +38,8 @@
         </UFormGroup>
       </div>
 
-      <UFormGroup label="Mã công khai">
-        <DataGamePrivateGiftcodePublic :game="game" @fast="fastCode" class="my-4" v-if="!giftcode" />
+      <UFormGroup label="Mã công khai" v-if="!giftcode">
+        <DataGamePrivateGiftcodePublic :game="game" @fast="fastCode" class="my-4" />
       </UFormGroup>
 
       <UiFlex class="gap-1">

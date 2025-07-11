@@ -1,6 +1,6 @@
 <template>
 	<UiContent title="Event" sub="Quản lý các sự kiện" no-dot>
-		<UiFlex class="mb-4 gap-1">
+		<UiFlex class="mb-2 gap-1">
       <USelectMenu v-model="page.size" :options="[5,10,20,50,100]"/>
 
       <USelectMenu 
@@ -46,13 +46,13 @@
 
 		<!-- Modal Add -->
     <UModal v-model="modal.add" preventClose>
-      <UForm :state="stateAdd" @submit="addAction" class="p-4">
+      <UForm :state="stateAdd" @submit="addAction" class="bg-card rounded-2xl p-4">
         <UFormGroup label="Yêu cầu">
           <UInput v-model="stateAdd.need" type="number" />
         </UFormGroup>
 
 				<UFormGroup label="Vật phẩm">
-          <SelectGamePrivateItemList v-model="stateAdd.gift" :game="game.code" />
+          <SelectGamePrivateItemList class="bg-gray" v-model="stateAdd.gift" :game="game.code" />
         </UFormGroup>
 
         <UFormGroup label="Hiển thị">
@@ -60,7 +60,7 @@
         </UFormGroup>
 
         <UiFlex justify="end" class="mt-4">
-          <UButton type="submit" :loading="loading.add">Thêm</UButton>
+          <UButton type="submit" color="yellow" :loading="loading.add">Thêm</UButton>
           <UButton color="gray" @click="modal.add = false" :disabled="loading.add" class="ml-1">Đóng</UButton>
         </UiFlex>
       </UForm>
@@ -68,13 +68,13 @@
 
     <!-- Modal Edit -->
     <UModal v-model="modal.edit" preventClose>
-      <UForm :state="stateEdit" @submit="editAction" class="p-4">
+      <UForm :state="stateEdit" @submit="editAction" class="bg-card rounded-2xl p-4">
         <UFormGroup label="Yêu cầu">
           <UInput v-model="stateEdit.need" type="number" />
         </UFormGroup>
 
 				<UFormGroup label="Vật phẩm">
-          <SelectGamePrivateItemList v-model="stateEdit.gift" :game="game.code" />
+          <SelectGamePrivateItemList class="bg-gray" v-model="stateEdit.gift" :game="game.code" />
         </UFormGroup>
 
         <UFormGroup label="Hiển thị">
@@ -82,14 +82,14 @@
         </UFormGroup>
 
         <UiFlex justify="end" class="mt-4">
-          <UButton type="submit" :loading="loading.edit">Sửa</UButton>
+          <UButton type="submit" color="yellow" :loading="loading.edit">Sửa</UButton>
           <UButton color="gray" @click="modal.edit = false" :disabled="loading.edit" class="ml-1">Đóng</UButton>
         </UiFlex>
       </UForm>
     </UModal>
 
     <!-- Pagination -->
-    <UiFlex justify="between" class="py-4">
+    <UiFlex justify="between" class="mt-2">
       <USelectMenu v-model="selectedColumns" :options="columns" multiple placeholder="Chọn cột" />
       <UPagination v-model="page.current" :page-count="page.size" :total="page.total" :max="4" />
     </UiFlex>

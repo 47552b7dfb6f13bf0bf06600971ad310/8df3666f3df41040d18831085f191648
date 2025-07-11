@@ -38,7 +38,7 @@
         <UiFlex justify="end" class="mt-4">
           <SelectPin v-model="stateEditInfo.pin" class="mr-auto" :disabled="!authStore.isAdmin" />
           
-          <UButton type="submit" :loading="loading.edit">Sửa</UButton>
+          <UButton type="submit" color="yellow" :loading="loading.edit">Sửa</UButton>
           <UButton color="gray" @click="modal.editInfo = false" :disabled="loading.edit" class="ml-1">Đóng</UButton>
         </UiFlex>
       </UForm>
@@ -57,7 +57,7 @@
           </UFormGroup>
 
           <UiFlex justify="end" class="mt-4">
-            <UButton type="submit" :loading="loading.edit">Sửa</UButton>
+            <UButton type="submit" color="yellow" :loading="loading.edit">Sửa</UButton>
             <UButton color="gray" @click="modal.editManager = false" :disabled="loading.edit" class="ml-1">Đóng</UButton>
           </UiFlex>
         </UForm>
@@ -96,7 +96,7 @@
         </UFormGroup>
 
         <UiFlex justify="end" class="mt-4">
-          <UButton type="submit" :loading="loading.edit">Sửa</UButton>
+          <UButton type="submit" color="yellow" :loading="loading.edit">Sửa</UButton>
           <UButton color="gray" @click="modal.editImage = false" :disabled="loading.edit" class="ml-1">Đóng</UButton>
         </UiFlex>
       </UForm>
@@ -122,7 +122,7 @@
         </UFormGroup>
 
         <UiFlex justify="end" class="mt-4">
-          <UButton type="submit" :loading="loading.edit">Sửa</UButton>
+          <UButton type="submit" color="yellow" :loading="loading.edit">Sửa</UButton>
           <UButton color="gray" @click="modal.editPlay = false" :disabled="loading.edit" class="ml-1">Đóng</UButton>
         </UiFlex>
       </UForm>
@@ -138,7 +138,7 @@
         <UForm :state="stateEditContent" @submit="editContentAction">
           <UiEditor class="bg-gray" v-model="stateEditContent.content"></UiEditor>
           <UiFlex justify="end" class="mt-4">
-            <UButton type="submit" :loading="loading.edit">Lưu</UButton>
+            <UButton type="submit" color="yellow" :loading="loading.edit">Lưu</UButton>
             <UButton color="gray" @click="modal.editContent = false" :disabled="loading.edit" class="ml-1">Đóng</UButton>
           </UiFlex>
         </UForm>

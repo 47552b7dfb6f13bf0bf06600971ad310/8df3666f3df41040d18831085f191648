@@ -12,8 +12,6 @@
       <UiText pointer size="sm" color="gray" @click="emit('up')">Đăng ký tài khoản ?</UiText>
       <UButton type="submit" size="lg" color="yellow" :loading="loading">Đăng Nhập</UButton>
     </UiFlex>
-
-    <!-- <AuthSignSocial class="mt-4" /> -->
   </UForm>
 </template>
 

@@ -21,6 +21,8 @@ import { DBSpend } from './spend'
 
 import { DBVoucher, DBVoucherHistory } from './voucher'
 
+import { DBMission, DBMissionHistory } from './mission'
+
 import { DBLogAdmin, DBLogUser } from './log'
 import { DBAdminIP, DBBlockDevice, DBBlockIP } from './ip'
 
@@ -112,6 +114,9 @@ export default (mongoose : Mongoose) : IGlobalDB => {
 
     Voucher: DBVoucher(mongoose),
     VoucherHistory: DBVoucherHistory(mongoose),
+
+    Mission: DBMission(mongoose),
+    MissionHistory: DBMissionHistory(mongoose),
 
     LogAdmin: DBLogAdmin(mongoose),
     LogUser: DBLogUser(mongoose),

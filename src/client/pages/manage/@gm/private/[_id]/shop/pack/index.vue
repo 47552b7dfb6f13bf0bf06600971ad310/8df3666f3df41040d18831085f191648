@@ -1,6 +1,6 @@
 <template>
   <UiContent title="Shop Pack" sub="Quản lý gói vật phẩm bày bán" no-dot>
-    <UiFlex class="mb-4 gap-1">
+    <UiFlex class="mb-2 gap-1">
       <USelectMenu v-model="page.size" :options="[5,10,20,50,100]" />
       <UForm :state="page" @submit="page.current = 1, getList()" class="mr-auto">
         <UInput v-model="page.search" placeholder="Tìm kiếm..." icon="i-bx-search" size="sm" />
@@ -56,14 +56,14 @@
     </UCard>
 
     <!-- Pagination -->
-    <UiFlex justify="between" class="py-4">
+    <UiFlex justify="between" class="mt-2">
       <USelectMenu v-model="selectedColumns" :options="columns" multiple placeholder="Chọn cột" />
       <UPagination v-model="page.current" :page-count="page.size" :total="page.total" :max="4" />
     </UiFlex>
 
     <!-- Modal Add -->
     <UModal v-model="modal.add" preventClose>
-      <UForm :state="stateAdd" @submit="addAction" class="p-4">
+      <UForm :state="stateAdd" @submit="addAction" class="bg-card rounded-2xl p-4">
         <UFormGroup label="Tên gói">
           <UInput v-model="stateAdd.name" />
         </UFormGroup>
@@ -77,28 +77,28 @@
         </UFormGroup>
 
 				<UFormGroup label="Vật phẩm">
-          <SelectGamePrivateItemList v-model="stateAdd.gift" :game="game.code" />
+          <SelectGamePrivateItemList class="bg-gray" v-model="stateAdd.gift" :game="game.code" />
         </UFormGroup>
 
         <UFormGroup label="Hiển thị">
           <SelectDisplay v-model="stateAdd.display" />
         </UFormGroup>
 
-        <UiFlex class="mt-4">
+        <UiFlex class="mt-4 gap-1">
           <UiFlex class="mr-auto">
             <UToggle v-model="stateAdd.pin" />
             <UiText size="xs" weight="bold" class="ml-2">Ghim</UiText>
           </UiFlex>
 
-          <UButton type="submit" :loading="loading.add">Thêm</UButton>
-          <UButton color="gray" @click="modal.add = false" :disabled="loading.add" class="ml-1">Đóng</UButton>
+          <UButton type="submit" color="yellow" :loading="loading.add">Thêm</UButton>
+          <UButton color="gray" @click="modal.add = false" :disabled="loading.add">Đóng</UButton>
         </UiFlex>
       </UForm>
     </UModal>
 
     <!-- Modal Edit -->
     <UModal v-model="modal.edit" preventClose>
-      <UForm :state="stateEdit" @submit="editAction" class="p-4">
+      <UForm :state="stateEdit" @submit="editAction" class="bg-card rounded-2xl p-4">
         <UFormGroup label="Tên gói">
           <UInput v-model="stateEdit.name" />
         </UFormGroup>
@@ -112,21 +112,21 @@
         </UFormGroup>
 
 				<UFormGroup label="Vật phẩm">
-          <SelectGamePrivateItemList v-model="stateEdit.gift" :game="game.code" />
+          <SelectGamePrivateItemList class="bg-gray" v-model="stateEdit.gift" :game="game.code" />
         </UFormGroup>
 
         <UFormGroup label="Hiển thị">
           <SelectDisplay v-model="stateEdit.display" />
         </UFormGroup>
 
-        <UiFlex class="mt-4">
+        <UiFlex class="mt-4 gap-1">
           <UiFlex class="mr-auto">
             <UToggle v-model="stateEdit.pin" />
             <UiText size="xs" weight="bold" class="ml-2">Ghim</UiText>
           </UiFlex>
 
-          <UButton type="submit" :loading="loading.edit">Sửa</UButton>
-          <UButton color="gray" @click="modal.edit = false" :disabled="loading.edit" class="ml-1">Đóng</UButton>
+          <UButton type="submit" color="yellow" :loading="loading.edit">Sửa</UButton>
+          <UButton color="gray" @click="modal.edit = false" :disabled="loading.edit">Đóng</UButton>
         </UiFlex>
       </UForm>
     </UModal>

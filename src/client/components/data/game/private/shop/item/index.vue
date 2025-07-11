@@ -1,6 +1,6 @@
 <template>
   <div>
-    <UiFlex class="mb-4 md:gap-2 gap-1" justify="between">
+    <UiFlex class="mb-2 md:gap-2 gap-1" justify="between">
       <UForm :state="page" @submit="page.current = 1, getList()" class="w-full">
         <UInput v-model="page.search" placeholder="Tìm kiếm..." icon="i-bx-search" size="lg" />
       </UForm>
@@ -15,10 +15,10 @@
     <DataEmpty class="h-[300px]" text="Không có vật phẩm bày bán" :loading="loading" v-if="!!loading || list.length == 0" />
 
     <div v-else>
-      <div class="grid grid-cols-12 gap-2">
+      <div class="@container grid grid-cols-12 gap-1 HideScroll max-h-[60vh] overflow-y-auto">
         <UCard 
           v-for="(shop, index) in list" :key="index" 
-          class="bg-gray md:col-span-4 col-span-6 cursor-pointer" 
+          class="bg-gray @4xl:col-span-3 @xl:col-span-4 col-span-6 cursor-pointer" 
           @click="startBuy(shop)"
         >
           <UiFlex type="col">
@@ -38,7 +38,7 @@
       </div>
 
       <!-- Pagination -->
-      <UiFlex justify="center" class="mt-4">
+      <UiFlex justify="end" class="mt-2">
         <UPagination :max="5" :page-count="page.size" :total="page.total" v-model="page.current" />
       </UiFlex>
     </div>

@@ -105,6 +105,9 @@
           </UAlert>
         </UiFlex>
 
+        <!--Content-->
+        <DataGameContent :game="game" class="@3xl:hidden mb-2"/>
+
         <!--News-->
         <DataGameNews :game="game" os="tool" />
       </div>
@@ -138,7 +141,6 @@ const runtimeConfig = useRuntimeConfig()
 const configStore = useConfigStore()
 const { miniMoney, toMoney } = useMoney()
 const { openNewTab } = useTo()
-const { img } = useMakeLink()
 const authStore = useAuthStore()
 const route = useRoute()
 const game = ref({
@@ -154,7 +156,7 @@ useSeoMeta({
   ogTitle: () => `${game.value.name} - Game Tool - ${configStore.config.name}`,
   description: () => game.value.description,
   ogDescription: () => game.value.description,
-  ogImage: () => img(game.value.image.banner), 
+  ogImage: () => new URL(game.value.image.banner || '/images/null.webp', runtimeConfig.public.clientURL), 
   ogImageAlt: () => game.value.name,
 })
 

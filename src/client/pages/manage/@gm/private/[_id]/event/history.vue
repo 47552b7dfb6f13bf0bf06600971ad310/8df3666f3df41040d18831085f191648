@@ -1,9 +1,9 @@
 <template>
   <UiContent title="History Event" sub="Lịch sử nhận toàn hệ thống">
-    <UiFlex class="mb-4">
-      <USelectMenu v-model="page.size" :options="[5,10,20,50,100]" class="mr-1"/>
+    <UiFlex class="mb-2 gap-1">
+      <USelectMenu v-model="page.size" :options="[5,10,20,50,100]"/>
 
-      <UForm :state="page" @submit="page.current = 1, getList()" class="mr-2">
+      <UForm :state="page" @submit="page.current = 1, getList()">
         <UInput size="sm" v-model="page.search" placeholder="Tìm kiếm tài khoản" />
       </UForm>
 
@@ -48,7 +48,7 @@
     </UCard>
 
     <!-- Pagination -->
-    <UiFlex justify="between" class="py-4">
+    <UiFlex justify="between" class="mt-2">
       <USelectMenu v-model="selectedColumns" :options="columns" multiple placeholder="Chọn cột" />
       <UPagination v-model="page.current" :page-count="page.size" :total="page.total" :max="4" />
     </UiFlex>

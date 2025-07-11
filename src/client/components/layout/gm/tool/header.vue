@@ -18,9 +18,8 @@
     </NuxtLink>
 
     <!-- <Setting /> -->
-    <LazyAuthSign v-if="!authStore.isLogin" />
-    <LazyAuthHeader v-else />
-    <SocketNavSlide />
+    <AuthHeader v-if="!!authStore.isLogin" />
+    <SocketNavSlide class="hidden lg:flex" />
     <NuxtLink :to="`/game/tool/${game.key}`">
       <UButton  icon="i-bx-power-off" color="red" size="lg" square />
     </NuxtLink>

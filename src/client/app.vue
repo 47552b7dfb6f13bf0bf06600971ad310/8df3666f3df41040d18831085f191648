@@ -18,7 +18,6 @@ const runtimeConfig = useRuntimeConfig()
 const appConfig = useAppConfig()
 const configStore = useConfigStore()
 const route = useRoute()
-const { img } = useMakeLink()
 
 // Meta Seo
 useSeoMeta({
@@ -26,7 +25,7 @@ useSeoMeta({
   ogTitle: () => configStore.config.name,
   description: () => configStore.config.description,
   ogDescription: () => configStore.config.description,
-  ogImage: () => img(configStore.config.og_image),
+  ogImage: () => new URL(configStore.config.og_image || '/images/null.webp', runtimeConfig.public.clientURL), 
   ogImageAlt: () => configStore.config.name,
   themeColor: () => colors[appConfig.ui.gray][900],
   ogType: 'website'

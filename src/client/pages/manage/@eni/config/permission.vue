@@ -497,6 +497,37 @@
         </UCard>
       </template>
 
+      <template #mission>
+        <UCard>
+          <UiFlex type="col" class="gap-1">
+            <UiFlex justify="between" class="gap-1 w-full">
+              <UiText color="gray" size="sm">Xem</UiText>
+              <SelectPermission v-model="state.mission.list" />
+            </UiFlex>
+
+            <UiFlex justify="between" class="gap-1 w-full">
+              <UiText color="gray" size="sm">Thêm</UiText>
+              <SelectPermission v-model="state.mission.add" />
+            </UiFlex>
+
+            <UiFlex justify="between" class="gap-1 w-full">
+              <UiText color="gray" size="sm">Sửa</UiText>
+              <SelectPermission v-model="state.mission.edit" />
+            </UiFlex>
+
+            <UiFlex justify="between" class="gap-1 w-full">
+              <UiText color="gray" size="sm">Xóa</UiText>
+              <SelectPermission v-model="state.mission.del" />
+            </UiFlex>
+
+            <UiFlex justify="between" class="gap-1 w-full">
+              <UiText color="gray" size="sm">Lịch sử</UiText>
+              <SelectPermission v-model="state.mission.history.list" />
+            </UiFlex>
+          </UiFlex>
+        </UCard>
+      </template>
+
       <template #forum>
         <UCard>
           <UiFlex type="col" class="gap-1 mb-2">
@@ -785,6 +816,16 @@ const state = ref({
     }
   },
 
+  mission: {
+    list: [],
+    add: [],
+    edit: [],
+    del: [],
+    history: {
+      list: [],
+    }
+  },
+
   forum: {
     category: {
       list: [],
@@ -836,6 +877,7 @@ const menu = [
   { label: 'Trò chơi', slot: 'game' },
   { label: 'Voucher', slot: 'voucher' },
   { label: 'Diễn đàn', slot: 'forum' },
+  { label: 'Nhiệm vụ', slot: 'mission' },
   { label: 'Cộng tác viên', slot: 'collab' },
 ]
 

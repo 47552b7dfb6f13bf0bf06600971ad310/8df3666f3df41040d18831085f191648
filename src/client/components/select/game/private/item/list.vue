@@ -27,7 +27,7 @@
 
     <!-- Modal Add -->
     <UModal v-model="modal.add" preventClose>
-      <UForm @submit="addAction" class="p-4">
+      <UForm @submit="addAction" class="bg-card rounded-2xl p-4">
         <UFormGroup label="Vật phẩm">
           <SelectGamePrivateItem v-model="stateAdd._id" v-model:itemData="stateAdd.item" :game="props.game" />
         </UFormGroup>
@@ -45,7 +45,7 @@
 
     <!-- Modal Edit -->
     <UModal v-model="modal.edit" preventClose>
-      <UForm @submit="editAction" class="p-4">
+      <UForm @submit="editAction" class="bg-card rounded-2xl p-4">
         <UFormGroup label="Vật phẩm">
           <UInput v-model="stateEdit.item_name" readonly />
         </UFormGroup>

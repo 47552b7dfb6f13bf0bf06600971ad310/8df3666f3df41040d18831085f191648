@@ -47,33 +47,14 @@ export default defineEventHandler(async (event) => {
       content: 'Vật phẩm nhận từ sự kiện trên Web',
       items: giftItem
     })
-      
-
-    // Pay Days
-    if(eventData.type == 'pay.running'){
-      const endDay = await DB.GamePrivateEvent.
-      findOne({ type: 'pay.running', game: game._id })
-      .select('need')
-      .sort({ need: -1 }) as IDBGamePrivateEvent
-
-      if(endDay.need == eventData.need){
-        await DB.GamePrivateUser.updateOne({ _id: userGame._id, game: game._id }, {
-          'pay.running.day': 0,
-          'pay.running.receive': 0,
-        })
-      }
-      else {
-        await DB.GamePrivateUser.updateOne({ _id: userGame._id, game: game._id }, {
-          'pay.running.receive': eventData.need
-        })
-      }
-    }
     
     // History
     await DB.GamePrivateEventHistory.create({
       game: game._id,
       user: userGame._id,
       event: eventData._id,
+      type: eventData.type,
+      need: eventData.need,
       server: server,
       role: role
     })

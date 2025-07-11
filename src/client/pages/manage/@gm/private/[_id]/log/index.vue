@@ -1,11 +1,11 @@
 <template>
   <UiContent title="Manager Log" sub="Hành động của quản trị viên" no-dot>
-    <UiFlex class="mb-4">
-      <USelectMenu v-model="page.size" :options="[5,10,20,50,100]" class="mr-1"/>
+    <UiFlex class="mb-2 gap-1">
+      <USelectMenu v-model="page.size" :options="[5,10,20,50,100]" />
 
       <UForm :state="page" @submit="page.current = 1, getList()">
-        <UiFlex>
-          <UInput v-model="page.search.key" placeholder="Tìm kiếm..." icon="i-bx-search" size="sm" class="mr-1" />
+        <UiFlex class="gap-1">
+          <UInput v-model="page.search.key" placeholder="Tìm kiếm..." icon="i-bx-search" size="sm" />
           <USelectMenu v-model="page.search.by" :options="['USER', 'LOG']" />
         </UiFlex>
       </UForm>
@@ -36,7 +36,7 @@
     </UCard>
 
     <!-- Pagination -->
-    <UiFlex justify="between" class="py-4">
+    <UiFlex justify="between" class="mt-2">
       <USelectMenu v-model="selectedColumns" :options="columns" multiple placeholder="Chọn cột" />
       <UPagination v-model="page.current" :page-count="page.size" :total="page.total" :max="4" />
     </UiFlex>

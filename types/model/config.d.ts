@@ -314,6 +314,16 @@ export interface IDBConfigPermission {
     }
   }
 
+  mission: {
+    list: Array<number>
+    add: Array<number>
+    edit: Array<number>
+    del: Array<number>
+    history: {
+      list: Array<number>
+    }
+  }
+
   forum: {
     category: {
       list: Array<number>

@@ -338,7 +338,8 @@ export interface IDBGamePrivateEventHistory {
   user: Types.ObjectId | IDBGamePrivateUser
   game: Types.ObjectId | IDBGamePrivate
   event: Types.ObjectId | IDBGamePrivateEvent
-
+  type: string
+  need: number
   server: string
   role: string
 }

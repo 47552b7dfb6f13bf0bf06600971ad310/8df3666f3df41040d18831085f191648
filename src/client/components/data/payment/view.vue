@@ -40,7 +40,7 @@
             <UiText size="xs" weight="semibold" color="gray" class="mb-1.5">Nội dung</UiText>
             <UiText size="sm" weight="bold">{{ payment.code || '...' }}</UiText>
           </div>
-          <UButton color="gray" size="xs" @click="startCopy(payment.gate?.code)">Copy</UButton>
+          <UButton color="gray" size="xs" @click="startCopy(payment.code)">Copy</UButton>
         </UiFlex>
       </div>
 

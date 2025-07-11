@@ -6,6 +6,7 @@
         :autoplay="{ delay: 3000, disableOnInteraction: false }" 
         :loop="true" 
         :slidesPerView="1"
+        class="rounded-2xl overflow-hidden"
       >
         <swiper-slide v-for="(item, idx) in list" :key="idx" class="rounded-2xl overflow-hidden" >
           <NuxtLink :to="`/news/${item.key}`">
@@ -13,7 +14,7 @@
               <UiFlex items="start">
                 <UiImg :src="item.og_image" w="16" h="9" img-size="700px" class="bg-card @3xl:max-w-[55%] @3xl:min-w-[55%] @3xl:w-[55%] w-full" />
 
-                <div class="@3xl:p-6 p-4 @3xl:relative absolute bottom-0 bg-gray-blur backdrop-blur-sm w-full">
+                <div class="@3xl:p-6 p-4 @3xl:relative absolute bottom-0 bg-gray-blur w-full grow">
                   <UiFlex class="@3xl:mb-4 mb-1 @2xl:mb-2 gap-2">
                     <UiText color="gray" weight="semibold" class="text-xs">
                       {{ item.category?.name || 'News' }}

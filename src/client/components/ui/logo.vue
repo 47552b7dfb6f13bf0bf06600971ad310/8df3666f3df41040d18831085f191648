@@ -3,7 +3,7 @@
     <img :src="configStore.config.logo_image" :style="{ height: `${imgSize}px` }" v-if="!!configStore.config.logo_image" />
     
     <UiText weight="bold" size="2xl" color="primary" class="italic" v-else>
-      {{nameArr.fristWord}}<span class="text-white text-base">{{nameArr.ensWord}}</span>
+      {{nameArr.firstWord}}<span class="text-white text-base">{{nameArr.ensWord}}</span>
     </UiText>
   </UiFlex>
 </template>
@@ -17,14 +17,14 @@ const props = defineProps({
 
 const nameArr = computed(() => {
   const sentence = configStore.config.name
-  if(!sentence) return { fristWord: "ENI", ensWord: "Studio" }
+  if(!sentence) return { firstWord: "ENI", ensWord: "Studio" }
 
   const words = sentence.split(" ")
-  if(words.length === 1) return { fristWord: words[0], ensWord: "" }
+  if(words.length === 1) return { firstWord: words[0], ensWord: "" }
 
-  const fristWord = words[0]
-  const filteredWords = words.filter(word => word !== fristWord)
+  const firstWord = words[0]
+  const filteredWords = words.filter(word => word !== firstWord)
   const ensWord = filteredWords.join("")
-  return { fristWord, ensWord }
+  return { firstWord, ensWord }
 })
 </script>

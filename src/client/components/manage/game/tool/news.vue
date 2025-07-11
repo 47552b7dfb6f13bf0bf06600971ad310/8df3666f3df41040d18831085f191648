@@ -1,6 +1,6 @@
 <template>
   <div>
-    <UiFlex class="mb-4">
+    <UiFlex class="mb-2">
       <USelectMenu v-model="page.size" :options="[5,10,20,50,100]" class="mr-auto"/>
       <UButton color="yellow" @click="modal.add = true">Thêm mới</UButton>
     </UiFlex>
@@ -31,24 +31,24 @@
     </UCard>
 
     <!-- Pagination -->
-    <UiFlex justify="between" class="mt-4">
+    <UiFlex justify="between" class="mt-2">
       <USelectMenu v-model="selectedColumns" :options="columns" multiple placeholder="Chọn cột" />
       <UPagination v-model="page.current" :page-count="page.size" :total="page.total" :max="4" />
     </UiFlex>
 
     <!-- Modal Add -->
     <UModal v-model="modal.add" preventClose :ui="{width: 'sm:max-w-[700px]' }">
-      <UForm :state="stateAdd" @submit="addAction" class="p-4">
+      <UForm :state="stateAdd" @submit="addAction" class="bg-card rounded-2xl p-4">
         <UFormGroup label="Tiêu đề">
           <UInput v-model="stateAdd.title" />
         </UFormGroup>
 
         <UFormGroup label="Nội dung">
-          <UiEditor v-model="stateAdd.content"></UiEditor>
+          <UiEditor class="bg-gray" v-model="stateAdd.content"></UiEditor>
         </UFormGroup>
 
         <UiFlex justify="end" class="mt-4">
-          <UButton type="submit" :loading="loading.add">Thêm</UButton>
+          <UButton type="submit" color="yellow" :loading="loading.add">Thêm</UButton>
           <UButton color="gray" @click="modal.add = false" :disabled="loading.add" class="ml-1">Đóng</UButton>
         </UiFlex>
       </UForm>
@@ -56,17 +56,17 @@
 
     <!-- Modal Edit -->
     <UModal v-model="modal.edit" preventClose :ui="{width: 'sm:max-w-[700px]' }">
-      <UForm :state="stateEdit" @submit="editAction" class="p-4">
+      <UForm :state="stateEdit" @submit="editAction" class="bg-card rounded-2xl p-4">
         <UFormGroup label="Tiêu đề">
           <UInput v-model="stateEdit.title" />
         </UFormGroup>
 
         <UFormGroup label="Nội dung">
-          <UiEditor v-model="stateEdit.content"></UiEditor>
+          <UiEditor class="bg-gray" v-model="stateEdit.content"></UiEditor>
         </UFormGroup>
 
         <UiFlex justify="end" class="mt-4">
-          <UButton type="submit" :loading="loading.edit">Sửa</UButton>
+          <UButton type="submit" color="yellow" :loading="loading.edit">Sửa</UButton>
           <UButton color="gray" @click="modal.edit = false" :disabled="loading.edit" class="ml-1">Đóng</UButton>
         </UiFlex>
       </UForm>

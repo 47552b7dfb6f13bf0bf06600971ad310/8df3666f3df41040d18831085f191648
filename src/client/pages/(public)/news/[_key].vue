@@ -32,7 +32,7 @@
 </template>
 
 <script setup>
-const { img } = useMakeLink()
+const runtimeConfig = useRuntimeConfig()
 const configStore = useConfigStore()
 const route = useRoute()
 const news = ref({
@@ -55,7 +55,7 @@ useSeoMeta({
   ogTitle: () => `${news.value.title} - Tin Tức - ${configStore.config.name}`,
   description: () => news.value.description,
   ogDescription: () => news.value.description,
-  ogImage: () => img(news.value.og_image), 
+  ogImage: () => new URL(news.value.og_image || '/images/null.webp', runtimeConfig.public.clientURL), 
   ogImageAlt: () => news.value.title,
   ogType: 'article',
   articleAuthor: () => news.value.updater.username,

@@ -57,11 +57,11 @@
         </UFormGroup>
 
         <UFormGroup label="Giá trị phiếu">
-          <UInput v-model="stateAdd.value" />
+          <UInput v-model="stateAdd.value" type="number" />
         </UFormGroup>
 
         <UFormGroup label="Giới hạn người dùng">
-          <UInput v-model="stateAdd.limit" />
+          <UInput v-model="stateAdd.limit" type="number" />
         </UFormGroup>
 
         <UFormGroup label="Thời gian hết hạn">
@@ -94,11 +94,11 @@
         </UFormGroup>
 
         <UFormGroup label="Giá trị phiếu">
-          <UInput v-model="stateEdit.value" />
+          <UInput v-model="stateEdit.value" type="number" />
         </UFormGroup>
 
         <UFormGroup label="Giới hạn người dùng">
-          <UInput v-model="stateEdit.limit" />
+          <UInput v-model="stateEdit.limit" type="number" />
         </UFormGroup>
 
         <UFormGroup label="Thời gian hết hạn">

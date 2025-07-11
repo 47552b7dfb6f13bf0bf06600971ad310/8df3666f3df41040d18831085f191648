@@ -19,7 +19,7 @@
     </UiContent>
 
     <UModal v-model="modal" prevent-close :ui="{width: 'sm:max-w-[800px]'}">
-      <UiContent :title="newsSelect.title" :sub="useDayJs().fromTime(newsSelect.createdAt)" class="p-4" no-dot>
+      <UiContent :title="newsSelect.title" :sub="useDayJs().fromTime(newsSelect.createdAt)" class="bg-card rounded-2xl p-4" no-dot>
         <template #more>
           <UButton icon="i-bx-x" color="gray" class="ml-auto" size="2xs" square @click="modal = false"></UButton>
         </template>

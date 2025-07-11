@@ -4,30 +4,42 @@
       <UTabs v-model="tab" :items="tabs" :content="false" class="w-full md:w-auto"></UTabs>
     </UiFlex>
 
-    <!-- Table -->
-		<UCard class="bg-gray" :ui="{ body: { padding: 'p-0 sm:p-0' }}">
-			<LoadingTable v-if="loading" />
+    <DataEmpty v-if="!!loading || list.length == 0" :loading="loading" text="Chưa có mốc thưởng ở sự kiện này" class="min-h-[300px]"></DataEmpty>
+    
+    <UiFlex type="col" class="gap-2" v-else>
+      <UCard v-for="(row, index) in list" :key="index" class="bg-gray ring-1 w-full overflow-hidden">
+        <UiFlex class="gap-6 pt-[25px]">
+          <UiText 
+            color="gray" 
+            weight="bold"
+            class="
+              absolute top-0 left-0
+              px-4 py-2
+              bg-gray-1000
+              rounded-br-2xl
+              text-sm
+            "
+          >
+            {{ toMoney(row.need) }} Ngày
+          </UiText>
 
-			<UTable :columns="columns" :rows="list">
-				<template #need-data="{ row }">
-					<UiText weight="semibold">{{ toMoney(row.need) }}</UiText>
-				</template>
+          <DataGamePrivateItemList :items="row.gift" :size="45" :game="game.code" />
 
-				<template #gift-data="{ row }">
-					<DataGamePrivateItemList :items="row.gift" class="max-w-[300px]" :size="45" :game="game.code" />
-				</template>
-
-				<template #actions-data="{ row }">
-					<UButton 
-            size="xs"
-            :color="statusFormat[row.status].color"
-            :disabled="row.status != 0"
-            :class="{ 'color-blue-light bg-anim-light': row.status == 0  }"
-            @click="openReceive(row)"
-          >{{ statusShow(row.status, row.need) }}</UButton>
-				</template>
-			</UTable>
-		</UCard>
+          <UButton 
+            :color="statusFormat[row.status].color" 
+            :disabled="row.status != 0" 
+            @click="openReceive(row)" 
+            class="
+              px-4 md:px-6 
+              absolute right-0 top-0
+              rounded-tl-none rounded-br-none
+            "
+          >
+            {{ statusShow(row.status, row.need) }}
+          </UButton>
+        </UiFlex>
+      </UCard>
+    </UiFlex>
 
     <UModal v-model="modal.receive" prevent-close>
       <DataGamePrivateEventReceive 
@@ -62,7 +74,7 @@ const tab = ref(0)
 const tabs = [
   { label: 'Tuần', key: 'login.week' },
   { label: 'Tháng', key: 'login.month' },
-  { label: 'Tổng', key: 'login.total' },
+  { label: 'Năm', key: 'login.total' },
 ]
 watch(() => tab.value, (val) => type.value = tabs[val]['key'])
 
@@ -78,11 +90,11 @@ const columns = [{
 
 const statusFormat = {
   '99': { color: 'gray', label: 'Lỗi' },
-  '-3': { color: 'gray', label: 'Chưa đăng nhập' },
-  '-2': { color: 'gray', label: 'Chưa đăng ký' },
-  '-1': { color: 'gray', label: 'Chưa đạt' },
-  '0': { color: 'primary', label: 'Nhận' },
-  '1': { color: 'gray', label: 'Đã nhận' },
+  '-3': { color: 'gray', label: 'Chưa Đăng Nhập' },
+  '-2': { color: 'gray', label: 'Chưa Đăng Ký' },
+  '-1': { color: 'gray', label: 'Chưa Đạt' },
+  '0': { color: 'primary', label: 'Nhận Ngay' },
+  '1': { color: 'gray', label: 'Đã Nhận' },
 }
 
 const statusShow = (number, need) => {

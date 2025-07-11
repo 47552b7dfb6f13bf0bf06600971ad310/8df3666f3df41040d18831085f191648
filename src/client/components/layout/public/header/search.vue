@@ -28,6 +28,7 @@
           placeholder="Nhập từ khóa tìm kiếm ?" 
           class="w-full mb-4" 
           :loading="loading" 
+          autofocus
         />
 
         <div class="max-h-[60vh] overflow-y-auto HideScroll">

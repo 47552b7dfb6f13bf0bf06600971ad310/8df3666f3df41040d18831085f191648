@@ -403,6 +403,8 @@ export const DBGamePrivateEventHistory = (mongoose : Mongoose) => {
     game: { type: mongoose.Schema.Types.ObjectId, ref: 'GamePrivate', index: true },
     event: { type: mongoose.Schema.Types.ObjectId, ref: 'GamePrivateEvent', index: true },
 
+    type: { type: String },
+    need: { type: Number, index: true },
     server: { type: String },
     role: { type: String },
   }, {

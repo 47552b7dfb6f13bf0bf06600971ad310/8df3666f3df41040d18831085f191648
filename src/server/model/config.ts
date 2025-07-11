@@ -256,6 +256,16 @@ export const DBConfigPermission = (mongoose : Mongoose) => {
       }
     },
 
+    mission: {
+      list: [{ type: Number }],
+      add: [{ type: Number }],
+      edit: [{ type: Number }],
+      del: [{ type: Number }],
+      history: {
+        list: [{ type: Number }],
+      }
+    },
+
     forum: {
       category: {
         list: [{ type: Number }],
@@ -424,6 +434,16 @@ export const DBConfigPermission = (mongoose : Mongoose) => {
       },
 
       voucher: {
+        list: [3,100],
+        add: [100],
+        edit: [100],
+        del: [100],
+        history: {
+          list: [3,100],
+        }
+      },
+
+      mission: {
         list: [3,100],
         add: [100],
         edit: [100],
