@@ -60,6 +60,8 @@ export interface IDBGamePrivate {
         expired: Date
       }
     }
+
+    wheel: number
   }
 
   statistic: {
@@ -139,6 +141,33 @@ export interface IDBGamePrivateUser {
     month: number
     total: number
     update: Date
+  }
+
+  egg: {
+    one: Array<{
+      index: number
+      history: Types.ObjectId | IDBGamePrivateEggHistory
+    }>
+    two: Array<{
+      index: number
+      history: Types.ObjectId | IDBGamePrivateEggHistory
+    }>
+    three: Array<{
+      index: number
+      history: Types.ObjectId | IDBGamePrivateEggHistory
+    }>
+    four: Array<{
+      index: number
+      history: Types.ObjectId | IDBGamePrivateEggHistory
+    }>
+    five: Array<{
+      index: number
+      history: Types.ObjectId | IDBGamePrivateEggHistory
+    }>
+    six: Array<{
+      index: number
+      history: Types.ObjectId | IDBGamePrivateEggHistory
+    }>
   }
 
   // Function
@@ -290,7 +319,7 @@ export interface IDBGamePrivateGiftcode {
   servers: Array<Types.ObjectId>
   users: Array<Types.ObjectId>
   gift: Array<{
-    item: Types.ObjectId | IDBItem,
+    item: Types.ObjectId | IDBGamePrivateItem,
     amount: number
   }>
   limit: number
@@ -324,7 +353,7 @@ export interface IDBGamePrivateEvent {
   type: string
   need: number
   gift: Array<{
-    item: Types.ObjectId | IDBItem,
+    item: Types.ObjectId | IDBGamePrivateItem,
     amount: number
   }>
   display: boolean
@@ -340,6 +369,115 @@ export interface IDBGamePrivateEventHistory {
   event: Types.ObjectId | IDBGamePrivateEvent
   type: string
   need: number
+  server: string
+  role: string
+}
+
+// Wheel
+export interface IDBGamePrivateWheel {
+  _id: Types.ObjectId
+  createdAt: Date
+  updatedAt: Date
+
+  game: Types.ObjectId | IDBGamePrivate
+
+  item: Types.ObjectId | IDBGamePrivateItem
+  amount: number
+  percent: number
+  display: boolean
+}
+
+export interface IDBGamePrivateWheelHistory {
+  _id: Types.ObjectId
+  createdAt: Date
+  updatedAt: Date
+
+  user: Types.ObjectId | IDBGamePrivateUser
+  game: Types.ObjectId | IDBGamePrivate
+  item: Types.ObjectId | IDBGamePrivateItem
+  amount: number
+  percent: number
+  server: string
+  role: string
+}
+
+// Egg
+export interface IDBGamePrivateEgg {
+  _id: Types.ObjectId
+  createdAt: Date
+  updatedAt: Date
+
+  game: Types.ObjectId | IDBGamePrivate
+
+  one: {
+    price: number
+    gift: Array<{
+      item: Types.ObjectId | IDBGamePrivateItem,
+      amount: number
+      percent: number
+    }>
+  }
+
+  two: {
+    price: number
+    gift: Array<{
+      item: Types.ObjectId | IDBGamePrivateItem,
+      amount: number
+      percent: number
+    }>
+  }
+
+  three: {
+    price: number
+    gift: Array<{
+      item: Types.ObjectId | IDBGamePrivateItem,
+      amount: number
+      percent: number
+    }>
+  }
+
+  four: {
+    price: number
+    gift: Array<{
+      item: Types.ObjectId | IDBGamePrivateItem,
+      amount: number
+      percent: number
+    }>
+  }
+
+  five: {
+    price: number
+    gift: Array<{
+      item: Types.ObjectId | IDBGamePrivateItem,
+      amount: number
+      percent: number
+    }>
+  }
+
+  six: {
+    price: number
+    gift: Array<{
+      item: Types.ObjectId | IDBGamePrivateItem,
+      amount: number
+      percent: number
+    }>
+  }
+}
+
+export interface IDBGamePrivateEggHistory {
+  _id: Types.ObjectId
+  createdAt: Date
+  updatedAt: Date
+
+  user: Types.ObjectId | IDBGamePrivateUser
+  game: Types.ObjectId | IDBGamePrivate
+
+  row: string
+  index: number
+
+  item: Types.ObjectId | IDBGamePrivateItem
+  amount: number
+  percent: number
   server: string
   role: string
 }

@@ -49,13 +49,21 @@ const menu = ref([
     { title: 'Vật phẩm', icon: 'i-bx-shopping-bag', to: `/manage/@gm/private/${route.params._id}/shop/item` },
     { title: 'Gói vật phẩm', icon: 'i-bx-package', to: `/manage/@gm/private/${route.params._id}/shop/pack` },
   ]},
+  { title: 'Giftcode', child: [
+    { title: 'Danh sách', icon: 'i-bx-barcode', to: `/manage/@gm/private/${route.params._id}/giftcode`},
+    { title: 'Lịch sử', icon: 'i-bx-time', to: `/manage/@gm/private/${route.params._id}/giftcode/history`},
+  ]},
   { title: 'Sự kiện', child: [
     { title: 'Danh sách', icon: 'i-bx-calendar', to: `/manage/@gm/private/${route.params._id}/event` },
     { title: 'Lịch sử', icon: 'i-bx-time', to: `/manage/@gm/private/${route.params._id}/event/history` },
   ]},
-  { title: 'Giftcode', child: [
-    { title: 'Danh sách', icon: 'i-bx-barcode', to: `/manage/@gm/private/${route.params._id}/giftcode`},
-    { title: 'Lịch sử', icon: 'i-bx-time', to: `/manage/@gm/private/${route.params._id}/giftcode/history`},
+  { title: 'Vòng quay', child: [
+    { title: 'Danh sách', icon: 'i-mynaui-wheel', to: `/manage/@gm/private/${route.params._id}/wheel` },
+    { title: 'Lịch sử', icon: 'i-bx-time', to: `/manage/@gm/private/${route.params._id}/wheel/history` },
+  ]},
+  { title: 'Đập trứng', child: [
+    { title: 'Cấu hình', icon: 'i-mdi-egg-easter', to: `/manage/@gm/private/${route.params._id}/egg` },
+    { title: 'Lịch sử', icon: 'i-bx-time', to: `/manage/@gm/private/${route.params._id}/egg/history` },
   ]}
 ])
 

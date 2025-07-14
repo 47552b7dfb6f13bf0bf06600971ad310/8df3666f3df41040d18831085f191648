@@ -14,6 +14,7 @@ export default defineEventHandler(async (event) => {
 
     const list = await DB.Gate
     .aggregate([
+      { $match: { collab: null }},
       {
         $lookup: {
           from: "Payment",

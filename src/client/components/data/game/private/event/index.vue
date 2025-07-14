@@ -4,24 +4,35 @@
       <UButton icon="i-bx-x" class="ml-auto" size="2xs" color="gray" square @click="emits('close')"></UButton>
     </template>
 
-    <UiFlex class="mb-2 gap-1 md:gap-2">
-      <UiButtonSelect
-        v-for="(item, index) in tabs" :key="index"
-        class="p-4 min-w-[130px]"
-        :active="tab == item.key"
-        @click="tab = item.key"
+    <ClientOnly>
+      <swiper-container 
+        :freeMode="true"
+        :spaceBetween="5"
+        slidesPerView="auto"
+        class="rounded-2xl overflow-hidden mb-2"
       >
-        <UiFlex type="col">
-          <UiIcon :name="item.icon" class="h-6 w-6 md:h-8 md:w-8 mb-1" />
-          <UiText mini class="text-white text-xs md:text-sm" weight="bold">{{ item.label }}</UiText>
-        </UiFlex>
-      </UiButtonSelect>
-    </UiFlex>
+        <swiper-slide v-for="(option, index) in tabs" :key="index" class="!inline-block !w-auto">
+          <UiButtonSelect
+            @click="select(option.key)"
+            :active="!!tab && tab == option.key"
+            class="p-4 min-w-[100px] md:min-w-[120px]"
+          >
+            <UiFlex type="col">
+              <UiIcon :name="option.icon" class="h-6 w-6 md:h-8 md:w-8 mb-1" />
+              <UiText weight="bold" class="text-white text-xs md:text-sm">{{ option.label }}</UiText>
+            </UiFlex>
+          </UiButtonSelect>
+        </swiper-slide>
+      </swiper-container >
+    </ClientOnly>
 
-    <div>
+    <Transition name="page" mode="out-in">
       <DataGamePrivateEventLogin :game="game" v-if="tab == 'login'" @start-receive="updatePrivateEventReceive" />
-      <DataGamePrivateEventSpend :game="game" v-if="tab == 'spend'" @start-receive="updatePrivateEventReceive" />
-    </div>
+      <DataGamePrivateEventSpend :game="game" v-else-if="tab == 'spend'" @start-receive="updatePrivateEventReceive" />
+      <!-- <DataGamePrivateEventRank :game="game" v-else-if="tab == 'rank'" @start-receive="updatePrivateEventReceive" /> -->
+      <DataGamePrivateEventWheel :game="game" v-else-if="tab == 'wheel'" @start-receive="updatePrivateEventReceive" />
+      <DataGamePrivateEventEgg :game="game" v-else-if="tab == 'egg'" @start-receive="updatePrivateEventReceive" />
+    </Transition>
   </UiContent>
 </template>
 
@@ -34,7 +45,13 @@ const tabs = computed(() => {
   const list = []
   list.push({ label: 'Điểm Danh', icon: 'i-mdi-human-hello-variant', key: 'login' })
   list.push({ label: 'Tiêu Xu', icon: 'i-ri-hand-coin-fill', key: 'spend' })
+  // list.push({ label: 'Đua TOP', icon: 'i-mdi-trending-up', key: 'rank' })
+  list.push({ label: 'Vòng Quay', icon: 'i-mynaui-wheel', key: 'wheel' })
+  list.push({ label: 'Đập Trứng', icon: 'i-mdi-egg-easter', key: 'egg' })
   return list
 })
-const tab = ref(tabs.value[0]['key'])
+const tab = ref(!!tabs.value[0] ? tabs.value[0].key : null)
+const select = (type) => {
+  tab.value = type
+}
 </script>

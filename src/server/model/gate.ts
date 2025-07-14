@@ -3,6 +3,7 @@ import type { IDBGate } from '~~/types'
 
 export const DBGate = (mongoose : Mongoose) => {
   const schema = new mongoose.Schema<IDBGate>({ 
+    collab: { type: mongoose.Schema.Types.ObjectId, ref: 'Collab', index: true },
     type: { type: Number, index: true }, // 1-Card, 2-Bank, 3-Momo
     name: { type: String },
     person: { type: String },

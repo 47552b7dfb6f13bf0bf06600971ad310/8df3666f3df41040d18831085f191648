@@ -21,7 +21,7 @@
             :style="`background: url(/images/rank/2.png) no-repeat center / 100% 100%; aspect-ratio: 9 / 15;`" 
             class="w-[30%] max-w-[30%] min-w-[30%] grow px-4 pb-[10%] relative top-[10px]"
           >
-            <UiText mini align="center" class="max-w-[99%]" size="sm" weight="semibold">{{ list3[1].role_name }}</UiText>
+            <UiText mini align="center" class="max-w-[99%]" size="sm" weight="semibold">{{ list3[1].username }}</UiText>
             <UiText mini align="center" class="max-w-[99%]" weight="semibold">
               {{  useMoney().miniMoney(list3[1].value) }}
             </UiText>
@@ -34,7 +34,7 @@
             :style="`background: url(/images/rank/1.png) no-repeat center / 100% 100%; aspect-ratio: 9 / 15;`" 
             class="w-[30%] max-w-[30%] min-w-[30%] grow px-4 pb-[10%] relative top-[-10px]"
           >
-            <UiText mini align="center" class="max-w-[99%]" size="sm" weight="semibold">{{ list3[0].role_name }}</UiText>
+            <UiText mini align="center" class="max-w-[99%]" size="sm" weight="semibold">{{ list3[0].username }}</UiText>
             <UiText mini align="center" class="max-w-[99%]" weight="semibold">
               {{ useMoney().miniMoney(list3[0].value) }}
             </UiText>
@@ -47,7 +47,7 @@
             :style="`background: url(/images/rank/3.png) no-repeat center / 100% 100%; aspect-ratio: 9 / 15;`" 
             class="w-[30%] max-w-[30%] min-w-[30%] grow px-4 pb-[10%] relative top-[10px]"
           >
-            <UiText mini align="center" class="max-w-[99%]" size="sm" weight="semibold">{{ list3[2].role_name }}</UiText>
+            <UiText mini align="center" class="max-w-[99%]" size="sm" weight="semibold">{{ list3[2].username }}</UiText>
             <UiText mini align="center" class="max-w-[99%]" weight="semibold">
               {{ useMoney().miniMoney(list3[2].value) }}
             </UiText>
@@ -62,7 +62,7 @@
           </UBadge>
 
           <div class="grow">
-            <UiText mini size="md" weight="semibold" class="max-w-[70%]">{{ item.role_name }}</UiText>
+            <UiText mini size="md" weight="semibold" class="max-w-[70%]">{{ item.username }}</UiText>
           </div>
 
           <UBadge color="gray" variant="soft" class="ml-auto px-3" size="md">

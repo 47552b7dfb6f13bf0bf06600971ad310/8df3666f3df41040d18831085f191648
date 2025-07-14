@@ -26,6 +26,9 @@ export const DBMission = (mongoose : Mongoose) => {
       vip: { type: String },
     },
     ecoin: { type: Number, index: true },
+    collab: {
+      use: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Collab' }],
+    },
     display: { type: Boolean, default: true }
   }, {
     timestamps: true

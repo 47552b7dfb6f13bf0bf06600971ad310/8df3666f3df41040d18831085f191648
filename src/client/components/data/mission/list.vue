@@ -122,7 +122,7 @@ const columns = [
 ]
 
 const page = ref({
-  size: 5,
+  size: 10,
   current: 1,
   sort: {
     column: 'createdAt',

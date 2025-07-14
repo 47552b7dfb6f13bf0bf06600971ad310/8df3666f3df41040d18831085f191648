@@ -43,13 +43,13 @@
           </UBadge>
         </template>
 
-        <template #verify_person-data="{ row }">
-          <span v-if="!row.verify_person">...</span>
-          <ManageUser v-else :user="row.verify_person" />
+        <template #[`verify.person-data`]="{ row }">
+          <span v-if="!row.verify || (!!row.verify && !row.verify.person)">...</span>
+          <ManageUser v-else :user="row.verify.person" />
         </template>
 
-        <template #verify_time-data="{ row }">
-          {{ row.verify_time ? useDayJs().displayFull(row.verify_time) : '...' }}
+        <template #[`verify.time-data`]="{ row }">
+          {{ (!!row.verify && !!row.verify.time) ? useDayJs().displayFull(row.verify.time) : '...' }}
         </template>
 
         <template #createdAt-data="{ row }">
@@ -146,10 +146,10 @@ const columns = [
     label: 'Trạng thái',
     sortable: true
   },{
-    key: 'verify_person',
+    key: 'verify.person',
     label: 'Người duyệt',
   },{
-    key: 'verify_time',
+    key: 'verify.time',
     label: 'Ngày duyệt',
     sortable: true
   },{

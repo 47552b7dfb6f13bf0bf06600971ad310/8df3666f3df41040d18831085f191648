@@ -25,10 +25,7 @@ export default defineEventHandler(async (event) => {
 
     delete body['game']
     delete body['_id']
-    const giftFormat = gift.map((i : any) => ({
-      item: i._id,
-      amount: i.amount,
-    }))
+    const giftFormat = gift.map((i : any) => ({ item: i.item._id, amount: i.amount }))
     body.gift = giftFormat
     body.code = upCode
 

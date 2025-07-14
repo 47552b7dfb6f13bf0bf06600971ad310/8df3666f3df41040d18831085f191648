@@ -15,10 +15,7 @@ export default defineEventHandler(async (event) => {
     if(!game) throw 'Trò chơi không tồn tại'
     await getAuthGM(event, auth, game)
 
-    const giftFormat = gift.map((i : any) => ({
-      item: i._id,
-      amount: i.amount,
-    }))
+    const giftFormat = gift.map((i : any) => ({ item: i.item._id, amount: i.amount}))
     body.gift = giftFormat
 
     await DB.GamePrivateShopPack.create(body)

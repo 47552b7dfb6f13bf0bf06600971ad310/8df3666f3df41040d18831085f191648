@@ -21,47 +21,11 @@ export default defineEventHandler(async (event) => {
     }
 
     const list = await DB.GamePrivateGiftcode
-    .aggregate([
-      { $match: match },
-      {
-        $lookup: {
-          from: "GamePrivateItem",
-          localField: "gift.item",
-          foreignField: "_id",
-          pipeline: [{
-            $project: { item_name: 1, item_image: 1, item_id: 1 },
-          }],
-          as: "giftdata"
-        }
-      },
-      {
-        $addFields: {
-          gift: {
-            $map: {
-              input: '$giftdata',
-              in: {
-                _id: '$$this._id',
-                item_id: '$$this.item_id',
-                item_name: '$$this.item_name',
-                item_image: '$$this.item_image',
-                amount: { 
-                  $getField: {
-                    field: 'amount',
-                    input: {
-                      $arrayElemAt: [ '$gift', { $indexOfArray: ['$gift.item', '$$this._id']} ]
-                    }
-                  }
-                },
-              }
-            }
-          }
-        }
-      },
-      { $project: { giftdata: 0 }},
-      { $sort: sorting },
-      { $skip: (current - 1) * size },
-      { $limit: size }
-    ])
+    .find(match)
+    .populate({ path: 'gift.item', select: 'item_id item_name item_image type'})
+    .sort(sorting)
+    .skip((current - 1) * size)
+    .limit(size)
 
     const total = await DB.GamePrivateGiftcode.count(match)
     return resp(event, { result: { list, total } })

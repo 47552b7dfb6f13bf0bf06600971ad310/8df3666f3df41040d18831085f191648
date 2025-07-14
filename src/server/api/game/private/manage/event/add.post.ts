@@ -17,10 +17,7 @@ export default defineEventHandler(async (event) => {
     const checkNeed = await DB.GamePrivateEvent.findOne({ need: need, type: type, game: game._id }).select('_id') as IDBGamePrivateEvent
     if(!!checkNeed) throw 'Điều kiện mốc đã tồn tại'
 
-    const giftFormat = gift.map((i : any) => ({
-      item: i._id,
-      amount: i.amount,
-    }))
+    const giftFormat = gift.map((i : any) => ({ item: i.item._id, amount: i.amount }))
     body.gift = giftFormat
 
     await DB.GamePrivateEvent.create(body)

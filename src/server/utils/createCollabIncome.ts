@@ -53,6 +53,12 @@ export default async (event: H3Event, data : IData) : Promise<boolean> => {
     // Create Income
     await DB.CollabIncome.create(result)
     await DB.Collab.updateOne({ _id: collab._id }, { $inc: { 'money': result.money }})
+    await DB.CollabNotify.create({
+      collab: collab._id,
+      title: 'Số dư tài khoản đã được cập nhật',
+      content: `Đã được thêm <b>${result.money.toLocaleString("vi-VN")}</b> vào số dư tài khoản của mình`,
+      type: 'income.add'
+    })
     return Promise.resolve(true)
   }
   catch(e){

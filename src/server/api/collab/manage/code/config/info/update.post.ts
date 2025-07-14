@@ -9,7 +9,7 @@ export default defineEventHandler(async (event) => {
 
     const collab = await DB.Collab.findOne({ code: code }).select('user info privilege') as IDBCollab
     if(!collab) throw 'Dữ liệu cộng tác viên không tồn tại'
-    if(auth.type < 100 && collab.user.toString() != auth._id.toString()) throw 'Bạn không có quyền truy cập'
+    if(auth.type < 100 && collab.user.toString() != auth._id.toString()) throw 'Bạn không có quyền chỉnh sửa thông tin trang cộng tác viên'
     if(auth.type < 100 && !collab.privilege.edit_info) throw 'Bạn không có quyền chỉnh sửa thông tin trang cộng tác viên'
 
     delete body['code']

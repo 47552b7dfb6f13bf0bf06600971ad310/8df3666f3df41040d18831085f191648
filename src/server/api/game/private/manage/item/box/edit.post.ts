@@ -21,10 +21,7 @@ export default defineEventHandler(async (event) => {
       if(!!getByName) throw 'Tên gói đã tồn tại'
     }
 
-    const giftFormat = gift.map((i : any) => ({
-      item: i._id,
-      amount: i.amount
-    }))
+    const giftFormat = gift.map((i : any) => ({ item: i.item._id, amount: i.amount }))
     body.gift = giftFormat
     await DB.GamePrivateItemBox.updateOne({ _id: itembox._id }, body)
 

@@ -12,13 +12,14 @@ export default defineEventHandler(async (event) => {
     const sorting : any = {}
     sorting[sort.column] = sort.direction == 'desc' ? -1 : 1
 
-    const match : any = { }
+    const match : any = {}
     if(!!search){
       match['code'] = { $regex : search, $options : 'i' }
     }
 
     const list = await DB.Collab
     .aggregate([
+      { $match: match },
       {
         $lookup: {
           from: "CollabLevel",

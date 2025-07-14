@@ -67,6 +67,11 @@
         </UiFlex>
 
         <UiFlex type="col" class="col-span-4 bg-gray-1000 rounded-2xl p-2" justify="center">
+          <UiText size="sm" weight="semibold" align="center" class="mb-1">{{ toMoney(game.rate.wheel) }} Xu / lượt</UiText>
+          <UiText color="gray" size="xs" align="center">Vòng quay</UiText>
+        </UiFlex>
+
+        <UiFlex type="col" class="col-span-4 bg-gray-1000 rounded-2xl p-2" justify="center">
           <UiText size="sm" weight="semibold" align="center" class="mb-1">{{ useDayJs().fromTime(game.updatedAt) }}</UiText>
           <UiText color="gray" size="xs" align="center">Cập nhật</UiText>
         </UiFlex>

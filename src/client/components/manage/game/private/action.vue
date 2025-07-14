@@ -209,6 +209,10 @@
           <UInput v-model="stateEditRate.shop.vip.forever" type="number" placeholder="Tỷ lệ (%)" />
         </UFormGroup>
 
+        <UFormGroup label="Giá chơi Vòng Quay">
+          <UInput v-model="stateEditRate.wheel" type="number" />
+        </UFormGroup>
+
         <UiFlex justify="end" class="mt-4">
           <UButton type="submit" color="yellow" :loading="loading.edit">Sửa</UButton>
           <UButton color="gray" @click="modal.editRate = false" :disabled="loading.edit" class="ml-1">Đóng</UButton>
@@ -338,7 +342,8 @@ const stateEditRate = ref({
       month: 0,
       forever: 0
     }
-  }
+  },
+  wheel: null
 })
 const stateEditManager = ref({
   _id: null,
@@ -467,6 +472,7 @@ const actions = (row) => [
       stateEditRate.value.shop.limit.expired = row.rate?.shop?.limit?.expired
       stateEditRate.value.shop.vip.month = row.rate?.shop?.vip?.month
       stateEditRate.value.shop.vip.forever = row.rate?.shop?.vip?.forever
+      stateEditRate.value.wheel = row.rate?.wheel
       modal.value.editRate = true
     }
   },{

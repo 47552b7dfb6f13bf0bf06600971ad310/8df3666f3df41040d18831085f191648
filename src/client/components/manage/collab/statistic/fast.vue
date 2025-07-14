@@ -82,7 +82,6 @@
 
 <script setup>
 const props = defineProps(['collab'])
-const socketStore = useSocketStore()
 const { toMoney } = useMoney()
 
 const loading = ref(false)
@@ -107,11 +106,8 @@ const type = computed(() => {
 
 const getData = async () => {
   try {
-    let url = 'statistic/fast'
-    if(!!props.collab) url = 'collab/manage/code/statistic/fast'
-
     loading.value = true
-    const get = await useAPI(url, { 
+    const get = await useAPI('collab/manage/code/statistic/fast', { 
       type: type.value,
       collab: props.collab
     })

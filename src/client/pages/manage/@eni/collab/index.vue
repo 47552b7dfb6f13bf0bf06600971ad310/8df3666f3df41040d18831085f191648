@@ -31,16 +31,24 @@
           <ManageUser :user="row.user" />
         </template>
 
+        <template #[`gatepay-data`]="{ row }">
+          <UiText color="cyan" weight="semibold">{{ useMoney().toMoney(row.gatepay || 0) }}</UiText>
+        </template>
+
+        <template #[`money-data`]="{ row }">
+          <UiText color="yellow" weight="semibold">{{ useMoney().toMoney(row.money || 0) }}</UiText>
+        </template>
+
         <template #[`statistic.member-data`]="{ row }">
           {{ useMoney().toMoney(row.statistic.member || 0) }}
         </template>
 
         <template #[`statistic.payment-data`]="{ row }">
-          {{ useMoney().toMoney(row.statistic.payment || 0) }}
+          <UiText color="primary" weight="semibold">{{ useMoney().toMoney(row.statistic.payment || 0) }}</UiText>
         </template>
 
         <template #[`statistic.income-data`]="{ row }">
-          {{ useMoney().toMoney(row.statistic.income || 0) }}
+          <UiText color="green" weight="semibold">{{ useMoney().toMoney(row.statistic.income || 0) }}</UiText>
         </template>
 
         <template #updatedAt-data="{ row }">
@@ -130,6 +138,20 @@
         </UiFlex>
       </UForm>
     </UModal>
+
+    <!-- Modal Gatepay -->
+    <UModal v-model="modal.gatepay" preventClose>
+      <UForm :state="stateGatepay" @submit="gatepayAction" class="bg-card rounded-2xl p-4">
+        <UFormGroup label="Thêm số dư thanh toán">
+          <UInput v-model="stateGatepay.money" type="number" />
+        </UFormGroup>
+
+        <UiFlex justify="end" class="mt-6">
+          <UButton type="submit" :loading="loading.edit">Lưu</UButton>
+          <UButton color="gray" @click="modal.gatepay = false" :disabled="loading.edit" class="ml-1">Đóng</UButton>
+        </UiFlex>
+      </UForm>
+    </UModal>
   </UiContent>
 </template>
 
@@ -153,10 +175,6 @@ const columns = [
     key: 'user',
     label: 'CTV',
   },{
-    key: 'money',
-    label: 'Số dư',
-    sortable: true
-  },{
     key: 'statistic.member',
     label: 'Tài khoản',
     sortable: true
@@ -167,6 +185,14 @@ const columns = [
   },{
     key: 'statistic.income',
     label: 'Tổng thu nhập',
+    sortable: true
+  },{
+    key: 'gatepay',
+    label: 'Số dư thanh toán',
+    sortable: true
+  },{
+    key: 'money',
+    label: 'Số dư',
     sortable: true
   },{
     key: 'actions',
@@ -210,12 +236,17 @@ const statePrivilege = ref({
   edit_info: false,
   edit_gate: false,
 })
+const stateGatepay = ref({
+  _id: null,
+  money: null
+})
 
 // Modal
 const modal = ref({
   add: false,
   edit: false,
-  privilege: false
+  privilege: false,
+  gatepay: false
 })
 
 watch(() => modal.value.add, (val) => !val && (stateAdd.value = {
@@ -236,9 +267,17 @@ const loading = ref({
 // Actions
 const actions = (row) => [
   [{
-    label: 'Quản lý',
+    label: 'Quản lý chi tiết',
     icon: 'i-bxs-bar-chart-alt-2',
     click: () => useTo().openNewTab(`/manage/@collab/${row.code}`)
+  }],
+  [{
+    label: 'Số dư thanh toán',
+    icon: 'i-bx-plus',
+    click: () => {
+      stateGatepay.value._id = row._id
+      modal.value.gatepay = true
+    }
   }],
   [{
     label: 'Sửa thông tin',
@@ -314,6 +353,20 @@ const privilegeAction = async () => {
 
     loading.value.edit = false
     modal.value.privilege = false
+    getList()
+  }
+  catch (e) {
+    loading.value.edit = false
+  }
+}
+
+const gatepayAction = async () => {
+  try {
+    loading.value.edit = true
+    await useAPI('collab/manage/gatepay', JSON.parse(JSON.stringify(stateGatepay.value)))
+
+    loading.value.edit = false
+    modal.value.gatepay = false
     getList()
   }
   catch (e) {

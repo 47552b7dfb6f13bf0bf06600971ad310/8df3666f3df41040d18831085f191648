@@ -1,7 +1,7 @@
 <template>
   <UiFlex wrap :justify="justify" class="gap-1">
     <UiText size="xs" color="gray" v-if="!items || list.length == 0">{{empty || 'Không có phần thưởng'}}</UiText>
-    <DataGamePrivateItem v-for="(item, index) in list" :key="index" :item="item" :amount="item.amount" :size="size" :game="game" />
+    <DataGamePrivateItem v-for="(data, index) in list" :key="index" :item="data.item" :amount="data.amount" :size="size" :game="game" />
   </UiFlex>
 </template>
 

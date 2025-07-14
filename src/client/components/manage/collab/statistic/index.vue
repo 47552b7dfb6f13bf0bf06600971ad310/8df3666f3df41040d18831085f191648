@@ -1,5 +1,7 @@
 <template>
   <UiContent title="Statistic" sub="Thống kê số liệu">
+    <ManageCollabStatisticBalance class="mb-4" :collab="route.params._code"/>
+
     <ManageCollabStatisticFast class="mb-4" :collab="route.params._code"/>
 
     <DataChartLine class="mb-4" :source="source" />

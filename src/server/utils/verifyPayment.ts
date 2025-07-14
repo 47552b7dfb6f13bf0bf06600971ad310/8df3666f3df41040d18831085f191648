@@ -1,6 +1,6 @@
 import type { H3Event } from 'h3'
 import type { Types } from 'mongoose'
-import type { IDBConfig, IDBGate, IDBInvite, IDBUser, IDBUserLevel } from '~~/types'
+import type { IDBCollab, IDBConfig, IDBGate, IDBInvite, IDBUser, IDBUserLevel } from '~~/types'
 
 interface IBodyData {
   _id: Types.ObjectId,
@@ -12,8 +12,7 @@ interface IBodyData {
 export default async (
   event: H3Event, 
   { _id, status, money, reason } : IBodyData, 
-  verifier? : Types.ObjectId,
-  sendNotify : boolean = true
+  verifier? : Types.ObjectId
 ) : Promise<void> => {
   if(!_id) throw 'Không tìm thấy ID giao dịch'
   if(
@@ -55,12 +54,39 @@ export default async (
   if(!user) throw 'Không tìm thấy thông tin tài khoản'
 
   // Get Gate
-  const gate = await DB.Gate.findOne({ _id: payment.gate }).select('name person number type') as IDBGate
+  const gate = await DB.Gate.findOne({ _id: payment.gate }).select('collab name person number type') as IDBGate
   if(!gate) throw 'Không tìm thấy thông tin kênh nạp'
+
+  // Check Collab Gate Pay
+  let isMinusCollab = false
+  if(!!gate.collab && realStatus == 1){
+    const collab = await DB.Collab.findOne({ _id: gate.collab }).select('gatepay') as IDBCollab
+    if(!collab) throw 'Không tìm thấy thông tin cộng tác viên'
+    if(realMoney > collab.gatepay) throw 'Số tiền nạp vượt quá giới hạn của kênh nạp này'
+    isMinusCollab = true
+  }
   
   // Update Payment
   const time = new Date()
   const verify_person = realStatus == 3 ? user._id : (!!verifier ? verifier : bot._id)
+  await DB.Payment.updateOne({ _id: _id }, {
+    money: realMoney,
+    status: realStatus,
+    verify: {
+      person: verify_person,
+      time: time,
+      reason: realReason
+    }
+  })
+  if(!!isMinusCollab){
+    await DB.Collab.updateOne({ _id: gate.collab }, { $inc: { 'gatepay': realMoney * -1 } })
+    await DB.CollabNotify.create({
+      collab: gate.collab,
+      title: 'Cập nhật số dư thanh toán',
+      content: `Đã trừ <b>${realMoney.toLocaleString('vi-VN')}</b> VNĐ từ giao dịch nạp tiền thành công <b>${payment.code}</b>`,
+      type: 'gatepay.minus'
+    })
+  }
   
   // Check Status
   if(realStatus == 1){
@@ -191,14 +217,4 @@ export default async (
       type: 'pay.undo'
     })
   }
-
-  await DB.Payment.updateOne({ _id: _id }, {
-    money: realMoney,
-    status: realStatus,
-    verify: {
-      person: verify_person,
-      time: time,
-      reason: realReason
-    }
-  })
 }

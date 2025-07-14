@@ -16,48 +16,12 @@ export default defineEventHandler(async (event) => {
     const match : any = { game: new Types.ObjectId(game._id) }
 
     const list = await DB.GamePrivateItemBox
-    .aggregate([
-      { $match : match },
-      {
-        $lookup: {
-          from: "GamePrivateItem",
-          localField: "gift.item",
-          foreignField: "_id",
-          pipeline: [{
-            $project: { item_id: 1, item_name: 1, item_image: 1 },
-          }],
-          as: "giftdata"
-        }
-      },
-      {
-        $addFields: {
-          gift: {
-            $map: {
-              input: '$giftdata',
-              in: {
-                _id: '$$this._id',
-                item_id: '$$this.item_id',
-                item_name: '$$this.item_name',
-                item_image: '$$this.item_image',
-                amount: { 
-                  $getField: {
-                    field: 'amount',
-                    input: {
-                      $arrayElemAt: [ '$gift', { $indexOfArray: ['$gift.item', '$$this._id']} ]
-                    }
-                  }
-                },
-              }
-            }
-          }
-        }
-      },
-      { $project: { giftdata: 0, createdAt: 0, updatedAt: 0 }}
-    ])
+    .find(match)
+    .populate({ path: 'gift.item', select: 'item_id item_name item_image type'})
 
     return resp(event, { result: list })
   } 
   catch (e:any) {
-    return resp(event, { code: 400, message: e.toString() })
+    return resp(event, { result: [] })
   }
 })

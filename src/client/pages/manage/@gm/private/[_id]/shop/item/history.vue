@@ -48,7 +48,6 @@
 </template>
 
 <script setup>
-const authStore = useAuthStore()
 const game = useAttrs().game
 const { toMoney } = useMoney()
 

@@ -2,6 +2,9 @@
   <div 
     class="relative select-none UiImg"
     :style="`aspect-ratio: ${w} / ${h}`"
+    :class="{
+      'bg-gray-1000': !!loading,
+    }"
   >
     <NuxtImg 
       :src="img(src)" 

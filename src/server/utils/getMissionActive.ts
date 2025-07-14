@@ -51,7 +51,7 @@ const checkPlayGamePrivate = async (auth : IAuth, mission: IDBMission) => {
   if(!log) return Promise.resolve({ status: -1, color: 'gray', label: 'Chưa đạt' }) // Chưa đạt
 
   if(mission.need.game.private.level > 0 || mission.need.game.private.power > 0){
-
+    
   }
 
   return Promise.resolve({ status: 0, color: 'primary', label: 'Nhận ngay' }) // Có thể nhận

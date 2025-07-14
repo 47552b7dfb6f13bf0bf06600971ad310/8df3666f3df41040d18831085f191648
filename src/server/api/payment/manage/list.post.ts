@@ -14,65 +14,25 @@ export default defineEventHandler(async (event) => {
 
     const match : any = {}
     if(search.key){
-      if(search.by == 'CODE'){
-        match['code'] = { $regex : search.key.toLowerCase(), $options : 'i' }
-      }
+      if(search.by == 'CODE') match['code'] = { $regex : search.key.toLowerCase(), $options : 'i' }
       if(search.by == 'USER'){
         const users = await DB.User.find({
           username : { $regex : search.key.toLowerCase(), $options : 'i' }
         }).select('_id')
         
-        match['user'] = {
-          $in: users.map(i => i._id)
-        }
+        match['user'] = { $in: users.map(i => i._id)}
       }
     }
 
     const list = await DB.Payment
-    .aggregate([
-      { $match: match },
-      {
-        $lookup: {
-          from: "Gate",
-          localField: "gate",
-          foreignField: "_id",
-          pipeline: [{
-            $project: { name: 1, color: 1, type: 1 }
-          }],
-          as: "gate"
-        }
-      },
-      { $unwind: { path: "$gate", preserveNullAndEmptyArrays: true }},
-      {
-        $lookup: {
-          from: "User",
-          localField: "user",
-          foreignField: "_id",
-          pipeline: [{
-            $project: { username: 1 }
-          }],
-          as: "user"
-        }
-      },
-      { $unwind: { path: "$user", preserveNullAndEmptyArrays: true }},
-      {
-        $lookup: {
-          from: "User",
-          localField: "verify.person",
-          foreignField: "_id",
-          pipeline: [{
-            $project: { username: 1 }
-          }],
-          as: "verify_person"
-        }
-      },
-      { $unwind: { path: "$verify_person", preserveNullAndEmptyArrays: true }},
-      { $addFields: { "verify_time": "$verify.time" } },
-      { $project: { card: 0, qrcode: 0, token: 0, verify: 0, updatedAt: 0 } },
-      { $sort: sorting },
-      { $skip: (current - 1) * size },
-      { $limit: size }
-    ])
+    .find(match)
+    .populate({ path: 'gate', select: 'name color type' })
+    .populate({ path: 'user', select: 'username' })
+    .populate({ path: 'verify.person', select: 'username' })
+    .select('gate user code money status verify')
+    .sort(sorting)
+    .skip((current - 1) * size)
+    .limit(size)
 
     const total = await DB.Payment.count(match)
     return resp(event, { result: { list, total } })

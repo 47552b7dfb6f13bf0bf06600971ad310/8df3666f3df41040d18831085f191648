@@ -18,10 +18,7 @@ export default defineEventHandler(async (event) => {
     const checkCode = await DB.GamePrivateGiftcode.findOne({ code: upCode, game: game._id }).select('_id') as IDBGamePrivateGiftcode
     if(!!checkCode) throw 'Tên mã đã tồn tại'
 
-    const giftFormat = gift.map((i : any) => ({
-      item: i._id,
-      amount: i.amount,
-    }))
+    const giftFormat = gift.map((i : any) => ({ item: i.item._id, amount: i.amount }))
     body.gift = giftFormat
     body.code = upCode
 

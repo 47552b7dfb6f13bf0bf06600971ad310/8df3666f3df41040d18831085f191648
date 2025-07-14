@@ -21,7 +21,7 @@
         :rows="list"
       >
         <template #[`item.item_image-data`]="{ row }">
-          <DataGamePrivateItemImage :src="row.item.item_image" :game="game.code" />
+          <DataGamePrivateItemImage :src="row.item.item_image" :game="game.code" :size="45" />
         </template>
 
         <template #amount-data="{ row }">
@@ -69,7 +69,7 @@
           <SelectGamePrivateItem v-model="stateAdd.item" :game="game.code" />
         </UFormGroup>
 
-        <UFormGroup label="Số lượng vật phẩm">
+        <UFormGroup label="Số lượng">
           <UInput v-model="stateAdd.amount" type="number" />
         </UFormGroup>
 
@@ -97,7 +97,7 @@
     <!-- Modal Edit -->
     <UModal v-model="modal.edit" preventClose>
       <UForm :state="stateEdit" @submit="editAction" class="bg-card rounded-2xl p-4">
-        <UFormGroup label="Số lượng vật phẩm">
+        <UFormGroup label="Số lượng">
           <UInput v-model="stateEdit.amount" type="number" />
         </UFormGroup>
 
@@ -137,8 +137,7 @@ const columns = [
     label: 'Vật phẩm',
   },{
     key: 'item.item_name',
-    label: 'Tên',
-    sortable: true
+    label: 'Tên'
   },{
     key: 'amount',
     label: 'Số lượng',

@@ -37,16 +37,21 @@ const emit = defineEmits(['to'])
 const menu = ref([
   { title: 'Cài đặt', child: [
     { title: 'Thông tin trang', to: `/manage/@collab/${route.params._code}/config/info` },
-    { title: 'Kênh thanh toán', to: `/manage/@collab/${route.params._code}/config/gate`, disabled: true },
+    { title: 'Kênh thanh toán', to: `/manage/@collab/${route.params._code}/config/gate` },
   ]},
   { title: 'Quản lý', child: [
     { title: 'Thông kê', to: `/manage/@collab/${route.params._code}` },
     { title: 'Tin tức', to: `/manage/@collab/${route.params._code}/news` },
     { title: 'Tài khoản', to: `/manage/@collab/${route.params._code}/user` },
+    { title: 'Nạp xu', to: `/manage/@collab/${route.params._code}/payment` },
     { title: 'Rút tiền', to: `/manage/@collab/${route.params._code}/withdraw` },
   ]},
+  { title: 'Nhiệm vụ', child: [
+    { title: 'Đang sử dụng', to: `/manage/@collab/${route.params._code}/mission` },
+    { title: 'Danh sách', to: `/manage/@collab/${route.params._code}/mission/list` },
+  ]},
   { title: 'Trò chơi', child: [
-    { title: 'Trò chơi của tôi', to: `/manage/@collab/${route.params._code}/game` },
+    { title: 'Đang sử dụng', to: `/manage/@collab/${route.params._code}/game` },
     { title: 'Game Private', to: `/manage/@collab/${route.params._code}/game/private` },
     { title: 'Game Tool', to: `/manage/@collab/${route.params._code}/game/tool` },
     { title: 'Game China', to: `/manage/@collab/${route.params._code}/game/china` }

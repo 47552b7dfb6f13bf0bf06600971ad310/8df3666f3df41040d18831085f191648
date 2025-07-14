@@ -28,6 +28,8 @@ export {
   IDBGamePrivateShopPack, IDBGamePrivateShopPackHistory,
   IDBGamePrivateGiftcode, IDBGamePrivateGiftcodeHistory,
   IDBGamePrivateEvent, IDBGamePrivateEventHistory,
+  IDBGamePrivateEgg, IDBGamePrivateEggHistory,
+  IDBGamePrivateWheel, IDBGamePrivateWheelHistory,
   IDBGamePrivateComment,
   IDBGamePrivateLogAdmin
 } from './private'

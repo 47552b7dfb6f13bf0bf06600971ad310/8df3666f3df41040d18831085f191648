@@ -114,6 +114,9 @@ export default defineEventHandler(async (event) => {
       target: game._id.toString()
     })
 
+    // Socket Update Auth
+    IO.to(user._id.toString()).emit('auth-update')
+
     return resp(event, { message: 'Mua thành công' })
   } 
   catch (e:any) {

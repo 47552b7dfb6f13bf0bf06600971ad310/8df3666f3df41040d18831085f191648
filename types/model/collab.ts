@@ -26,6 +26,7 @@ export interface IDBCollab {
   link: string
 
   money: number
+  gatepay: number
 
   privilege: {
     edit_info: boolean
@@ -74,6 +75,7 @@ export interface IDBCollabNotify {
   collab: Types.ObjectId
   title: string
   content: string
+  type: string
   pin: boolean
 }
 

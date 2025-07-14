@@ -25,11 +25,15 @@ export const DBCollab = (mongoose : Mongoose) => {
     code: { type: String },
     user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', index: true },
     link: { type: String },
+
     money: { type: Number, default: 0, index: true },
+    gatepay: { type: Number, default: 0, index: true },
+
     privilege: {
-      edit_info: { type: Boolean, default: false },
-      edit_gate: { type: Boolean, default: false },
+      edit_info: { type: Boolean, default: true },
+      edit_gate: { type: Boolean, default: true },
     },
+
     info: {
       name: { type: String },
       short_name: { type: String },
@@ -75,11 +79,13 @@ export const DBCollabNotify = (mongoose : Mongoose) => {
     collab: { type: mongoose.Schema.Types.ObjectId, ref: 'Collab', index: true },
     title: { type: String },
     content: { type: String },
-    pin: { type: Boolean, default: true  },
+    type: { type: String },
+    pin: { type: Boolean, default: false },
   }, {
     timestamps: true
   })
 
+  schema.index({ type: 'text' })
   const model = mongoose.model('CollabNotify', schema, 'CollabNotify')
   return model 
 }

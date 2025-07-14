@@ -13,7 +13,7 @@ export default defineEventHandler(async (event) => {
     if(!game.ip) throw 'Trò chơi đang bảo trì'
     await getAuthGM(event, auth, game)
 
-    const giftItem = gift.map((item : any) => ({ id: item.item_id, amount: item.amount }))
+    const giftItem = gift.map((i : any) => ({ id: i.item.item_id, amount: i.amount }))
 
     await gameSendMail(event, {
       url: game.api.mail,

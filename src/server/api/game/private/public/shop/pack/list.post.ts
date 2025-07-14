@@ -14,71 +14,19 @@ export default defineEventHandler(async (event) => {
     const game = await DB.GamePrivate.findOne({ code: code, display: true }).select('_id') as IDBGamePrivate
     if(!game) throw 'Trò chơi không tồn tại'
 
-    const match : any = { 
-      game: game._id, 
-      display: true, 
-      'gift.0': { $exists: true } 
-    }
-    if(search){
-      match['$text'] = { '$search': search }
-    }
+    const match : any = { game: game._id, display: true }
+    if(search) match['$text'] = { '$search': search }
 
-    const shopPacks = await DB.GamePrivateShopPack
-    .aggregate([
-      { $match: match },
-      {
-        $lookup: {
-          from: "GamePrivateItem",
-          localField: "gift.item",
-          foreignField: "_id",
-          pipeline: [{
-            $project: { item_name: 1, item_image: 1, item_id: 1 },
-          }],
-          as: "giftdata"
-        }
-      },
-      {
-        $addFields: {
-          gift: {
-            $map: {
-              input: '$giftdata',
-              in: {
-                _id: '$$this._id',
-                item_id: '$$this.item_id',
-                item_name: '$$this.item_name',
-                item_image: '$$this.item_image',
-                amount: { 
-                  $getField: {
-                    field: 'amount',
-                    input: {
-                      $arrayElemAt: [ '$gift', { $indexOfArray: ['$gift.item', '$$this._id']} ]
-                    }
-                  }
-                },
-              }
-            }
-          }
-        }
-      },
-      { $project: { giftdata: 0 } },
-      {
-        $facet: {
-          list: [
-            { $sort: sorting },
-            { $skip: (current - 1) * size },
-            { $limit: size },
-          ],
-          pagination: [
-            { $count: "total" }
-          ]
-        }
-      }
-    ])
+    const list = await DB.GamePrivateShopPack
+    .find(match)
+    .populate({ path: 'gift.item', select: 'item_id item_name item_image type'})
+    .sort(sorting)
+    .skip((current - 1) * size)
+    .limit(size)
 
-    return resp(event, { result: { 
-      list: shopPacks[0].list ? shopPacks[0].list : [],
-      total: shopPacks[0].pagination ? (shopPacks[0].pagination[0] ? shopPacks[0].pagination[0].total : 0) : 0
-    }})
+    const total = await DB.GamePrivateShopPack.count(match)
+
+    return resp(event, { result: { list, total }})
   } 
   catch (e:any) {
     return resp(event, { code: 400, message: e.toString() })

@@ -5,6 +5,7 @@ export interface IDBGate {
   createdAt: Date
   updatedAt: Date
   
+  collab: Types.ObjectId
   type: number
   name: string
   person: string

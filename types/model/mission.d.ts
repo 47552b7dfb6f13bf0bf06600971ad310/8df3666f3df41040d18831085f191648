@@ -28,6 +28,9 @@ export interface IDBMission {
     vip: string
   }
   ecoin: number
+  collab: {
+    use: Array<Types.ObjectId>
+  }
   display: boolean
 }
 
