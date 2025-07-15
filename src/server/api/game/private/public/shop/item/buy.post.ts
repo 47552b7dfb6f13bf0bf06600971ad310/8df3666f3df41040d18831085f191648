@@ -51,10 +51,10 @@ export default defineEventHandler(async (event) => {
     // Make Price and Spend
     let totalPrice = price - Math.floor(price * (discount / 100)) // Giá mua
     let totalSpend = price - Math.floor(price * (discountGame / 100)) // Tích tiêu phí (Không tính giảm giá VIP và Voucher)
-    if(!runtimeConfig.public.dev && auth.type == 100) totalPrice = 0 // Admin Free Only Prod
+    if(!runtimeConfig.public.dev && auth.type == 100) totalPrice = 0 // Admin Free
 
     // Check Currency
-    if(user.currency.coin < totalPrice) throw 'Số dư xu không đủ'
+    const minus = getCoinMinus(user.currency, totalPrice)
 
     // Check Limit Buy
     if(shopItem.limit > 0){
@@ -80,8 +80,22 @@ export default defineEventHandler(async (event) => {
       items: [{ id: item.item_id, amount: parseInt(amount) * (shopItem.amount || 1) }]
     })
 
+    // History
+    const history = await DB.GamePrivateShopItemHistory.create({
+      user: userGame._id,
+      game: game._id,
+      item: item._id,
+      price: totalPrice,
+      amount: amount,
+      server: server,
+      role: role,
+    })
+
     // Update User
-    totalPrice > 0 && await DB.User.updateOne({ _id: auth._id }, { $inc: { 'currency.coin': totalPrice * -1 }})
+    await DB.User.updateOne({ _id: user._id },{ $inc: { 
+      'currency.coin': minus.coin * -1,
+      'currency.lcoin': minus.lcoin * -1,
+    }})
     await DB.GamePrivateUser.updateOne({ _id: userGame._id },{ $inc: {
       'spend.day.coin': totalSpend,
       'spend.week.coin': totalSpend,
@@ -100,25 +114,14 @@ export default defineEventHandler(async (event) => {
     }
 
     // Update Revenue
-    totalPrice > 0 && await DB.GamePrivate.updateOne({ _id: game._id }, { $inc: { 'statistic.revenue': totalPrice }})
-
-    // History
-    const history = await DB.GamePrivateShopItemHistory.create({
-      user: userGame._id,
-      game: game._id,
-      item: item._id,
-      price: totalPrice,
-      amount: amount,
-      server: server,
-      role: role,
-    })
+    minus.coin > 0 && await DB.GamePrivate.updateOne({ _id: game._id }, { $inc: { 'statistic.revenue': minus.coin }})
 
     // Create Collab Income
-    totalPrice > 0 && await createCollabIncome(event, {
+    minus.coin > 0 && await createCollabIncome(event, {
       type: 'game.private.shop.item',
       user: user._id,
       content: `Mua hàng trong <b>[Game Private] ${game.name}</b>`,
-      coin: totalPrice,
+      coin: minus.coin,
 
       game: game._id,
       source: history._id,

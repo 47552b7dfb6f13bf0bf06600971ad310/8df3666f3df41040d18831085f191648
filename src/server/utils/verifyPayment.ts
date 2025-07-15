@@ -107,7 +107,9 @@ export default async (
     if(countFirstPay == 1 && countSecondPay == 0) secondCoin = Math.floor((realCoin * config.promo.payment.second) / 100) // Tặng thêm Xu cho nạp lần 2
 
     // Sum Coin To Receive
-    const coinReceived = realCoin + firstCoin + secondCoin
+    const coinReceived = realCoin
+    const lockCoinReceived = firstCoin + secondCoin
+    const expReceived = realMoney
 
     // Check Invite
     const invite = await DB.Invite
@@ -152,25 +154,30 @@ export default async (
     }
 
     // Update User
-    await DB.User.updateOne({ _id: payment.user },{ $inc: { 'currency.coin': coinReceived, 'currency.exp': realMoney }})
+    await DB.User.updateOne({ _id: payment.user },{ $inc: { 
+      'currency.coin': coinReceived, 
+      'currency.lcoin': lockCoinReceived, 
+      'currency.exp': expReceived,
+      'statistic.pay': realMoney,
+    }})
 
     // Log User
     logAdmin(event, `Chấp nhận giao dịch nạp tiền <b>${payment.code}</b> với số tiền <b>${realMoney.toLocaleString('vi-VN')}</b>`, verify_person)
     logUser({
       user: user._id, 
-      action: `Nhận <b>${realCoin.toLocaleString('vi-VN')} Xu</b> từ giao dịch nạp tiền thành công <b>${payment.code}</b>`,
+      action: `Nhận <b>${coinReceived.toLocaleString('vi-VN')} Xu</b> từ giao dịch nạp tiền thành công <b>${payment.code}</b>`,
       type: 'pay.success',
       target: realMoney.toString()
     })
     if(firstCoin > 0) logUser({
       user: user._id, 
-      action: `Tặng thêm <b>${firstCoin.toLocaleString('vi-VN')} Xu</b> vì nạp lần đầu`,
+      action: `Tặng thêm <b>${firstCoin.toLocaleString('vi-VN')} Xu Khóa</b> vì nạp lần đầu`,
       type: 'pay.first',
       target: realMoney.toString()
     })
     if(secondCoin > 0) logUser({
       user: user._id, 
-      action: `Tặng thêm <b>${secondCoin.toLocaleString('vi-VN')} Xu</b> vì nạp lần 2`,
+      action: `Tặng thêm <b>${secondCoin.toLocaleString('vi-VN')} Xu Khóa</b> vì nạp lần 2`,
       type: 'pay.second',
       target: realMoney.toString()
     })
@@ -178,26 +185,26 @@ export default async (
     // Notify Global
     IO.emit('notify-global-push', {
       user: user,
-      content: `vừa tăng thêm <b>${realMoney.toLocaleString('vi-VN')}</b> Tu Vi`
+      content: `vừa tăng thêm <b>${expReceived.toLocaleString('vi-VN')}</b> Tu Vi`
     })
 
     // Telebot Send Message
-    if(!!config.telebot.payment.receive){
-      const timeFormat = formatDate(event, time)
-      const gateReceive : string = gate.type == 1 ? 'Thẻ Cào' : `${gate.name} - ${gate.person} - ${gate.number}`
+    // if(!!config.telebot.payment.receive){
+    //   const timeFormat = formatDate(event, time)
+    //   const gateReceive : string = gate.type == 1 ? 'Thẻ Cào' : `${gate.name} - ${gate.person} - ${gate.number}`
 
-      await botTeleSendMessage(event, {
-        url: config.telebot.payment.receive,
-        secret: config.security.manage.password,
-        message: `
-          Chú ý nhận tiền
-          » Mã giao dịch: ${payment.code}
-          » Số tiền: ${realMoney.toLocaleString('vi-VN')}
-          » Thời gian: ${timeFormat.day}/${timeFormat.month}/${timeFormat.year} - ${timeFormat.hour}:${timeFormat.minute}
-          » Tài khoản nhận: ${gateReceive}
-        `
-      })
-    }
+    //   await botTeleSendMessage(event, {
+    //     url: config.telebot.payment.receive,
+    //     secret: config.security.manage.password,
+    //     message: `
+    //       Chú ý nhận tiền
+    //       » Mã giao dịch: ${payment.code}
+    //       » Số tiền: ${realMoney.toLocaleString('vi-VN')}
+    //       » Thời gian: ${timeFormat.day}/${timeFormat.month}/${timeFormat.year} - ${timeFormat.hour}:${timeFormat.minute}
+    //       » Tài khoản nhận: ${gateReceive}
+    //     `
+    //   })
+    // }
 
     // Socket Update Auth
     IO.to(user._id.toString()).emit('auth-update')

@@ -10,7 +10,7 @@ export default defineEventHandler(async (event) => {
     await DB.User.updateMany({}, {
       reg: { from: null, collab: null, platform: null },
       invite: { code: null, friend: 0 },
-      currency: { exp: 0, coin: 0, ecoin: 0 },
+      currency: { exp: 0, coin: 0, ecoin: 0, lcoin: 0 },
       level: null,
       guild: null,
       token: null

@@ -19,7 +19,9 @@ export default defineEventHandler(async (event) => {
     .populate(profileSelect().guild) as IDBUser
     if(!user) throw 'Không tìm thấy thông tin tài khoản'
     if(!!user.vip.forever.enable) throw 'Bạn đã nâng cấp lên đặc quyền VIP Trọn Đời, không thể nâng cấp thêm'
-    if(user.currency.coin < price) throw 'Số dư Xu không đủ'
+    
+    // Check Currency
+    const minus = getCoinMinus(user.currency, price)
 
     if(type == 'forever'){
       user.vip.month.enable = false
@@ -35,14 +37,17 @@ export default defineEventHandler(async (event) => {
 
     // Update User
     await user.save()
-    await DB.User.updateOne({ _id: user._id }, { $inc: { 'currency.coin': price * -1 }})
+    await DB.User.updateOne({ _id: user._id },{ $inc: { 
+      'currency.coin': minus.coin * -1,
+      'currency.lcoin': minus.lcoin * -1,
+    }})
 
     // Create Collab Income
-    price > 0 && await createCollabIncome(event, {
+    minus.coin > 0 && await createCollabIncome(event, {
       type: 'vip.upgrade',
       user: user._id,
       content: `Nâng VIP <b>${type == 'forever' ? 'Trọn Đời' : 'Tháng'}</b> cho tài khoản`,
-      coin: price
+      coin: minus.coin
     })
 
     // Log User

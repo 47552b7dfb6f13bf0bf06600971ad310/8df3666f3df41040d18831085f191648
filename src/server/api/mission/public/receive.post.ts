@@ -1,4 +1,5 @@
-import type { IAuth, IDBMission,  } from '~~/types'
+import type { IAuth, IDBGamePrivate, IDBMission,  } from '~~/types'
+import axios from 'axios'
 
 export default defineEventHandler(async (event) => {
   try {
@@ -23,6 +24,36 @@ export default defineEventHandler(async (event) => {
     const active = await getMissionActive(event, mission)
     if(!active) throw 'Nhiệm vụ lỗi, vui lòng quay lại sau'
     if(active.status != 0) throw 'Bạn chưa đủ điều kiện để nhận'
+
+    // Check Game Private Play
+    if(
+      mission.type == 'game.private.play' &&
+      !!mission.need.game.private.server && 
+      (mission.need.game.private.level > 0 || mission.need.game.private.power > 0)
+    ){
+      const gamePrivate = await DB.GamePrivate.findOne({ _id: mission.need.game.private.source }).select('api secret') as IDBGamePrivate
+      const send = await axios.post(gamePrivate.api.roles, {
+        secret: gamePrivate.secret,
+        server_id: mission.need.game.private.server,
+        size: 10, current: 1,
+        sort: { column: 'power', direction: 'desc' },
+        search: { key: auth.username, by: 'USER' },
+      })
+      const res = send.data
+      if(res.error) throw res.error
+      const roles = res.data.list
+      if(roles.length == 0) throw 'Không tìm thấy nhân vật trong máy chủ này'
+
+      if(mission.need.game.private.level > 0){
+        const isActive = roles.some((role : any) => role.level > mission.need.game.private.level)
+        if(!isActive) throw 'Chưa có nhân vật đạt cấp độ yêu cầu ở máy chủ này'
+      }
+
+      if(mission.need.game.private.power > 0){
+        const isActive = roles.some((role : any) => role.power > mission.need.game.private.power)
+        if(!isActive) throw 'Chưa có nhân vật đạt lực chiến yêu cầu ở máy chủ này'
+      }
+    }
 
     // Update User
     await DB.User.updateOne({ _id: auth._id }, { $inc: { 'currency.ecoin': mission.ecoin } })

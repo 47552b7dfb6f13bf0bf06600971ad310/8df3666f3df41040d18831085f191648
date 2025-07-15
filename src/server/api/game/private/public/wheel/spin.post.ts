@@ -1,6 +1,5 @@
 import type { IDBUser, IAuth, IDBGamePrivate, IDBGamePrivateWheel, IDBGamePrivateItem, IDBGamePrivateUser } from "~~/types"
 
-
 const getRandomGift = (list : Array<IDBGamePrivateWheel>) : IDBGamePrivateWheel => {
   // Get Random
   let totalPercent = 0
@@ -48,7 +47,7 @@ export default defineEventHandler(async (event) => {
     // Check User
     const user = await DB.User.findOne({ _id: auth._id }).select('currency') as IDBUser
     if(!user) throw 'Tài khoản không tồn tại'
-    if(user.currency.coin < price) throw 'Số dư xu của bạn không đủ'
+    const minus = getCoinMinus(user.currency, price)
 
     // Check User Game
     const userGame = await DB.GamePrivateUser.findOne({ game: game._id, user: user._id }).select('egg') as IDBGamePrivateUser
@@ -95,7 +94,10 @@ export default defineEventHandler(async (event) => {
     })
     
     // Update User
-    price > 0 && await DB.User.updateOne({ _id: user._id },{ $inc: { 'currency.coin': parseInt(price) * -1 }})
+    await DB.User.updateOne({ _id: user._id },{ $inc: { 
+      'currency.coin': minus.coin * -1,
+      'currency.lcoin': minus.lcoin * -1,
+    }})
     await DB.GamePrivateUser.updateOne({ game: game._id, user: user._id },{ $inc: {
       'spend.day.coin': price,
       'spend.week.coin': price,
@@ -108,14 +110,14 @@ export default defineEventHandler(async (event) => {
     }})
 
     // Update Game Revenue
-    price > 0 && await DB.GamePrivate.updateOne({ _id: game._id }, { $inc: { 'statistic.revenue': price }})
+    minus.coin > 0 && await DB.GamePrivate.updateOne({ _id: game._id }, { $inc: { 'statistic.revenue': minus.coin }})
 
     // Create Collab Income
-    price > 0 && await createCollabIncome(event, {
+    minus.coin > 0 && await createCollabIncome(event, {
       type: 'game.private.wheel.spin',
       user: user._id,
       content: `Quay vòng quay trong sự kiện của <b>[Game Private] ${game.name}</b>`,
-      coin: price,
+      coin: minus.coin,
 
       game: game._id,
       source: history._id,

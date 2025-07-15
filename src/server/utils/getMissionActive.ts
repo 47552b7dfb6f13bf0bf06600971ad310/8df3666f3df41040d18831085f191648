@@ -50,10 +50,6 @@ const checkPlayGamePrivate = async (auth : IAuth, mission: IDBMission) => {
   const log = await DB.LogUser.findOne({ user: auth._id, type: 'game.private.play', target: mission.need.game.private.source.toString() }).select('_id') as IDBLogUser
   if(!log) return Promise.resolve({ status: -1, color: 'gray', label: 'Chưa đạt' }) // Chưa đạt
 
-  if(mission.need.game.private.level > 0 || mission.need.game.private.power > 0){
-    
-  }
-
   return Promise.resolve({ status: 0, color: 'primary', label: 'Nhận ngay' }) // Có thể nhận
 }
 

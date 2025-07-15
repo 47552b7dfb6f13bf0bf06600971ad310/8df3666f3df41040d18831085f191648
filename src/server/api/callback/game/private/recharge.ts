@@ -13,7 +13,7 @@ export default defineEventHandler(async (event) => {
     const user = await DB.User.findOne({ username: account }).select('currency vip type') as IDBUser
     if(!user) throw 'Không tìm thấy thông tin tài khoản'
     
-    const game = await DB.GamePrivate.findOne({ code: gameCode, display: true }).select('name ip api secret rate') as IDBGamePrivate
+    const game = await DB.GamePrivate.findOne({ code: gameCode, display: true }).select('name ip api secret rate collab') as IDBGamePrivate
     if(!game) throw 'Trò chơi không tồn tại'
     if(!game.ip) throw 'Trò chơi đang bảo trì'
 
@@ -31,22 +31,29 @@ export default defineEventHandler(async (event) => {
       })
     }
 
-    // Discount VIP
+    // Get Price
+    const realPrice = recharge.price
+
+    // Get Discount Game
+    let discountGame = formatRate(game.rate.shop)
+    discountGame = discountGame > 100 ? 100 : discountGame
+
+    // Get Discount VIP
     const vip = await getUserVip(user) as string
     // @ts-expect-error
     const discountVIP = !!vip ? game.rate.shop.vip[vip] : 0
 
-    // Make Total Price
-    let rate = formatRate(game.rate.shop)
-    rate = rate > 100 ? 100 : rate
-    let discount = formatRate(game.rate.shop) + discountVIP
+    // Make Discount
+    let discount = discountGame + discountVIP
     discount = discount > 100 ? 100 : discount
-    let totalPrice = recharge.price - Math.floor(recharge.price * (discount / 100))
-    let totalSpend = recharge.price - Math.floor(recharge.price * (rate / 100))
+
+    // Make Price and Spend
+    let totalPrice = realPrice - Math.floor(realPrice * (discount / 100)) // Giá mua
+    let totalSpend = realPrice - Math.floor(realPrice * (discountGame / 100)) // Tích tiêu phí (Không tính giảm giá VIP và Voucher)
     if(!runtimeConfig.public.dev && user.type == 100) totalPrice = 0 // Admin Free
 
     // Check Currency
-    if(user.currency.coin < totalPrice) throw 'Số dư coin không đủ'
+    const minus = getCoinMinus(user.currency, totalPrice)
 
     // Send Recharge
     await gameSendRecharge(event, {
@@ -59,9 +66,20 @@ export default defineEventHandler(async (event) => {
       save_pay: recharge.save_pay
     })
 
+    // History
+    const history = await DB.GamePrivateRechargeHistory.create({
+      user: userGame._id,
+      game: game._id,
+      recharge: recharge._id,
+      price: totalPrice,
+      server: server,
+      role: role,
+    })
+
     // Update User
-    await DB.User.updateOne({ _id: user._id }, { $inc: {
-      'currency.coin': totalPrice * -1,
+    await DB.User.updateOne({ _id: user._id },{ $inc: { 
+      'currency.coin': minus.coin * -1,
+      'currency.lcoin': minus.lcoin * -1,
     }})
     await DB.GamePrivateUser.updateOne({ _id: userGame._id },{ $inc: {
       'spend.day.coin': totalSpend,
@@ -75,16 +93,18 @@ export default defineEventHandler(async (event) => {
     }})
 
     // Update Revenue
-    await DB.GamePrivate.updateOne({ _id: game._id }, { $inc: { 'statistic.revenue': totalPrice }})
+    minus.coin > 0 && await DB.GamePrivate.updateOne({ _id: game._id }, { $inc: { 'statistic.revenue': minus.coin }})
 
-    // History
-    await DB.GamePrivateRechargeHistory.create({
-      user: userGame._id,
+    // Create Collab Income
+    minus.coin > 0 && await createCollabIncome(event, {
+      type: 'game.private.shop.recharge',
+      user: user._id,
+      content: `Mua hàng trong <b>[Game Private] ${game.name}</b>`,
+      coin: minus.coin,
+
       game: game._id,
-      recharge: recharge._id,
-      price: totalPrice,
-      server: server,
-      role: role,
+      source: history._id,
+      commissionGame: game.collab.commission
     })
 
     // Log User

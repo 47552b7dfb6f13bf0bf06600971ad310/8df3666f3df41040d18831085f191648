@@ -1,7 +1,11 @@
 <template>
   <div>
     <UFormGroup label="Game Private">
-      <SelectGamePrivate v-model="need.game.private.source" />
+      <SelectGamePrivate v-model="need.game.private.source" v-model:gameData="game" />
+    </UFormGroup>
+
+    <UFormGroup label="Máy chủ" name="server" v-if="!!game && !!game.code">
+      <SelectGameServer v-model="need.game.private.server" :game="game.code" type="private" />
     </UFormGroup>
 
     <UFormGroup label="Cấp độ yêu cầu">
@@ -18,10 +22,12 @@
 const props = defineProps(['modelValue'])
 const emit = defineEmits(['update:modelValue'])
 
+const game = ref()
 const need = ref({
   game: {
     private: {
       source: null,
+      server: null,
       level: null,
       power: null
     }

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <UiFlex class="mb-4" justify="between">
+    <UiFlex class="mb-2" justify="between">
       <UiTitle name="Danh Sách" icon="i-material-symbols-light-other-admission" />
 
       <UButton icon="i-bxs-time" color="gray" @click="modal.history = true">Xem Lịch Sử</UButton>

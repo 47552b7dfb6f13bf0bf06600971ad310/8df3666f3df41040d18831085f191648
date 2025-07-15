@@ -12,6 +12,7 @@ export interface IDBMission {
     game: {
       private: {
         source: Types.ObjectId
+        server: string
         level: number
         power: number
       }

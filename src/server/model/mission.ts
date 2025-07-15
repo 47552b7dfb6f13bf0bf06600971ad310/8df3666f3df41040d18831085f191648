@@ -10,6 +10,7 @@ export const DBMission = (mongoose : Mongoose) => {
       game: {
         private: {
           source: { type: mongoose.Schema.Types.ObjectId, ref: 'GamePrivate' },
+          server: { type: String },
           level: { type: Number },
           power: { type: Number },
         },

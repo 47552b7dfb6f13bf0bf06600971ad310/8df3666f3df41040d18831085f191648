@@ -72,7 +72,7 @@ export default defineEventHandler(async (event) => {
       email: email,
       level: level._id,
       currency: {
-        coin: config.promo.register.coin > 0 ? config.promo.register.coin : 0,
+        lcoin: config.promo.register.coin > 0 ? config.promo.register.coin : 0,
       }
     }) as IDBUser
 
@@ -147,7 +147,7 @@ export default defineEventHandler(async (event) => {
     })
     if(config.promo.register.coin > 0) logUser({
       user: user._id,
-      action: `Nhận <b>${config.promo.register.coin.toLocaleString('vi-VN')}</b> từ khuyến mãi đăng ký tài khoản mới`,
+      action: `Nhận <b>${config.promo.register.coin.toLocaleString('vi-VN')} Xu Khóa</b> từ khuyến mãi đăng ký tài khoản mới`,
       type: 'promo.register.coin',
     })
 

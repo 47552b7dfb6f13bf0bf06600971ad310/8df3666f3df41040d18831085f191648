@@ -73,7 +73,11 @@ export const DBUser = (mongoose : Mongoose) => {
     currency: {
       exp: { type: Number, default: 0, index: true },
       coin: { type: Number, default: 0, index: true },
+      lcoin: { type: Number, default: 0, index: true },
       ecoin: { type: Number, default: 0, index: true }
+    },
+    statistic: {
+      pay: { type: Number, default: 0, index: true },
     },
     china: {
       youxi: { type: Boolean, default: false },

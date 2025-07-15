@@ -18,6 +18,7 @@ export default defineEventHandler(async (event) => {
 
     const discountVoucher = await getValueVoucher(user, voucher)
     const userGame = await DB.GameToolUser.findOne({ game: game._id, user: user._id, server_id: server_id }) as IDBGameToolUser
+    let minus = { coin: 0, lcoin: 0 }
     let totalPrice = 0
     let discount = 0
     let payment : any
@@ -43,14 +44,16 @@ export default defineEventHandler(async (event) => {
       }
 
       totalPrice = totalPrice - Math.floor((totalPrice * discount) / 100)
-
       if(!runtimeConfig.public.dev && auth.type == 100) totalPrice = 0 // Admin Free
-      if(user.currency.coin < totalPrice) throw 'Số dư xu không đủ'
+      minus = getCoinMinus(user.currency, totalPrice)
 
       newUserGame.coin = totalPrice
       const newUserGameData = await DB.GameToolUser.create(newUserGame)
 
-      await DB.User.updateOne({ _id: user._id },{ $inc: { 'currency.coin': totalPrice * -1 }})
+      await DB.User.updateOne({ _id: user._id },{ $inc: { 
+        'currency.coin': minus.coin * -1,
+        'currency.lcoin': minus.lcoin * -1,
+      }})
       await DB.GameTool.updateOne({ _id: game._id }, { $inc: { 'statistic.user': 1 } })
       payment = await DB.GameToolPayment.create({
         user: newUserGameData._id,
@@ -67,9 +70,8 @@ export default defineEventHandler(async (event) => {
       if(!!mail && !userGame.mail) totalPrice = totalPrice + game.price.mail
 
       totalPrice = totalPrice - Math.floor((totalPrice * discount) / 100)
-
       if(!runtimeConfig.public.dev && auth.type == 100) totalPrice = 0 // Admin Free
-      if(user.currency.coin < totalPrice) throw 'Số dư xu không đủ'
+      minus = getCoinMinus(user.currency, totalPrice)
 
       if(!!recharge && !userGame.recharge) userGame.recharge = true
       if(!!mail && !userGame.mail) userGame.mail = true
@@ -77,7 +79,10 @@ export default defineEventHandler(async (event) => {
 
       // @ts-expect-error
       await userGame.save()
-      await DB.User.updateOne({ _id: user._id },{ $inc: { 'currency.coin': totalPrice * -1 }})
+      await DB.User.updateOne({ _id: user._id },{ $inc: { 
+        'currency.coin': minus.coin * -1,
+        'currency.lcoin': minus.lcoin * -1,
+      }})
       payment = await DB.GameToolPayment.create({
         user: userGame._id,
         game: game._id,
@@ -93,14 +98,14 @@ export default defineEventHandler(async (event) => {
     }
 
     // Update revenue game
-    totalPrice > 0 && await DB.GameTool.updateOne({ _id: game._id }, { $inc: { 'statistic.revenue': totalPrice }})
+    minus.coin > 0 && await DB.GameTool.updateOne({ _id: game._id }, { $inc: { 'statistic.revenue': minus.coin }})
 
     // Create Collab Income
-    totalPrice > 0 && await createCollabIncome(event, {
+    minus.coin > 0 && await createCollabIncome(event, {
       type: 'game.tool.buy',
       user: user._id,
       content: `Mua công cụ <b>[Game Tool] ${game.name}</b>`,
-      coin: totalPrice,
+      coin: minus.coin,
 
       game: game._id,
       source: payment._id,

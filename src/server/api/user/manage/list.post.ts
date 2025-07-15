@@ -20,39 +20,11 @@ export default defineEventHandler(async (event) => {
     }
 
     const list = await DB.User
-    .aggregate([
-      { $match: match },
-      {
-        $lookup: {
-          from: "Payment",
-          localField: "_id",
-          foreignField: "user",
-          pipeline: [
-            { $match: { status: 1 } },
-            { $project: { money: 1 } }
-          ],
-          as: "payments"
-        }
-      },
-      { 
-        $project: {
-          username: 1, 
-          email: 1,
-          phone: 1,
-          level: 1,
-          pay: { $sum: '$payments.money' },
-          coin: '$currency.coin',
-          exp: '$currency.exp',
-          ecoin: '$currency.ecoin',
-          type: 1,
-          block: 1,
-          createdAt: 1
-        }
-      },
-      { $sort: sorting },
-      { $skip: (current - 1) * size },
-      { $limit: size }
-    ])
+    .find(match)
+    .select('username email phone currency statistic block type createdAt')
+    .sort(sorting)
+    .skip((current - 1) * size) 
+    .limit(size)
 
     const total = await DB.User.count(match)
     return resp(event, { result: { list, total } })

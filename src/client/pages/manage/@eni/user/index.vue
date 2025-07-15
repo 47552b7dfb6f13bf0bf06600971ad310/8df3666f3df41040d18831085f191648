@@ -31,20 +31,24 @@
           {{ row.phone || '...' }}
         </template>
 
-        <template #pay-data="{ row }">
-          {{ useMoney().toMoney(row.pay || 0) }}
+        <template #[`statistic.pay-data`]="{ row }">
+          {{ useMoney().toMoney(row.statistic.pay || 0) }}
         </template>
 
-        <template #coin-data="{ row }">
-          {{ useMoney().toMoney(row.coin || 0) }}
+        <template #[`currency.coin-data`]="{ row }">
+          {{ useMoney().toMoney(row.currency.coin || 0) }}
         </template>
 
-        <template #ecoin-data="{ row }">
-          {{ useMoney().toMoney(row.ecoin || 0) }}
+        <template #[`currency.lcoin-data`]="{ row }">
+          {{ useMoney().toMoney(row.currency.lcoin || 0) }}
         </template>
 
-        <template #exp-data="{ row }">
-          {{ useMoney().toMoney(row.exp || 0) }}
+        <template #[`currency.ecoin-data`]="{ row }">
+          {{ useMoney().toMoney(row.currency.ecoin || 0) }}
+        </template>
+
+        <template #[`currency.exp-data`]="{ row }">
+          {{ useMoney().toMoney(row.currency.exp || 0) }}
         </template>
 
         <template #block-data="{ row }">
@@ -149,19 +153,23 @@ const columns = [
     key: 'phone',
     label: 'SĐT',
   },{
-    key: 'pay',
+    key: 'statistic.pay',
     label: 'Nạp',
     sortable: true
   },{
-    key: 'coin',
+    key: 'currency.coin',
     label: 'Xu',
     sortable: true
   },{
-    key: 'exp',
+    key: 'currency.lcoin',
+    label: 'Xu Khóa',
+    sortable: true
+  },{
+    key: 'currency.exp',
     label: 'Tu vi',
     sortable: true
   },{
-    key: 'ecoin',
+    key: 'currency.ecoin',
     label: 'ECoin',
     sortable: true
   },{

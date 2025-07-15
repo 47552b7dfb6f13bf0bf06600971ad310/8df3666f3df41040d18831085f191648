@@ -31,7 +31,7 @@ watch(gameSelect, val => {
 
 watch(select, val => {
   if(!val) return emit('update:gameData', undefined)
-  emit('update:gameData', { _id: val._id, name: val.label })
+  emit('update:gameData', select.value)
 })
 
 const searchGame = async (key) => {
@@ -41,10 +41,10 @@ const searchGame = async (key) => {
     const index = list.findLastIndex((i) => i._id == props.modelValue)
     if(index != -1){
       const game = list[index]
-      select.value = { _id: game._id, label: game.name }
+      select.value = { _id: game._id, label: game.name, code: game.code }
     }
   }
 
-  return list.map(game => ({ _id: game._id, label: game.name })).filter(Boolean)
+  return list.map(game => ({ _id: game._id, label: game.name, code: game.code })).filter(Boolean)
 }
 </script>

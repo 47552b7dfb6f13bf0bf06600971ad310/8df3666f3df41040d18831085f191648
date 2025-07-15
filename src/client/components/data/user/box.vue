@@ -53,6 +53,11 @@
         </UiFlex>
 
         <UiFlex justify="between" class="w-full">
+          <UiText weight="semibold" color="gray" size="xs">Tài phú (Khóa)</UiText>
+          <UiText weight="semibold" size="xs">{{ toMoney(user.currency.lcoin) }}</UiText>
+        </UiFlex>
+
+        <UiFlex justify="between" class="w-full">
           <UiText weight="semibold" color="gray" size="xs">ECoin</UiText>
           <UiText weight="semibold" size="xs" color="primary">{{ toMoney(user.currency.ecoin) }}</UiText>
         </UiFlex>

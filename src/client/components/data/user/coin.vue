@@ -1,8 +1,8 @@
 <template>
   <UButton color="gray" class="relative pr-10" :size="size" >
-    <span class="text-white" v-if="authStore.profile.currency.coin == 0">Nạp Ngay</span>
+    <span class="text-white" v-if="totalCoin == 0">Nạp Ngay</span>
     <span class="text-white" v-else>
-      <UiNumber :num="authStore.profile.currency.coin">
+      <UiNumber :num="totalCoin">
         <template #default="{ display }">
           {{ display > 9999999 ? miniMoney(display) : toMoney(display) }}
         </template>
@@ -21,4 +21,5 @@ const props = defineProps({
   }
 })
 const authStore = useAuthStore()
+const totalCoin = computed(() => authStore.profile.currency.coin + authStore.profile.currency.lcoin)
 </script>

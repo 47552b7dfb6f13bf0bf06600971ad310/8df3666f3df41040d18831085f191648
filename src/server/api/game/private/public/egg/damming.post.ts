@@ -69,7 +69,7 @@ export default defineEventHandler(async (event) => {
     // @ts-expect-error
     const price = configEgg[row]['price']
     if(!price) throw 'Không lấy được cấu hình giá đập của hàng chọn'
-    if(user.currency.coin < price) throw 'Số dư xu của bạn không đủ'
+    const minus = getCoinMinus(user.currency, price)
     // @ts-expect-error
     const gift = configEgg[row]['gift']
     if(!gift) throw 'Không lấy được cấu hình phần thưởng của hàng chọn'
@@ -121,7 +121,10 @@ export default defineEventHandler(async (event) => {
     })
 
     // Update User
-    price > 0 && await DB.User.updateOne({ _id: user._id },{ $inc: { 'currency.coin': parseInt(price) * -1 }})
+    await DB.User.updateOne({ _id: user._id },{ $inc: { 
+      'currency.coin': minus.coin * -1,
+      'currency.lcoin': minus.lcoin * -1,
+    }})
     await DB.GamePrivateUser.updateOne({ game: game._id, user: user._id },{ $inc: {
       'spend.day.coin': price,
       'spend.week.coin': price,
@@ -142,14 +145,14 @@ export default defineEventHandler(async (event) => {
     )
 
     // Update Game Revenue
-    price > 0 && await DB.GamePrivate.updateOne({ _id: game._id }, { $inc: { 'statistic.revenue': price }})
+    minus.coin > 0 && await DB.GamePrivate.updateOne({ _id: game._id }, { $inc: { 'statistic.revenue': minus.coin }})
 
     // Create Collab Income
-    price > 0 && await createCollabIncome(event, {
+    minus.coin > 0 && await createCollabIncome(event, {
       type: 'game.private.egg.damming',
       user: user._id,
       content: `Đập trứng trong sự kiện của <b>[Game Private] ${game.name}</b>`,
-      coin: price,
+      coin: minus.coin,
 
       game: game._id,
       source: history._id,

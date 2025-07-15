@@ -26,10 +26,10 @@ export default defineEventHandler(async (event) => {
       ]
     }
 
-    let list = await DB.GamePrivate.find(match).select('name').limit(10) as Array<IDBGamePrivate>
+    let list = await DB.GamePrivate.find(match).select('name code').limit(10) as Array<IDBGamePrivate>
 
     if(!!_id){
-      const game = await DB.GamePrivate.findOne({ _id: _id }).select('name') as IDBGamePrivate
+      const game = await DB.GamePrivate.findOne({ _id: _id }).select('name code') as IDBGamePrivate
       const games = [ game ]
       list = mergeArray(list, games)
     }

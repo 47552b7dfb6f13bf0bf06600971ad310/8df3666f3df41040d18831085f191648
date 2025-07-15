@@ -28,11 +28,16 @@ export default defineEventHandler(async (event) => {
     if(bag.includes(equip._id)) throw 'Bạn đã có trang bị này trong kho đồ'
     
     let price = equip.price
-    if(!runtimeConfig.public.dev && auth.type == 100) price = 0 // Admin Free Only Prod
-    if(user.currency.coin < price) throw 'Số dư xu không đủ'
+    if(!runtimeConfig.public.dev && auth.type == 100) price = 0 // Admin Free
+    
+    // Check Currency
+    const minus = getCoinMinus(user.currency, price)
 
     await DB.User.updateOne({ _id: user._id }, { 
-      $inc: { 'currency.coin': price * -1 },
+      $inc: { 
+        'currency.coin': minus.coin * -1,
+        'currency.lcoin': minus.lcoin * -1,
+      },
       $push: { [`character.${equip.type}.bag`] : equip._id }
     })
 

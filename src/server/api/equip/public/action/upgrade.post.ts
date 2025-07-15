@@ -25,16 +25,20 @@ export default defineEventHandler(async (event) => {
 
     // Make Price
     let price = next * 10000
-    if(!runtimeConfig.public.dev && auth.type == 100) price = 0 // Admin Free Only Prod
-    if(user.currency.coin < price) throw 'Số dư không đủ'
+    if(!runtimeConfig.public.dev && auth.type == 100) price = 0 // Admin Free
+    
+    // Check Currency
+    const minus = getCoinMinus(user.currency, price)
 
     // Make Rate
     let rate = 100 - ((next >= 10 ? 9.5 : next) * 10)
     if(auth.type == 100) rate = 100 // Admin 100%
 
-    // Minus Coin
-    price > 0 && await DB.User.updateOne({ _id: user._id }, { $inc: { 'currency.coin': price * -1 } })
-    
+    // Update User Coin
+    await DB.User.updateOne({ _id: user._id },{ $inc: { 
+      'currency.coin': minus.coin * -1,
+      'currency.lcoin': minus.lcoin * -1,
+    }})
 
     // Upgrade
     const success = Math.random() < (rate / 100) ? true : false
