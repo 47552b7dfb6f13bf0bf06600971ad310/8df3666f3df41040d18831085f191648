@@ -64,6 +64,10 @@ const menu = ref([
   { title: 'Đập trứng', child: [
     { title: 'Cấu hình', icon: 'i-mdi-egg-easter', to: `/manage/@gm/private/${route.params._id}/egg` },
     { title: 'Lịch sử', icon: 'i-bx-time', to: `/manage/@gm/private/${route.params._id}/egg/history` },
+  ]},
+  { title: 'Xếp hạng', child: [
+    { title: 'Cấp độ', icon: 'i-icon-park-solid-level', to: `/manage/@gm/private/${route.params._id}/rank/level` },
+    { title: 'Lực chiến', icon: 'i-game-icons-pointy-sword', to: `/manage/@gm/private/${route.params._id}/rank/power` },
   ]}
 ])
 

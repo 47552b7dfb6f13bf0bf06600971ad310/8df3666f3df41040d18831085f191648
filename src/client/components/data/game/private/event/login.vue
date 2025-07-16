@@ -128,7 +128,7 @@ const doneReceive = () => {
 const getList = async () => {
   try {
     loading.value = true
-    const get = await useAPI('game/private/public/event/list', { 
+    const get = await useAPI('game/private/public/project/event/list', { 
       type: type.value,
       game: props.game.code
     })

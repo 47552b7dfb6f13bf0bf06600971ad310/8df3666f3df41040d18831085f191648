@@ -1,4 +1,3 @@
-import gameGetRankLevel from "~~/src/server/utils/gameGetRankLevel"
 import type { IDBGameTool } from "~~/types"
 
 export default defineEventHandler(async (event) => {

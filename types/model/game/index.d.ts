@@ -30,6 +30,7 @@ export {
   IDBGamePrivateEvent, IDBGamePrivateEventHistory,
   IDBGamePrivateEgg, IDBGamePrivateEggHistory,
   IDBGamePrivateWheel, IDBGamePrivateWheelHistory,
+  IDBGamePrivateRank, IDBGamePrivateRankLog,
   IDBGamePrivateComment,
   IDBGamePrivateLogAdmin
 } from './private'

@@ -66,6 +66,7 @@ import {
   DBGamePrivateEvent, DBGamePrivateEventHistory,
   DBGamePrivateEgg, DBGamePrivateEggHistory,
   DBGamePrivateWheel, DBGamePrivateWheelHistory,
+  DBGamePrivateRank, DBGamePrivateRankLog,
   DBGamePrivateComment,
   DBGamePrivateLogAdmin
 } from './game'
@@ -175,6 +176,8 @@ export default (mongoose : Mongoose) : IGlobalDB => {
     GamePrivateEggHistory: DBGamePrivateEggHistory(mongoose),
     GamePrivateWheel: DBGamePrivateWheel(mongoose),
     GamePrivateWheelHistory: DBGamePrivateWheelHistory(mongoose),
+    GamePrivateRank: DBGamePrivateRank(mongoose),
+    GamePrivateRankLog: DBGamePrivateRankLog(mongoose),
     GamePrivateComment: DBGamePrivateComment(mongoose),
     GamePrivateLogAdmin: DBGamePrivateLogAdmin(mongoose),
 

@@ -70,7 +70,7 @@ const viewNews = async (news) => {
     modal.value = true
     loading.value.content = true
 
-    const data = await useAPI(`game/${props.os}/public/news/view`, { _id: news._id })
+    const data = await useAPI(`game/${props.os}/public/project/news/view`, { _id: news._id })
     newsSelect.value.content = data.content
 
     setTimeout(() => loading.value.content = false, 500) 
@@ -83,7 +83,7 @@ const viewNews = async (news) => {
 const getList = async () => {
   try {
     loading.value.list = true
-    const data = await useAPI(`game/${props.os}/public/news/list`, JSON.parse(JSON.stringify(page.value)))
+    const data = await useAPI(`game/${props.os}/public/project/news/list`, JSON.parse(JSON.stringify(page.value)))
 
     list.value = data.list
     page.value.total = data.total

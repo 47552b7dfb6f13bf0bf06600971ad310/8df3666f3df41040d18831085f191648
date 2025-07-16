@@ -1,39 +1,30 @@
 <template>
   <div>
-    <UCard class="bg-gray" :ui="{ 
+    <UCard class="bg-gray mb-2" :ui="{ 
       body: { padding: 'p-0 sm:p-0' },
-      header: { padding: 'px-3 sm:px-3 py-2 sm:py-2' },
-      footer: { padding: 'p-2 sm:p-2' },
     }">
-      <template #header>
-        <UiFlex>
-          <USelectMenu v-model="page.size" :options="[5,10,20,50,100]" />
-        </UiFlex>
-      </template>
-
       <LoadingTable v-if="loading.load" />
 
       <UTable v-model:sort="page.sort" :columns="columns" :rows="list">
-        <template #giftcode-data="{ row }">
-          <UiText weight="semibold">{{ row.giftcode.code }}</UiText>
+        <template #content-data="{ row }">
+          <div class="whitespace-normal" v-html="row.content" />
         </template>
 
         <template #createdAt-data="{ row }">
           {{ useDayJs().displayFull(row.createdAt) }}
         </template>
       </UTable>
-
-      <template #footer>
-        <UiFlex justify="end">
-          <UPagination v-model="page.current" :page-count="page.size" :total="page.total" :max="5" />
-        </UiFlex>
-      </template>
     </UCard>
+
+    <UiFlex justify="between">
+      <USelectMenu v-model="page.size" :options="[5,10,20,50,100]" />
+      <UPagination v-model="page.current" :page-count="page.size" :total="page.total" :max="5" />
+    </UiFlex>
   </div>
 </template>
 
 <script setup>
-const props = defineProps(['game'])
+const props = defineProps(['fetchId', 'game'])
 
 const loading = ref({
   load: true
@@ -43,18 +34,12 @@ const list = ref([])
 
 const columns = [
   {
-    key: 'giftcode',
-    label: 'Mã',
-  },{
-    key: 'server',
-    label: 'Máy chủ',
-  },{
-    key: 'role',
-    label: 'Nhân vật',
-  },{
+    key: 'content',
+    label: 'Hành động'
+  },
+  {
     key: 'createdAt',
-    label: 'Ngày nhận',
-    sortable: true
+    label: 'Thời gian',
   }
 ]
 
@@ -65,9 +50,9 @@ const page = ref({
     column: 'createdAt',
     direction: 'desc'
   },
-  type: undefined,
   total: 0,
-  game: props.game
+  fetchID: props.fetchId,
+  game: props.game._id,
 })
 watch(() => page.value.size, () => getList())
 watch(() => page.value.current, () => getList())
@@ -77,7 +62,7 @@ watch(() => page.value.sort.direction, () => getList())
 const getList = async () => {
   try {
     loading.value.load = true
-    const data = await useAPI('game/private/public/project/giftcode/history', JSON.parse(JSON.stringify(page.value)))
+    const data = await useAPI('game/private/manage/rank/log', JSON.parse(JSON.stringify(page.value)))
 
     loading.value.load = false
     list.value = data.list
@@ -88,5 +73,5 @@ const getList = async () => {
   } 
 }
 
-onMounted(() => setTimeout(getList, 1))
+getList()
 </script>

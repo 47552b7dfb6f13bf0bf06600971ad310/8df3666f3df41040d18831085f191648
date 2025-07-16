@@ -1,4 +1,3 @@
-import gameGetRankLevel from "~~/src/server/utils/gameGetRankLevel"
 import type { IDBGamePrivate } from "~~/types"
 
 export default defineEventHandler(async (event) => {
@@ -12,7 +11,7 @@ export default defineEventHandler(async (event) => {
     if(!game.ip) throw 'Trò chơi đang bảo trì'
 
     const url = await gameGetRankLevel(event, {
-      url: game.api.power,
+      url: game.api.level,
       secret: game.secret,
       server_id: server_id
     })

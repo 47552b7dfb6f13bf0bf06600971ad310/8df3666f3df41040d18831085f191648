@@ -56,7 +56,7 @@ const validate = (st) => {
 const submit = async () => {
   try {
     loading.value = true
-    await useAPI('game/china/public/payment/create', JSON.parse(JSON.stringify(state.value)))
+    await useAPI('game/china/public/project/payment/create', JSON.parse(JSON.stringify(state.value)))
 		await authStore.setAuth()
 
     loading.value = false

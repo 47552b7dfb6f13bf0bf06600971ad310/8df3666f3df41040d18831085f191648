@@ -1,10 +1,5 @@
 <template>
   <div>
-    <UiFlex justify="between" class="mb-2">
-      <UiTitle name="Chọn Máy Chủ" icon="i-bxs-server" /> 
-      <SelectGameServer v-model="state.server_id" :game="game.code" type="private" size="md" auto />
-    </UiFlex>
-
     <DataEmpty :loading="loading" text="Xếp hạng chưa khả dụng" class="min-h-[300px]" v-if="!!loading || list.length == 0"></DataEmpty>
 
     <div v-else>
@@ -71,7 +66,7 @@
 </template>
 
 <script setup>
-const props = defineProps(['game'])
+const props = defineProps(['game', 'server'])
 
 const list = ref([])
 const list3 = computed(() => {
@@ -84,17 +79,16 @@ const list7 = computed(() => {
 
 const loading = ref(false)
 
-const state = ref({
-  server_id: null,
+const state = computed(() => ({
+  server_id: props.server,
   game: props.game.code
-})
+}))
 
-watch(() => state.value.server_id, (val) => !!val && getRank())
 
 const getRank = async () => {
   try {
     loading.value = true
-    const data = await useAPI('game/private/public/project/rank/power', JSON.parse(JSON.stringify(state.value)))
+    const data = await useAPI('game/private/public/project/rank/power/list', JSON.parse(JSON.stringify(state.value)))
 
     list.value = data
     loading.value = false
@@ -103,4 +97,7 @@ const getRank = async () => {
     loading.value = false
   }
 }
+
+watch(() => state.value.server_id, (val) => !!val && getRank())
+onMounted(() => setTimeout(getRank, 1))
 </script>

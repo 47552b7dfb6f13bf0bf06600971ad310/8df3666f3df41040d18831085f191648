@@ -64,6 +64,8 @@ export {
   IDBGamePrivateEvent, IDBGamePrivateEventHistory,
   IDBGamePrivateEgg, IDBGamePrivateEggHistory,
   IDBGamePrivateWheel, IDBGamePrivateWheelHistory,
+  IDBGamePrivateRank, IDBGamePrivateRankLog,
+
   IDBGamePrivateComment,
   IDBGamePrivateLogAdmin
 } from './game'
@@ -172,6 +174,8 @@ export interface IGlobalDB {
   GamePrivateEggHistory: Model<IDBGamePrivateEggHistory>
   GamePrivateWheel: Model<IDBGamePrivateWheel>
   GamePrivateWheelHistory: Model<IDBGamePrivateWheelHistory>
+  GamePrivateRank: Model<IDBGamePrivateRank>
+  GamePrivateRankLog: Model<IDBGamePrivateRankLog>
   GamePrivateComment: Model<IDBGamePrivateComment>
   GamePrivateLogAdmin: Model<IDBGamePrivateLogAdmin>
 

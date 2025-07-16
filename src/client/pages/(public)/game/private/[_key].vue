@@ -237,7 +237,7 @@ const getUser = async () => {
   try {
     if(!authStore.isLogin) return
     
-    const data = await useAPI('game/private/public/user/get', {
+    const data = await useAPI('game/private/public/project/user/get', {
       game: game.value.code
     })
 

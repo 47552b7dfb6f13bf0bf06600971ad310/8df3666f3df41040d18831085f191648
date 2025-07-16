@@ -166,7 +166,7 @@ const openUndo = (row) => {
 const undoAction = async () => {
   try {
     loading.value.undo = true
-    await useAPI('game/china/public/payment/undo', JSON.parse(JSON.stringify(stateUndo.value)))
+    await useAPI('game/china/public/project/payment/undo', JSON.parse(JSON.stringify(stateUndo.value)))
     await authStore.setAuth()
 
     loading.value.undo = false
@@ -182,7 +182,7 @@ const undoAction = async () => {
 const getList = async () => {
   try {
     loading.value.load = true
-    const data = await useAPI('game/china/public/payment/history', JSON.parse(JSON.stringify(page.value)))
+    const data = await useAPI('game/china/public/project/payment/history', JSON.parse(JSON.stringify(page.value)))
 
     loading.value.load = false
     list.value = data.list

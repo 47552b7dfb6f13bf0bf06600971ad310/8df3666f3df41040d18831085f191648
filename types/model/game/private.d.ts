@@ -482,6 +482,33 @@ export interface IDBGamePrivateEggHistory {
   role: string
 }
 
+// Rank
+export interface IDBGamePrivateRank {
+  _id: Types.ObjectId
+  createdAt: Date
+  updatedAt: Date
+
+  game: Types.ObjectId | IDBGamePrivate
+  server: string
+  type: string
+  end: date
+  active: boolean
+  send: boolean
+  award: Array<{
+    rank: number
+    gift: Array<{
+      item: Types.ObjectId | IDBItem,
+      amount: number
+    }>
+  }>
+}
+
+export interface IDBGamePrivateRankLog {
+  game: Types.ObjectId
+  process: Types.ObjectId
+  content: string
+}
+
 // Comment
 export interface IDBGamePrivateComment {
   _id: Types.ObjectId

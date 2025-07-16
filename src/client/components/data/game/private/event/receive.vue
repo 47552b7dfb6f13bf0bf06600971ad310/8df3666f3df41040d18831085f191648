@@ -67,7 +67,7 @@ const validate = (state) => {
 const receive = async () => {
   try {
     loading.value = true
-    await useAPI('game/private/public/event/receive', JSON.parse(JSON.stringify(state.value)))
+    await useAPI('game/private/public/project/event/receive', JSON.parse(JSON.stringify(state.value)))
 
     loading.value = false
     emits('done')

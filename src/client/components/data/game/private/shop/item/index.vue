@@ -87,7 +87,7 @@ const startBuy = (shop) => {
 const getList = async () => {
 	try {
     loading.value = true
-    const data = await useAPI('game/private/public/shop/item/list', JSON.parse(JSON.stringify(page.value)))
+    const data = await useAPI('game/private/public/project/shop/item/list', JSON.parse(JSON.stringify(page.value)))
 
     list.value = data.list
     page.value.total = data.total

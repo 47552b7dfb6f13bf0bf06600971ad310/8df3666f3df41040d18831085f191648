@@ -99,7 +99,7 @@ const getList = async () => {
 	try {
     if(!!props.game?.paygame) throw true
     loading.value = true
-    const data = await useAPI('game/tool/public/recharge/list', JSON.parse(JSON.stringify(page.value)))
+    const data = await useAPI('game/tool/public/project/recharge/list', JSON.parse(JSON.stringify(page.value)))
 
     list.value = data.list
     page.value.total = data.total

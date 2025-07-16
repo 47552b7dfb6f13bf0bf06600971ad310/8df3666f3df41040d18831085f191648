@@ -125,7 +125,7 @@ const select = ({ row, index }) => {
 const reset = async () => {
   try {
     reseting.value = true
-    await useAPI('game/private/public/egg/reset', { game: props.game.code })
+    await useAPI('game/private/public/project/egg/reset', { game: props.game.code })
 
     reseting.value = false
     modal.value.reset = false
@@ -142,7 +142,7 @@ const dam = async () => {
 
     damming.value = true
     state.value.game = props.game.code
-    const data = await useAPI('game/private/public/egg/damming', JSON.parse(JSON.stringify(state.value)))
+    const data = await useAPI('game/private/public/project/egg/damming', JSON.parse(JSON.stringify(state.value)))
 
     gift.value = data
     damming.value = false
@@ -160,7 +160,7 @@ const dam = async () => {
 
 const getEgg = async () => {
   try {
-    const data = await useAPI('game/private/public/egg/get', { game: props.game.code })
+    const data = await useAPI('game/private/public/project/egg/get', { game: props.game.code })
     source.value = data.source
     config.value = data.config
     loading.value = false

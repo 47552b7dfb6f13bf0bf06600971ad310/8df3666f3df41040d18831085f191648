@@ -1,4 +1,3 @@
-import gameGetRankLevel from "~~/src/server/utils/gameGetRankLevel"
 import type { IDBGameTool } from "~~/types"
 
 export default defineEventHandler(async (event) => {
@@ -11,7 +10,7 @@ export default defineEventHandler(async (event) => {
     if(!game) throw 'Trò chơi không tồn tại'
     if(!game.ip) throw 'Trò chơi đang bảo trì'
 
-    const url = await gameGetRankLevel(event, {
+    const url = await gameGetRankPower(event, {
       url: game.api.power,
       secret: game.secret,
       server_id: server_id

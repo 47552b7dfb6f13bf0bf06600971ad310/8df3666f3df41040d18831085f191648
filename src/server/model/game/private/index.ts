@@ -13,10 +13,9 @@ import type {
   IDBGamePrivateServerOpen,
   IDBGamePrivateLogAdmin,
   IDBGamePrivateNews,
-  IDBGamePrivateEgg,
-  IDBGamePrivateEggHistory,
-  IDBGamePrivateWheel,
-  IDBGamePrivateWheelHistory
+  IDBGamePrivateEgg,IDBGamePrivateEggHistory,
+  IDBGamePrivateWheel,IDBGamePrivateWheelHistory,
+  IDBGamePrivateRank, IDBGamePrivateRankLog
 } from '~~/types'
 
 export const DBGamePrivate = (mongoose : Mongoose) => {
@@ -565,6 +564,43 @@ export const DBGamePrivateEggHistory = (mongoose : Mongoose) => {
   })
 
   const model = mongoose.model('GamePrivateEggHistory', schema, 'GamePrivateEggHistory')
+  return model 
+}
+
+// Rank
+export const DBGamePrivateRank = (mongoose : Mongoose) => {
+  const schema = new mongoose.Schema<IDBGamePrivateRank>({ 
+    game: { type: mongoose.Schema.Types.ObjectId, ref: 'GamePrivate', index: true },
+    server: { type: String, index: true },
+    type: { type: String },
+    end: { type: Date, index: true },
+    active: { type: Boolean, default: false, index: true },
+    send: { type: Boolean, default: false, index: true },
+    award: [{
+      rank: { type: Number, index: true },
+      gift: [{
+        item: { type: mongoose.Schema.Types.ObjectId, ref: 'GamePrivateItem', index: true },
+        amount: { type: Number, index: true },
+      }]
+    }],
+  }, {
+    timestamps: true
+  })
+
+  const model = mongoose.model('GamePrivateRank', schema, 'GamePrivateRank')
+  return model 
+}
+
+export const DBGamePrivateRankLog = (mongoose : Mongoose) => {
+  const schema = new mongoose.Schema<IDBGamePrivateRankLog>({ 
+    game: { type: mongoose.Schema.Types.ObjectId, ref: 'GamePrivate', index: true },
+    process: { type: mongoose.Schema.Types.ObjectId, ref: 'GamePrivateRank' },
+    content: { type: String },
+  }, {
+    timestamps: true
+  })
+
+  const model = mongoose.model('GamePrivateRankLog', schema, 'GamePrivateRankLog')
   return model 
 }
 

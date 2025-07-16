@@ -62,7 +62,7 @@ const spinWheel = async () => {
   try {
     loading.value = true
     state.value.game = props.game.code
-    const data = await useAPI('game/private/public/wheel/spin', JSON.parse(JSON.stringify(state.value)))
+    const data = await useAPI('game/private/public/project/wheel/spin', JSON.parse(JSON.stringify(state.value)))
 
     gift.value = data
     spin.value++
@@ -73,7 +73,7 @@ const spinWheel = async () => {
 }
 
 const getWheel = async () => {
-  const data = await useAPI('game/private/public/wheel/get', { game: props.game.code })
+  const data = await useAPI('game/private/public/project/wheel/get', { game: props.game.code })
   items.value = data
 }
 

@@ -88,7 +88,7 @@ const submit = async () => {
     if(state.value.content.length > 50) return useNotify().error('Bình luận nhiều nhất 50 ký tự')
 
     loading.value.create = true
-    const data = await useAPI(`game/${props.os}/public/comment/create`, JSON.parse(JSON.stringify(state.value)))
+    const data = await useAPI(`game/${props.os}/public/project/comment/create`, JSON.parse(JSON.stringify(state.value)))
 
     page.value.total = data.total
     loading.value.create = false
@@ -106,7 +106,7 @@ const submit = async () => {
 const getList = async () => {
   try {
     loading.value.list = true
-    const data = await useAPI(`game/${props.os}/public/comment/list`, JSON.parse(JSON.stringify(page.value)))
+    const data = await useAPI(`game/${props.os}/public/project/comment/list`, JSON.parse(JSON.stringify(page.value)))
 
     list.value = data.list
     page.value.total = data.total

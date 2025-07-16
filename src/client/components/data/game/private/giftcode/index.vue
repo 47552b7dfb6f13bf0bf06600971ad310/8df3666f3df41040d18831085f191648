@@ -104,7 +104,7 @@ const fastCode = (code) => {
 const check = async () => {
   try {
     loading.value.check = true
-    const data = await useAPI('game/private/public/giftcode/check', JSON.parse(JSON.stringify(state.value)))
+    const data = await useAPI('game/private/public/project/giftcode/check', JSON.parse(JSON.stringify(state.value)))
 
     giftcode.value = data
     loading.value.check = false
@@ -118,7 +118,7 @@ const check = async () => {
 const receive = async () => {
   try {
     loading.value.receive = true
-    await useAPI('game/private/public/giftcode/receive', JSON.parse(JSON.stringify(state.value)))
+    await useAPI('game/private/public/project/giftcode/receive', JSON.parse(JSON.stringify(state.value)))
 
     giftcode.value = null
     state.value.code = null

@@ -44,7 +44,7 @@ const onRecharge = async (detail) => {
     const send = JSON.parse(JSON.stringify(detail))
     send.game = route.query.game
 
-    const data = await useAPI('game/private/public/shop/recharge/check', JSON.parse(JSON.stringify(send)))
+    const data = await useAPI('game/private/public/project/shop/recharge/check', JSON.parse(JSON.stringify(send)))
     selectRecharge.value.recharge = data.recharge
     selectRecharge.value.server = data.server
     modal.value.recharge = true
@@ -107,7 +107,7 @@ const getGame = async () => {
 
 const getUser = async () => {
   try {
-    const data = await useAPI('game/private/public/user/get', {
+    const data = await useAPI('game/private/public/project/user/get', {
       game: game.value.code
     })
 

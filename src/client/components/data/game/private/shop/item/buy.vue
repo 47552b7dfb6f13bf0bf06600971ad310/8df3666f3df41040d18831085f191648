@@ -139,7 +139,7 @@ const discountVoucher = computed(() => {
 const buy = async () => {
   try {
     loading.value = true
-    await useAPI('game/private/public/shop/item/buy', JSON.parse(JSON.stringify(state.value)))
+    await useAPI('game/private/public/project/shop/item/buy', JSON.parse(JSON.stringify(state.value)))
 
     loading.value = false
     emits('done')
