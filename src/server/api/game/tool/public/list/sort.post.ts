@@ -8,8 +8,8 @@ export default defineEventHandler(async (event) => {
     if(!sort.column || !sort.direction) throw 'Dữ liệu sắp xếp sai'
 
     const sorting : any = { }
-    sorting[sort.column] = sort.direction == 'desc' ? -1 : 1
     if(sort.column == 'createdAt') sorting['pin'] = -1
+    sorting[sort.column] = sort.direction == 'desc' ? -1 : 1
 
     const match : any = { display: true }
     const collabCode = runtimeConfig.public.collab
