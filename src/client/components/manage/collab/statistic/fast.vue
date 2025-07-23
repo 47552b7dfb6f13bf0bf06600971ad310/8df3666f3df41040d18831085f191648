@@ -15,7 +15,7 @@
         <UiFlex justify="between">
           <UAvatar icon="i-bxs-badge-dollar" size="2xl" class="mr-4" />
           <UiFlex type="col" items="end">
-            <UiText color="gray" align="right">Thu nhập</UiText>
+            <UiText color="gray" align="right">Thu Nhập</UiText>
             <USkeleton v-if="!!loading" class="w-28 h-7 md:h-8 xl:h-9" />
             <UiText v-else color="primary" align="right" weight="bold" class="text-xl md:text-2xl xl:text-3xl">{{ toMoney(data.income) }}</UiText>
           </UiFlex>
@@ -26,7 +26,7 @@
         <UiFlex justify="between">
           <UAvatar icon="i-bx-money-withdraw"" size="2xl" class="mr-4" />
           <UiFlex type="col" items="end">
-            <UiText color="gray" align="right">Rút tiền</UiText>
+            <UiText color="gray" align="right">Rút Tiền</UiText>
             <USkeleton v-if="!!loading" class="w-28 h-7 md:h-8 xl:h-9" />
             <UiText v-else color="rose" align="right" weight="bold" class="text-xl md:text-2xl xl:text-3xl">- {{ toMoney(data.withdraw) }}</UiText>
           </UiFlex>
@@ -37,7 +37,7 @@
         <UiFlex justify="between">
           <UAvatar icon="i-bxs-dollar-circle" size="2xl" class="mr-4" />
           <UiFlex type="col" items="end">
-            <UiText color="gray" align="right">Lợi nhuận</UiText>
+            <UiText color="gray" align="right">Lợi Nhuận</UiText>
             <USkeleton v-if="!!loading" class="w-28 h-7 md:h-8 xl:h-9" />
             <UiText v-else color="green" align="right" weight="bold" class="text-xl md:text-2xl xl:text-3xl">+ {{ toMoney(data.income - data.withdraw) }}</UiText>
           </UiFlex>
@@ -48,7 +48,7 @@
         <UiFlex justify="between">
           <UAvatar icon="i-bx-credit-card" size="2xl" class="mr-4" />
           <UiFlex type="col" items="end">
-            <UiText color="gray" align="right">Nạp xu</UiText>
+            <UiText color="gray" align="right">Nạp Tiền</UiText>
             <USkeleton v-if="!!loading" class="w-28 h-7 md:h-8 xl:h-9" />
             <UiText v-else color="primary" align="right" weight="bold" class="text-xl md:text-2xl xl:text-3xl">{{ toMoney(data.payment) }}</UiText>
           </UiFlex>

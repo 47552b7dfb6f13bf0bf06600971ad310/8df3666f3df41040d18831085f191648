@@ -45,7 +45,12 @@
           </UiUploadJson>
         </UFormGroup>
 
-        <UiFlex justify="end" class="mt-4 gap-1">
+        <UiFlex class="mt-4 gap-1">
+          <UiFlex class="gap-2 mr-auto" >
+            <UToggle v-model="stateMultiple.renew" />
+            <UiText size="sm" weight="semibold" color="gray" text="Làm mới" />
+          </UiFlex>
+
           <UButton type="submit" color="yellow" :loading="loading.multiple">Thêm</UButton>
           <UButton color="gray" @click="modal.multiple = false" :disabled="loading.multiple">Đóng</UButton>
         </UiFlex>
@@ -134,6 +139,7 @@ watch(() => page.value.search, (val) => !val && getList())
 // State
 const stateMultiple = ref({
   items: null,
+  renew: false,
   game: game._id
 })
 
@@ -158,10 +164,11 @@ const modal = ref({
 })
 watch(() => modal.value.multiple, (val) => !val && (stateMultiple.value = {
   items: null,
+  renew: false,
   game: game._id
 }))
 watch(() => modal.value.single, (val) => !val && (stateSingle.value = {
-  item_id: null, 
+  item_id: null,
   item_name: null,
   game: game._id
 }))

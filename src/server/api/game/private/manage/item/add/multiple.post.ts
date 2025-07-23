@@ -7,7 +7,7 @@ export default defineEventHandler(async (event) => {
     const auth = await getAuth(event) as IAuth
 
     const body = await readBody(event)
-    const { items, game : gameID } = body
+    const { items, game : gameID, renew } = body
     if(!gameID) throw 'Không tìm thấy ID trò chơi'
     if(!items) throw 'Dữ liệu đầu vào sai'
 
@@ -19,7 +19,7 @@ export default defineEventHandler(async (event) => {
     const send = await axios.get(url.href)
     const res = send.data
 
-    // await DB.GamePrivateItem.deleteMany({ game: game._id })
+    if(!!renew) await DB.GamePrivateItem.deleteMany({ game: game._id })
 
     const list = res.map((i : IDBGamePrivateItem) => ({ 
       item_id: i.item_id, 

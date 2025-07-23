@@ -199,7 +199,7 @@ const getPosts = async () => {
     posts.value = data.list
     page.value.total = data.total
 
-    setTimeout(() => loading.value.post = false, 700)
+    setTimeout(() => loading.value.post = false, 500)
   }
   catch(e){
     loading.value.post = false

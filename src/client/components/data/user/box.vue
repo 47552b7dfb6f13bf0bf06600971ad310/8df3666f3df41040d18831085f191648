@@ -214,7 +214,7 @@ const getProfile = async () => {
     user.value = get
     emit('update:userData', get)
     getCharacter()
-    setTimeout(() => loading.value.load = false, 700)
+    setTimeout(() => loading.value.load = false, 500)
   }
   catch(e) {
     loading.value.load = true

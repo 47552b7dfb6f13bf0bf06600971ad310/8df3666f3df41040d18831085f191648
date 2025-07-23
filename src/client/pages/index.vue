@@ -18,10 +18,7 @@
     <div class="my-12"><DataGamePrivateHome /></div>
 
     <!--Game Tool-->
-    <div class="my-12"><DataGameToolHome /></div>
-
-    <!--Game China-->
-    <div><DataGameChinaHome /></div>
+    <div><DataGameToolHome /></div>
   </div>
 </template>
 

@@ -131,7 +131,7 @@ const navItems = [
     children: [
       { label: 'Kênh nạp', to: '/manage/@eni/gate' }, 
       { label: 'Nạp xu', to: '/manage/@eni/payment/coin' },
-      { label: 'Nạp tệ', to: '/manage/@eni/payment/yuan' },
+      // { label: 'Nạp tệ', to: '/manage/@eni/payment/yuan' },
     ]
   },
   {
@@ -144,7 +144,7 @@ const navItems = [
       { label: 'Thể loại', to: '/manage/@eni/game/category' },  
       { label: 'Game Private', to: '/manage/@eni/game/private' },
       { label: 'Game Tool', to: '/manage/@eni/game/tool' },
-      { label: 'Game China', to: '/manage/@eni/game/china' },
+      // { label: 'Game China', to: '/manage/@eni/game/china' },
     ]
   },
   {

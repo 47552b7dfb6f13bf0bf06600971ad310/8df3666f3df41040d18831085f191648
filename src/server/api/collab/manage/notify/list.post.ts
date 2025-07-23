@@ -12,15 +12,20 @@ export default defineEventHandler(async (event) => {
     const sorting : any = { }
     sorting[sort.column] = sort.direction == 'desc' ? -1 : 1
 
+    const match : any = { $or: [
+      { collab: { $exists: false } },
+      { collab: null }
+    ]}
+
     const list = await DB.CollabNotify
-    .find({})
+    .find(match)
     .populate({ path: 'collab', select: 'code link' })
     .select('-content')
     .sort(sorting)
     .limit(size)
     .skip((current - 1) * size)
 
-    const total = await DB.CollabNotify.count()
+    const total = await DB.CollabNotify.count(match)
     return resp(event, { result: { list, total } })
   } 
   catch (e:any) {

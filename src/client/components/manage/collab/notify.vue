@@ -1,15 +1,20 @@
 <template>
   <UiContent title="Notification" sub="Thông báo nền tảng">
+    <UiFlex class="mb-2">
+      <UTabs v-model="tab" :items="tabs"></UTabs>
+    </UiFlex>
+
     <DataEmpty v-if="!!loading.list || list.length == 0" text="Không có thông báo" :loading="loading.list" class="min-h-[300px]" />
+
     <UiFlex v-else class="gap-2" type="col" >
       <UAlert 
-        :title="item.title" 
+        :title="item.title"
         :icon="!!item.pin ? 'i-bxs-pin' : 'i-bx-bell'" 
-        class="cursor-pointer bg-gray-1000" 
+        class="bg-gray-1000" 
         v-for="(item, index) in list" :key="index" 
-        @click="view(item._id)"
       >
         <template #description>
+          <UiText color="primary" weight="semibold" v-html="item.content" class="mb-1"></UiText>
           <UiText color="gray" size="xs">{{ useDayJs().fromTime(item.createdAt) }}</UiText>
         </template>
       </UAlert>
@@ -44,12 +49,16 @@
 
 <script setup>
 const route = useRoute()
+
 const list = ref([])
+
 const loading = ref({
   list: true,
   view: false
 })
+
 const modal = ref(false)
+
 const notify = ref(null)
 const page = ref({
   size: 10,
@@ -59,10 +68,20 @@ const page = ref({
     direction: 'desc'
   },
   total: 0,
+  type: 'all',
   collab: route.params._code
 })
 watch(() => page.value.size, () => getList())
 watch(() => page.value.current, () => getList())
+watch(() => page.value.type, () => getList())
+
+const tab = ref(0)
+const tabs = [
+  { label: 'Tất cả', key: 'all' },
+  { label: 'Thu nhập', key: 'income' },
+  { label: 'Số dư', key: 'gatepay' },
+]
+watch(tab, (val) => page.value.type = tabs[val].key)
 
 const view = async (_id) => {
   try {

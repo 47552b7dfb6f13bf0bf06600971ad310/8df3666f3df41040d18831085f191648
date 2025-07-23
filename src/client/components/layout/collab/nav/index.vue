@@ -43,8 +43,15 @@ const menu = ref([
     { title: 'Thông kê', to: `/manage/@collab/${route.params._code}` },
     { title: 'Tin tức', to: `/manage/@collab/${route.params._code}/news` },
     { title: 'Tài khoản', to: `/manage/@collab/${route.params._code}/user` },
-    { title: 'Nạp xu', to: `/manage/@collab/${route.params._code}/payment` },
-    { title: 'Rút tiền', to: `/manage/@collab/${route.params._code}/withdraw` },
+    { title: 'Nạp tiền', to: `/manage/@collab/${route.params._code}/payment` },
+  ]},
+  { title: 'Cộng tác viên (Nhánh)', child: [
+    { title: 'Danh sách', to: `/manage/@collab/${route.params._code}/child` },
+    { title: 'Lệnh rút tiền', to: `/manage/@collab/${route.params._code}/child/withdraw` },
+  ]},
+  { title: 'Thu nhập', child: [
+    { title: 'Từ trò chơi', to: `/manage/@collab/${route.params._code}/income/game` },
+    { title: 'Nâng VIP', to: `/manage/@collab/${route.params._code}/income/vip` }
   ]},
   { title: 'Nhiệm vụ', child: [
     { title: 'Đang sử dụng', to: `/manage/@collab/${route.params._code}/mission` },
@@ -54,12 +61,8 @@ const menu = ref([
     { title: 'Đang sử dụng', to: `/manage/@collab/${route.params._code}/game` },
     { title: 'Game Private', to: `/manage/@collab/${route.params._code}/game/private` },
     { title: 'Game Tool', to: `/manage/@collab/${route.params._code}/game/tool` },
-    { title: 'Game China', to: `/manage/@collab/${route.params._code}/game/china` }
-  ]},
-  { title: 'Thu nhập', child: [
-    { title: 'Từ trò chơi', to: `/manage/@collab/${route.params._code}/income/game` },
-    { title: 'Nâng VIP', to: `/manage/@collab/${route.params._code}/income/vip` }
-  ]},
+    // { title: 'Game China', to: `/manage/@collab/${route.params._code}/game/china` }
+  ]}
 ])
 
 const activeTo = computed(() => {

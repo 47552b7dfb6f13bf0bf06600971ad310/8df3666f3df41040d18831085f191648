@@ -29,7 +29,7 @@ export default defineEventHandler(async (event) => {
               name: 1, description: 1, code: 1, key: 1, 
               pin: 1, statistic: 1, 
               'image.banner': 1,  'image.icon': 1,  
-              rate: 1,  hasecoin: 1,
+              rate: 1,
               platform: 1, category: 1
             }
           }],
@@ -55,7 +55,6 @@ export default defineEventHandler(async (event) => {
           statistic: "$game.statistic",
           image: "$game.image",
           rate: "$game.rate",
-          hasecoin: "$game.hasecoin",
           platform: "$game.platform",
           category: "$game.category",
       }},

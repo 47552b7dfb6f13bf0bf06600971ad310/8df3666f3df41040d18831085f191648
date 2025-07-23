@@ -23,19 +23,11 @@ const emit = defineEmits(['update:modelValue'])
 
 const select = ref(props.modelValue)
 
-const items = [{
-  key: 'private',
-  label: 'Game Private',
-  icon: 'i-fluent-games-28-filled',
-},{
-  key: 'tool',
-  label: 'Game Tool',
-  icon: 'i-ion-game-controller',
-},{
-  key: 'china',
-  label: 'Game China',
-  icon: 'i-jam-gamepad-f',
-}]
+const items = [
+  { key: 'private', label: 'Game Private', icon: 'i-fluent-games-28-filled' },
+  { key: 'tool', label: 'Game Tool', icon: 'i-ion-game-controller' },
+  // { key: 'china', label: 'Game China', icon: 'i-jam-gamepad-f' }
+]
 
 watch(() => select.value, (val) => emit('update:modelValue', select.value))
 </script>

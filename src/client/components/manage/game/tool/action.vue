@@ -252,7 +252,7 @@
       <UiContent title="Reset trò chơi" class="bg-card rounded-2xl p-4" no-dot>
         <UAlert title="Chú Ý" icon="i-bxs-info-circle" color="orange" variant="soft">
           <template #description>
-            Bạn chắc chắn muốn reset trò chơi này ?
+            Bạn chắc chắn muốn reset trò chơi <b>[{{ stateReset.code }}] {{ stateReset.name }}</b> ?
           </template>
         </UAlert>
 
@@ -357,7 +357,9 @@ const stateDel = ref({
   code: null
 })
 const stateReset = ref({
-  _id: null
+  _id: null,
+  name: null,
+  code: null
 })
 
 // Modal
@@ -497,7 +499,7 @@ const actions = (row) => [
   },{
     label: 'Xóa trò chơi',
     icon: 'i-bx-trash',
-    disabled: true,
+    disabled: !!route.params._id,
     click: () => {
       Object.keys(stateDel.value).forEach(key => stateDel.value[key] = row[key])
       stateDel.value._id = row._id

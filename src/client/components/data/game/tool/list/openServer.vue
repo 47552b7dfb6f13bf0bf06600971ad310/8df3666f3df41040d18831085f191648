@@ -20,7 +20,7 @@ const getList = async () => {
     const data = await useAPI('game/tool/public/list/openserver', JSON.parse(JSON.stringify(page.value)))
 
     list.value = data
-    setTimeout(() => loading.value = false, 700)
+    setTimeout(() => loading.value = false, 500)
   }
   catch (e) {
     loading.value = false

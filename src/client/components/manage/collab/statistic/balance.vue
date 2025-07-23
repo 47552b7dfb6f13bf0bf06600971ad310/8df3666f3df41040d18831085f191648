@@ -6,7 +6,10 @@
         <UiFlex type="col" items="end">
           <UiText color="gray" align="end">Số Dư Tài Khoản</UiText>
           <USkeleton v-if="!!loading" class="w-28 h-7 md:h-8 xl:h-9" />
-          <UiText v-else color="yellow" align="end" weight="bold" class="text-xl md:text-2xl xl:text-3xl">{{ toMoney(data.money) }}</UiText>
+          <UiFlex v-else class="gap-2">
+            <UiText color="yellow" align="end" weight="bold" class="text-xl md:text-2xl xl:text-3xl">{{ toMoney(data.money) }}</UiText>
+            <UBadge color="gray" variant="soft" size="xs" class="cursor-pointer" @click="navigateTo(`/manage/@collab/${collab}/withdraw`)">Rút tiền</UBadge>
+          </UiFlex>
         </UiFlex>
       </UiFlex>
     </UCard>
@@ -17,7 +20,10 @@
         <UiFlex type="col" items="end">
           <UiText color="gray" align="end">Số Dư Kênh Thanh Toán</UiText>
           <USkeleton v-if="!!loading" class="w-28 h-7 md:h-8 xl:h-9" />
-          <UiText v-else color="cyan" align="end" weight="bold" class="text-xl md:text-2xl xl:text-3xl">{{ toMoney(data.gatepay) }}</UiText>
+          <UiFlex v-else class="gap-2">
+            <UiText color="cyan" align="end" weight="bold" class="text-xl md:text-2xl xl:text-3xl">{{ toMoney(data.gatepay) }}</UiText>
+            <UBadge color="gray" variant="soft" size="xs" class="cursor-pointer" @click="useNotify().error('Liên hệ quản trị viên để nạp thêm')">Nạp thêm</UBadge>
+          </UiFlex>
         </UiFlex>
       </UiFlex>
     </UCard>

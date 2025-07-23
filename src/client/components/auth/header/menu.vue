@@ -22,7 +22,7 @@
     </UPopover>
 
     <UModal v-model="modal.view" :ui="{width: 'sm:max-w-[400px]'}">
-      <DataUserBox :fetch-id="authStore.profile._id" :no-chat="true" />
+      <DataUserBox :fetch-id="authStore.profile._id" :no-chat="true" @close="modal.view = false" />
     </UModal>
 
     <UModal v-model="modal.history.payment" :ui="{width: 'sm:max-w-[900px]'}">

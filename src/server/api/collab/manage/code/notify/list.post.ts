@@ -3,7 +3,7 @@ import type { IAuth, IDBCollab } from "~~/types"
 export default defineEventHandler(async (event) => {
   try {
     const auth = await getAuth(event) as IAuth
-    const { size, current, sort, collab : code } = await readBody(event)
+    const { size, current, sort, type, collab : code } = await readBody(event)
     if(!size || !current) throw 'Dữ liệu phân trang sai'
     if(!sort.column || !sort.direction) throw 'Dữ liệu sắp xếp sai'
     if(!code) throw 'Dữ liệu đầu vào không đủ'
@@ -21,10 +21,10 @@ export default defineEventHandler(async (event) => {
         { collab: null }
       ]
     }
+    if(type == 'income' || type == 'gatepay') match['type'] = { $regex : type, $options : 'i' }
 
     const list = await DB.CollabNotify
     .find(match)
-    .select('-content')
     .sort(sorting)
     .limit(size)
     .skip((current - 1) * size)

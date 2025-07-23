@@ -12,16 +12,33 @@ export default defineEventHandler(async (event) => {
     if(!game) throw 'Trò chơi không tồn tại'
 
     await DB.GamePrivateNews.deleteMany({ game: game._id })
+
     await DB.GamePrivateServerOpen.deleteMany({ game: game._id })
+
     await DB.GamePrivateUser.deleteMany({ game: game._id })
+
     await DB.GamePrivateUserLogin.deleteMany({ game: game._id })
+
     await DB.GamePrivateRechargeHistory.deleteMany({ game: game._id })
+
     await DB.GamePrivateShopItemHistory.deleteMany({ game: game._id })
+
     await DB.GamePrivateShopPackHistory.deleteMany({ game: game._id })
+
     await DB.GamePrivateEventHistory.deleteMany({ game: game._id })
+
     await DB.GamePrivateGiftcodeHistory.deleteMany({ game: game._id })
+
+    await DB.GamePrivateWheelHistory.deleteMany({ game: game._id })
+
+    await DB.GamePrivateEggHistory.deleteMany({ game: game._id })
+
+    await DB.GamePrivateRankLog.deleteMany({ game: game._id })
+
     await DB.GamePrivateComment.deleteMany({ game: game._id })
+
     await DB.GamePrivateLogAdmin.deleteMany({ game: game._id })
+
     await DB.GamePrivate.updateOne({ _id: game._id },{
       statistic: {
         statistic: { play: 0, view: 0, user: 0, revenue: 0 },
@@ -29,7 +46,7 @@ export default defineEventHandler(async (event) => {
     })
 
     logGameAdmin(event, 'private', game._id, `Reset trò chơi`)
-    return resp(event, { message: 'Xóa thành công' })
+    return resp(event, { message: 'Thao tác thành công' })
   } 
   catch (e:any) {
     return resp(event, { code: 400, message: e.toString() })

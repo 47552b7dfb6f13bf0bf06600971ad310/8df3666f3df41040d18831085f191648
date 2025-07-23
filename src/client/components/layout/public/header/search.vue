@@ -68,7 +68,7 @@ const textInfo = computed(() => {
 watch(() => page.value.search, () => {
   if (delayTimer.value) clearTimeout(delayTimer.value)
   loading.value = true
-  delayTimer.value = setTimeout(() => searchItem(), 1000)
+  delayTimer.value = setTimeout(() => searchItem(), 500)
 })
 
 const searchItem = async () => {

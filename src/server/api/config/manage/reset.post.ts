@@ -5,33 +5,55 @@ export default defineEventHandler(async (event) => {
     const auth = await getAuth(event) as IAuth
     if(auth.type != 100) throw 'Bạn không phải quản trị viên cấp cao'
 
+    const body = await readBody(event)
+
     // User
-    await DB.User.deleteMany({ type: { $lt: 99 } })
+    if(!!body.del_user) {
+      await DB.User.deleteMany({ type: { $lt: 99 } })
+      await DB.UserIP.deleteMany({})
+      await DB.UserDevice.deleteMany({})
+      await DB.UserLogin.deleteMany({})
+    }
     await DB.User.updateMany({}, {
       reg: { from: null, collab: null, platform: null },
       invite: { code: null, friend: 0 },
       currency: { exp: 0, coin: 0, ecoin: 0, lcoin: 0 },
+      vip: {
+        month: { enable: false, end: null },
+        forever: { enable: false, end: null }
+      },
+      character: {
+        body: { bag: [], use: null, level: 0 },
+        wing: { bag: [], use: null, level: 0 },
+        weapon: { bag: [], use: null, level: 0 },
+        pet: { bag: [], use: null, level: 0 },
+        circle: { bag: [], use: null, level: 0 },
+        title: { bag: [], use: null, level: 0 },
+      },
       level: null,
       guild: null,
-      token: null
+      token: null,
+      statistic: { pay: 0 },
+      vouchers: []
     })
-    await DB.UserIP.deleteMany({})
-    await DB.UserDevice.deleteMany({})
-    await DB.UserLogin.deleteMany({})
 
     // Ads
     await DB.AdsFrom.deleteMany({})
 
     // Collab
-    await DB.Collab.deleteMany({})
-    await DB.CollabNotify.deleteMany({})
-    await DB.CollabIncome.deleteMany({})
-    await DB.CollabWithdraw.deleteMany({})
+    if(!!body.del_collab){
+      await DB.Collab.deleteMany({})
+      await DB.CollabNotify.deleteMany({})
+      await DB.CollabIncome.deleteMany({})
+      await DB.CollabWithdraw.deleteMany({})
+    }
 
     // Forum
-    await DB.ForumPost.deleteMany({})
-    await DB.ForumPostLike.deleteMany({})
-    await DB.ForumPostComment.deleteMany({})
+    if(!!body.del_forum){
+      await DB.ForumPost.deleteMany({})
+      await DB.ForumPostLike.deleteMany({})
+      await DB.ForumPostComment.deleteMany({})
+    }
 
     // Guild
     await DB.Guild.deleteMany({})
@@ -48,10 +70,10 @@ export default defineEventHandler(async (event) => {
     await DB.LogUser.deleteMany({})
 
     // News
-    await DB.News.deleteMany({})
+    if(!!body.del_news) await DB.News.deleteMany({})
 
     // Payment
-    await DB.Payment.deleteMany({})
+    if(!!body.del_payment) await DB.Payment.deleteMany({})
 
     // Socket
     await DB.SocketOnline.deleteMany({})
@@ -66,6 +88,9 @@ export default defineEventHandler(async (event) => {
     // Voucher
     await DB.VoucherHistory.deleteMany({})
 
+    // Mission
+    await DB.MissionHistory.deleteMany({})
+
     // Game Private
     await DB.GamePrivateNews.deleteMany({})
     await DB.GamePrivateServerOpen.deleteMany({})
@@ -76,6 +101,9 @@ export default defineEventHandler(async (event) => {
     await DB.GamePrivateShopPackHistory.deleteMany({})
     await DB.GamePrivateEventHistory.deleteMany({})
     await DB.GamePrivateGiftcodeHistory.deleteMany({})
+    await DB.GamePrivateEggHistory.deleteMany({})
+    await DB.GamePrivateWheelHistory.deleteMany({})
+    await DB.GamePrivateRankLog.deleteMany({})
     await DB.GamePrivateComment.deleteMany({})
     await DB.GamePrivateLogAdmin.deleteMany({})
     await DB.GamePrivate.updateMany({},{
@@ -98,7 +126,7 @@ export default defineEventHandler(async (event) => {
     await DB.GameToolPayment.deleteMany({})
     await DB.GameToolComment.deleteMany({})
     await DB.GameToolLogAdmin.deleteMany({})
-    await DB.GameTool.updateMany({ },{
+    await DB.GameTool.updateMany({},{
       statistic: { play: 0, view: 0, user: 0, revenue: 0 },
       collab: { use: [], commission: 5 },
       manager: [],

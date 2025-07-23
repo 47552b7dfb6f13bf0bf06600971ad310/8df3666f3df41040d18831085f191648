@@ -12,13 +12,21 @@ export default defineEventHandler(async (event) => {
     if(!game) throw 'Trò chơi không tồn tại'
 
     await DB.GameToolNews.deleteMany({ game: game._id })
+
     await DB.GameToolServerOpen.deleteMany({ game: game._id })
+
     await DB.GameToolUser.deleteMany({ game: game._id })
+
     await DB.GameToolPayment.deleteMany({ game: game._id })
+
     await DB.GameToolRecharge.deleteMany({ game: game._id })
+
     await DB.GameToolItem.deleteMany({ game: game._id })
+
     await DB.GameToolComment.deleteMany({ game: game._id })
+
     await DB.GameToolLogAdmin.deleteMany({ game: game._id })
+    
     await DB.GameTool.deleteOne({ _id: game._id })
 
     logAdmin(event, `Xóa trò chơi Tool <b>${game.name}</b>`)

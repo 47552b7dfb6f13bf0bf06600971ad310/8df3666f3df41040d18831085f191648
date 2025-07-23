@@ -9,6 +9,7 @@ export default defineEventHandler(async (event) => {
 
     const sorting : any = { }
     sorting[sort.column] = sort.direction == 'desc' ? -1 : 1
+    if(sort.column == 'createdAt') sorting['pin'] = -1
 
     const match : any = { display: true }
     const collabCode = runtimeConfig.public.collab

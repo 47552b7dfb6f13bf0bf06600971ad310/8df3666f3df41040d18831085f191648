@@ -1,7 +1,7 @@
 <template>
   <div>
     <UiFlex class="mb-2 gap-1" justify="between">
-      <UForm :state="page" @submit="page.current = 1, getList()" class="w-full">
+      <UForm :state="page" @submit="page.current = 1, getList()" class="grow">
         <UInput v-model="page.search" placeholder="Tìm kiếm..." icon="i-bx-search" size="md" />
       </UForm>
 

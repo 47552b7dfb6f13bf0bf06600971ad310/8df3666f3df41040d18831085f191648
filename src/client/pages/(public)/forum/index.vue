@@ -91,7 +91,7 @@ const getForum = async () => {
 
     categories.value = data.categories
     posts.value = data.posts
-    setTimeout(() => loading.value = false, 1000)
+    setTimeout(() => loading.value = false, 500)
   }
   catch(e){
     loading.value = false

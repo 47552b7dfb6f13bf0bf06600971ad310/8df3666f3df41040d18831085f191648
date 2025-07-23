@@ -203,7 +203,7 @@ const getComments = async () => {
     comments.value = data.list
     page.value.total = data.total
 
-    setTimeout(() => loading.value.comment.list = false, 700)
+    setTimeout(() => loading.value.comment.list = false, 500)
   }
   catch(e){
     loading.value.comment.list = false
