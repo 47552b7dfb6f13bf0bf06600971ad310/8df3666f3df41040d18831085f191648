@@ -34,6 +34,7 @@ export const DBCollab = (mongoose : Mongoose) => {
     gatepay: { type: Number, default: 0, index: true },
 
     statistic: {
+      user: { type: Number, default: 0, index: true },
       payment: { type: Number, default: 0, index: true },
       income: { type: Number, default: 0, index: true },
     },
