@@ -123,6 +123,22 @@
         </UButtonGroup>
 
         <UButtonGroup>
+          <UButton
+            @click="setLink"
+            :color="editor.isActive('link') ? 'primary' : 'gray'"
+            icon="i-bx-link"
+            square
+          />
+          <UButton
+            @click="editor.chain().focus().unsetLink().run()"
+            :disabled="!editor.isActive('link')"
+            icon="i-bx-unlink"
+            square
+            color="gray"
+          />
+        </UButtonGroup>
+
+        <UButtonGroup>
           <UiUploadImage v-model="image" class="h-[32px]">
             <template #default="{ select }">
               <UButton @click="select" color="gray" icon="i-bx-image" square />
@@ -153,7 +169,7 @@
     </template>
 
     <template #default>
-      <TiptapEditorContent :editor="editor" />
+      <TiptapEditorContent :editor="editor" class="tiptap"/>
     </template>
   </UCard>
 </template>
@@ -215,6 +231,18 @@ const addYoutube = () => {
       height: 480,
     })
   }
+}
+
+const setLink = () => {
+  const previousUrl = editor.value.getAttributes('link').href
+  const url = window.prompt('Nhập URL liên kết:', previousUrl)
+
+  if (url === null) return
+  if (url === '') {
+    editor.value.chain().focus().unsetLink().run()
+    return
+  }
+  editor.value.chain().focus().extendMarkRange('link').setLink({ href: url }).run()
 }
 
 onBeforeUnmount(() => {

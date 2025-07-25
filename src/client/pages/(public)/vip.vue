@@ -33,8 +33,8 @@
 
         <UiFlex type="col" items="start" class="gap-1.5">
           <UiFlex v-for="(info, i) in item.info" :key="i" class="gap-2">
-            <UiIcon name="i-bxs-star" size="4" />
-            <UiText size="sm" color="gray" >{{ info }}</UiText>
+            <UiIcon name="i-bxs-star" size="4" :color="info.color" />
+            <UiText size="sm" :color="info.color" :weight="!!info.weight ? 'bold' : 'nornal'">{{ info.label }}</UiText>
           </UiFlex>
         </UiFlex>
       </UCard>
@@ -86,12 +86,12 @@ const list = ref([
     des: 'Phí gia hạn 1 tháng',
     price: configStore.config.vip.month,
     info: [
-      'Đặc quyền 30 ngày',
-      'Huy hiệu VIP theo tên',
-      'Giảm giá >=2% mua Game Tool',
-      'Giảm giá >=2% cửa hàng Game Private',
-      'Thông báo khi trực tuyến',
-      'Trò chuyện thế giới không giới hạn',
+      { label: 'Đặc quyền 30 ngày', color: 'gray' },
+      { label: 'Huy hiệu VIP theo tên', color: 'gray' },
+      { label: 'Giảm giá 50% mua Game Tool', color: 'sky', weight: true },
+      { label: 'Giảm giá >=15% cửa hàng Game Private', color: 'sky', weight: true },
+      { label: 'Thông báo khi trực tuyến', color: 'gray' },
+      { label: 'Trò chuyện thế giới không giới hạn', color: 'gray' },
     ],
     type: 'month',
     color: 'sky'
@@ -101,12 +101,12 @@ const list = ref([
     des: 'Không cần kích hoạt lại',
     price: configStore.config.vip.forever,
     info: [
-      'Đặc quyền trọn đời',
-      'Huy hiệu VIP theo tên',
-      'Miễn phí mua Game Tool',
-      'Giảm giá >=10% cửa hàng Game Private',
-      'Thông báo khi trực tuyến',
-      'Trò chuyện thế giới không giới hạn',
+      { label: 'Đặc quyền trọn đời', color: 'gray' },
+      { label: 'Huy hiệu VIP theo tên', color: 'gray' },
+      { label: 'Miễn phí mua Game Tool', color: 'purple', weight: true },
+      { label: 'Giảm giá >=30% cửa hàng Game Private', color: 'purple', weight: true },
+      { label: 'Thông báo khi trực tuyến', color: 'gray' },
+      { label: 'Trò chuyện thế giới không giới hạn', color: 'gray' },
     ],
     type: 'forever',
     color: 'purple'
