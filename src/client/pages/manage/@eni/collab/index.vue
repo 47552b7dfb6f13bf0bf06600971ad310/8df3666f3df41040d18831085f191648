@@ -39,8 +39,8 @@
           <UiText color="yellow" weight="semibold">{{ useMoney().toMoney(row.money || 0) }}</UiText>
         </template>
 
-        <template #[`statistic.member-data`]="{ row }">
-          {{ useMoney().toMoney(row.statistic.member || 0) }}
+        <template #[`statistic.user-data`]="{ row }">
+          {{ useMoney().toMoney(row.statistic.user || 0) }}
         </template>
 
         <template #[`statistic.payment-data`]="{ row }">
@@ -147,7 +147,7 @@
         </UFormGroup>
 
         <UiFlex justify="end" class="mt-6">
-          <UButton type="submit" :loading="loading.edit">Lưu</UButton>
+          <UButton type="submit" :loading="loading.edit">Xác Nhận</UButton>
           <UButton color="gray" @click="modal.gatepay = false" :disabled="loading.edit" class="ml-1">Đóng</UButton>
         </UiFlex>
       </UForm>
@@ -175,7 +175,7 @@ const columns = [
     key: 'user',
     label: 'CTV',
   },{
-    key: 'statistic.member',
+    key: 'statistic.user',
     label: 'Tài khoản',
     sortable: true
   },{

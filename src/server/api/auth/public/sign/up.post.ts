@@ -122,7 +122,10 @@ export default defineEventHandler(async (event) => {
     const collabCode = runtimeConfig.public.collab
     if(!!collabCode){
       const collab = await DB.Collab.findOne({ code: collabCode }).select('_id') as IDBCollab
-      collab && (user.reg.collab = collab._id)
+      if(collab){
+        user.reg.collab = collab._id
+        await DB.Collab.updateOne({ _id: collab._id }, { $inc: { 'statistic.user': 1 }})
+      }
     }
 
     // Make Token And Cookie

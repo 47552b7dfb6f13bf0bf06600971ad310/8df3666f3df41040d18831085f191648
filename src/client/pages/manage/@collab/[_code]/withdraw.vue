@@ -36,7 +36,7 @@
         </template>
 
         <template #[`verify.time-data`]="{ row }">
-          {{ row.verify.time ? useDayJs().displayFull(row.verify.time) : '...' }}
+          {{ row.verify ? row.verify.time ? useDayJs().displayFull(row.verify.time) : '...' : '...' }}
         </template>
 
         <template #createdAt-data="{ row }">
@@ -205,9 +205,9 @@ const createAction = async () => {
     loading.value.create = true
     await useAPI('collab/manage/code/withdraw/create', JSON.parse(JSON.stringify(stateCreate.value)))
 
-    await getCollab()
     loading.value.create = false
     modal.value.create = false
+    await getList()
   }
   catch (e) {
     loading.value.create = false

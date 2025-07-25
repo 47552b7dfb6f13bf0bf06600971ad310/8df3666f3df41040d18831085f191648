@@ -3,6 +3,8 @@ import type { IDBCollab, IDBCollabIncome, IDBCollabLevel, IDBCollabNotify, IDBCo
 
 export const DBCollabLevel = (mongoose : Mongoose) => {
   const schema = new mongoose.Schema<IDBCollabLevel>({
+    parent: { type: mongoose.Schema.Types.ObjectId, ref: 'Collab', index: true },
+
     number: { type: Number },
     commission: {
       game: {
@@ -21,6 +23,8 @@ export const DBCollabLevel = (mongoose : Mongoose) => {
 
 export const DBCollab = (mongoose : Mongoose) => {
   const schema = new mongoose.Schema<IDBCollab>({
+    parent: { type: mongoose.Schema.Types.ObjectId, ref: 'Collab', index: true },
+
     level: { type: mongoose.Schema.Types.ObjectId, ref: 'CollabLevel', index: true },
     code: { type: String },
     user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', index: true },
@@ -28,6 +32,11 @@ export const DBCollab = (mongoose : Mongoose) => {
 
     money: { type: Number, default: 0, index: true },
     gatepay: { type: Number, default: 0, index: true },
+
+    statistic: {
+      payment: { type: Number, default: 0, index: true },
+      income: { type: Number, default: 0, index: true },
+    },
 
     privilege: {
       edit_info: { type: Boolean, default: true },
@@ -116,6 +125,8 @@ export const DBCollabIncome = (mongoose : Mongoose) => {
 
 export const DBCollabWithdraw = (mongoose : Mongoose) => {
   const schema = new mongoose.Schema<IDBCollabWithdraw>({
+    parent: { type: mongoose.Schema.Types.ObjectId, ref: 'Collab', index: true },
+    
     collab: { type: mongoose.Schema.Types.ObjectId, ref: 'Collab', index: true },
     user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', index: true },
     code: { type: String },

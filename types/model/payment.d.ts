@@ -5,6 +5,8 @@ export interface IDBPayment {
   createdAt: Date
   updatedAt: Date
 
+  collab: Types.ObjectId
+
   gate: Types.ObjectId
   user: Types.ObjectId
 
@@ -27,5 +29,10 @@ export interface IDBPayment {
     person: Types.ObjectId
     time: Date
     reason: string
+  }
+
+  // Function
+  save: {
+    () : void
   }
 }

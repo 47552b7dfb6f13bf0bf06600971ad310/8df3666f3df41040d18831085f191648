@@ -1,8 +1,9 @@
 import md5 from "md5"
-import type { IAuth, IDBConfig, IDBGate, IDBPayment, IDBUser } from "~~/types"
+import type { IAuth, IDBConfig, IDBGate, IDBPayment, IDBUser, IDBCollab } from "~~/types"
 
 export default defineEventHandler(async (event) => {
   try {
+    const runtimeConfig = useRuntimeConfig()
     const auth = await getAuth(event) as IAuth
 
     // Check Body
@@ -29,9 +30,23 @@ export default defineEventHandler(async (event) => {
     if(!gateSelect) throw 'Kênh nạp không tồn tại'
     if(!gateSelect.display) throw 'Kênh nạp đang bảo trì'
 
+    // Check Collab
+    let collab
+    const collabCode = runtimeConfig.public.collab
+    if(!!collabCode){
+      collab = await DB.Collab.findOne({ code: collabCode }).select('info.short_name') as IDBCollab
+      if(!collab) throw 'Mã cộng tác viên không tồn tại'
+    }
+
+    // Get Count Payment
+    const matchCount : any = {}
+    if(!!collab) matchCount['collab'] = collab._id
+    const countPayment = await DB.Payment.count(matchCount)
+
     // Make Code, Token
-    const countPayment = await DB.Payment.count()
-    const prefix = config.short_name ? config.short_name.trim().toUpperCase() : 'PAY'
+    const prefix = !!collab 
+      ? (collab.info.short_name ? collab.info.short_name.trim().toUpperCase() : (config.short_name ? config.short_name.trim().toUpperCase() : 'PAY')) 
+      : (config.short_name ? config.short_name.trim().toUpperCase() : 'PAY')
     const code = prefix + (countPayment > 9 ? countPayment : `0${countPayment}`) + Math.floor(Math.random() * (99 - 10) + 10)
     const token = md5(`${code}-${Date.now()}`)
     
@@ -73,7 +88,9 @@ export default defineEventHandler(async (event) => {
       token: token,
       qrcode: qrcode
     }) as IDBPayment
-
+    if(!!collab) payment.collab = collab._id
+    await payment.save()
+    
     // Log User
     logUser({
       user: user._id,

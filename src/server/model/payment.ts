@@ -3,6 +3,7 @@ import type { IDBPayment } from '~~/types'
 
 export const DBPayment = (mongoose : Mongoose) => {
   const schema = new mongoose.Schema<IDBPayment>({ 
+    collab: { type: mongoose.Schema.Types.ObjectId, ref: 'Collab', index: true },
     gate: { type: mongoose.Schema.Types.ObjectId, ref: 'Gate', index: true },
     user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', index: true },
     card: {

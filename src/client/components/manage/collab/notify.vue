@@ -61,7 +61,7 @@ const modal = ref(false)
 
 const notify = ref(null)
 const page = ref({
-  size: 10,
+  size: 5,
   current: 1,
   sort: {
     column: 'createdAt',
@@ -79,7 +79,8 @@ const tab = ref(0)
 const tabs = [
   { label: 'Tất cả', key: 'all' },
   { label: 'Thu nhập', key: 'income' },
-  { label: 'Số dư', key: 'gatepay' },
+  { label: 'Số dư TT', key: 'gatepay' },
+  { label: 'Rút tiền', key: 'withdraw' },
 ]
 watch(tab, (val) => page.value.type = tabs[val].key)
 

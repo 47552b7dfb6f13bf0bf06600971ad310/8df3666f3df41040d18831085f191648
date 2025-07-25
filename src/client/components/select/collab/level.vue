@@ -20,7 +20,8 @@ const props = defineProps({
   options: {
     type: Array,
     default: () => []
-  }
+  },
+  parent: String
 })
 
 const emit = defineEmits(['update:modelValue'])
@@ -40,7 +41,7 @@ const select = computed(() => options.value.find(i => i._id === level.value))
 const fetch = async () => {
   try {
     loading.value = true
-    const list = await useAPI('collab/manage/level/select')
+    const list = await useAPI('collab/manage/level/select', { parent: props.parent })
 
     options.value = options.value.concat(list)
     loading.value = false

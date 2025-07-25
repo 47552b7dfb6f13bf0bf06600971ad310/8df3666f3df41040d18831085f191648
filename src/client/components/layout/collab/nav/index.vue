@@ -46,6 +46,7 @@ const menu = ref([
     { title: 'Nạp tiền', to: `/manage/@collab/${route.params._code}/payment` },
   ]},
   { title: 'Cộng tác viên (Nhánh)', child: [
+    { title: 'Cấp độ', to: `/manage/@collab/${route.params._code}/child/level` },
     { title: 'Danh sách', to: `/manage/@collab/${route.params._code}/child` },
     { title: 'Lệnh rút tiền', to: `/manage/@collab/${route.params._code}/child/withdraw` },
   ]},

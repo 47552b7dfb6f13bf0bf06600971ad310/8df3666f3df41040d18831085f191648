@@ -24,7 +24,8 @@
         </template>
 
         <template #user-data="{ row }">
-          <ManageUser :user="row.user" />
+          <span v-if="!row.user">...</span>
+          <UBadge color="gray" variant="soft">{{ row.user.username || '...' }}</UBadge>
         </template>
 
         <template #gate-data="{ row }">
@@ -45,7 +46,7 @@
 
         <template #[`verify.person-data`]="{ row }">
           <span v-if="!row.verify || (!!row.verify && !row.verify.person)">...</span>
-          <ManageUser v-else :user="row.verify.person" />
+          <UBadge color="gray" variant="soft" v-else>{{ row.verify.person.username || '...' }}</UBadge>
         </template>
 
         <template #[`verify.time-data`]="{ row }">

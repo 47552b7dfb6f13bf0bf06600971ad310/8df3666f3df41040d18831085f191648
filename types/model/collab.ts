@@ -3,6 +3,8 @@ import type { Types } from 'mongoose'
 export interface IDBCollabLevel {
   _id: Types.ObjectId
 
+  parent: Types.ObjectId
+
   number: number
   commission: {
     game: {
@@ -20,6 +22,8 @@ export interface IDBCollab {
   createdAt: Date
   updatedAt: Date
   
+  parent: Types.ObjectId
+
   level: Types.ObjectId
   code: string
   user: Types.ObjectId
@@ -27,6 +31,12 @@ export interface IDBCollab {
 
   money: number
   gatepay: number
+
+  statistic: {
+    user: number
+    payment: number
+    income: number
+  }
 
   privilege: {
     edit_info: boolean
@@ -102,6 +112,8 @@ export interface IDBCollabWithdraw {
   _id: Types.ObjectId
   createdAt: Date
   updatedAt: Date
+
+  parent: Types.ObjectId
 
   collab: Types.ObjectId
   user: Types.ObjectId

@@ -22,7 +22,7 @@
       </UiFlex>
     </div>
 
-    <DataCharacterSex v-if="!character || (!!character && character.sex == 0)" @done="sex" />
+    <DataCharacterSex v-if="!character || (!!character && character.sex == 0)" @done="sex" class="mb-4" />
   </div>
 </template>
 

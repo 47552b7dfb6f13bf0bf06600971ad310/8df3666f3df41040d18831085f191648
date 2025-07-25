@@ -8,9 +8,11 @@ export default defineEventHandler(async (event) => {
 
     if(!!code){
       const collab = await DB.Collab.findOne({ code: code }).select(`privilege gatepay`) as IDBCollab
-      if(!!collab && !!collab.privilege.edit_gate){
-        if(!!collab.privilege.edit_gate && collab.gatepay > 0) match['collab'] = collab._id
-      }
+      // if(!!collab && !!collab.privilege.edit_gate){
+      //   if(!!collab.privilege.edit_gate && collab.gatepay > 0) match['collab'] = collab._id
+      // }
+      if(!collab) throw 'Mã cộng tác viên không hợp lệ'
+      match['collab'] = collab._id
     }
 
     const gates = await DB.Gate.find(match).select('-key -qrcode -display -createdAt -updatedAt')

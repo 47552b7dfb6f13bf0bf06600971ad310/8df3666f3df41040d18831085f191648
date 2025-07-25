@@ -161,6 +161,12 @@ export default async (
       'statistic.pay': realMoney,
     }})
 
+    // Update Collab Statistic Payment
+    if(user.reg.collab){
+      const collabOfUser = await DB.Collab.findOne({ _id: user.reg.collab }).select('_id') as IDBCollab
+      collabOfUser && await DB.Collab.updateOne({ _id: collabOfUser._id }, { $inc: { 'statistic.payment': realMoney }})
+    }
+
     // Log User
     logAdmin(event, `Chấp nhận giao dịch nạp tiền <b>${payment.code}</b> với số tiền <b>${realMoney.toLocaleString('vi-VN')}</b>`, verify_person)
     logUser({

@@ -21,7 +21,8 @@
         :rows="list"
       >
         <template #user-data="{ row }">
-          <ManageUser :user="row.user" />
+          <span v-if="!row.user">...</span>
+          <UBadge color="gray" variant="soft">{{ row.user.username || '...' }}</UBadge>
         </template>
 
         <template #content-data="{ row }">

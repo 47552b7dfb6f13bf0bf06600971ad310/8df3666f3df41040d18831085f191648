@@ -52,7 +52,10 @@ export default async (event: H3Event, data : IData) : Promise<boolean> => {
 
     // Create Income
     await DB.CollabIncome.create(result)
-    await DB.Collab.updateOne({ _id: collab._id }, { $inc: { 'money': result.money }})
+    await DB.Collab.updateOne({ _id: collab._id }, { $inc: { 
+      'money': result.money,
+      'statistic.income': result.money
+    }})
     await DB.CollabNotify.create({
       collab: collab._id,
       title: 'Số dư tài khoản đã được cập nhật',

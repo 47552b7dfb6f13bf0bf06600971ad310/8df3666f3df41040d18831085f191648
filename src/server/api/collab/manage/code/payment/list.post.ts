@@ -3,8 +3,6 @@ import type { IAuth, IDBCollab } from "~~/types"
 export default defineEventHandler(async (event) => {
   try {
     const auth = await getAuth(event) as IAuth
-    await checkPermission('payment.coin.list', auth.type)
-
     const { size, current, sort, search, collab : code } = await readBody(event)
     if(!code) throw 'Không tìm thấy mã cộng tác viên'
     if(!size || !current || !search) throw 'Dữ liệu phân trang sai'
@@ -16,13 +14,8 @@ export default defineEventHandler(async (event) => {
 
     const sorting : any = {}
     sorting[sort.column] = sort.direction == 'desc' ? -1 : 1
-    const match : any = {}
 
-    // Match Gate
-    const gates = await DB.Gate.find({ collab: collab._id }).select('_id')
-    match['gate'] = { $in: gates.map(i => i._id) }
-
-    // Match Search
+    const match : any = { collab: collab._id }
     if(search.key){
       if(search.by == 'CODE') match['code'] = { $regex : search.key.toLowerCase(), $options : 'i' }
       if(search.by == 'USER'){

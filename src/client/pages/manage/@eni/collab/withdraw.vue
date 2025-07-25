@@ -47,12 +47,12 @@
         </template>
 
         <template #[`verify.person-data`]="{ row }">
-          <span v-if="!row.verify.person">...</span>
+          <span v-if="!row.verify || (!!row.verify && !row.verify.person)">...</span>
           <ManageUser :user="row.verify.person" v-else />
         </template>
 
         <template #[`verify.time-data`]="{ row }">
-          {{ row.verify.time ? useDayJs().displayFull(row.verify.time) : '...' }}
+          {{ row.verify ? row.verify.time ? useDayJs().displayFull(row.verify.time) : '...' : '...' }}
         </template>
 
         <template #createdAt-data="{ row }">

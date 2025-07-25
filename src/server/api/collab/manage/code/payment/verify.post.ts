@@ -3,8 +3,6 @@ import type { IAuth, IDBCollab } from "~~/types"
 export default defineEventHandler(async (event) => {
   try {
     const auth = await getAuth(event) as IAuth
-    await checkPermission('payment.coin.action', auth.type)
-
     const body = await readBody(event)
     const { collab : code } = body
     if(!code) throw 'Không tìm thấy mã cộng tác viên'
