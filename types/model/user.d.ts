@@ -92,6 +92,10 @@ export interface IDBUser {
   online: boolean
   block: boolean
   token: string
+  otp: {
+    code: string
+    expired: Date
+  }
   
   // Function
   save: {

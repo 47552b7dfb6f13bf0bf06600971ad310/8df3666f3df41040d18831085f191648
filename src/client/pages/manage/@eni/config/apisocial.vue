@@ -90,6 +90,14 @@
               <UInput v-model="state.google.client_ads" />
             </UFormGroup>
 
+            <UFormGroup label="Mail Send Info">
+              <UInput v-model="state.google.mail_send_info" />
+            </UFormGroup>
+
+            <UFormGroup label="Mail Send Secret">
+              <UInput v-model="state.google.mail_send_secret" />
+            </UFormGroup>
+
             <UiFlex justify="end" class="mt-4">
               <UButton @click="update('google')" :loading="updating">Cập nhật</UButton>
             </UiFlex>
@@ -173,7 +181,9 @@ const state = ref({
     client_id: '',
     client_secret: '',
     client_verify: '',
-    client_ads: ''
+    client_ads: '',
+    mail_send_info: '',
+    mail_send_secret: '',
   },
 
   tiktok: {

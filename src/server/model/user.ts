@@ -87,6 +87,10 @@ export const DBUser = (mongoose : Mongoose) => {
     online: { type: Boolean, default: false },
     block: { type: Boolean, default: false },
     token: { type: String },
+    otp: {
+      code: { type: String },
+      expired: { type: Date },
+    }
   }, {
     timestamps: true
   })

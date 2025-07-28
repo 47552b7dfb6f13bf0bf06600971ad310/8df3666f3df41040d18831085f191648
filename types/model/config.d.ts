@@ -94,6 +94,8 @@ export interface IDBConfig {
     client_secret: string
     client_verify: string
     client_ads: string
+    mail_send_info: string
+    mail_send_secret: string
   }
   tiktok: {
     client_id: string

@@ -9,7 +9,10 @@
     </UFormGroup>
 
     <UiFlex justify="between" class="mt-4">
-      <UiText pointer size="sm" color="gray" @click="emit('up')">Đăng ký tài khoản ?</UiText>
+      <div>
+        <UiText pointer size="sm" color="gray" @click="emit('up')" class="mb-1">Đăng ký tài khoản ?</UiText>
+        <UiText pointer size="sm" color="rose" @click="emit('forgot')">Quên mật khẩu ?</UiText>
+      </div>
       <UButton type="submit" size="lg" color="yellow" :loading="loading">Đăng Nhập</UButton>
     </UiFlex>
   </UForm>

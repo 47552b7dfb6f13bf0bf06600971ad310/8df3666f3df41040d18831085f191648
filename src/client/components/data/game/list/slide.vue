@@ -19,12 +19,12 @@
       class="rounded-2xl overflow-hidden"
     >
       <swiper-slide v-for="(item, idx) in list" :key="idx" >
-        <DataGameBox :game="item" :os="os" />
+        <DataGameBox :game="item" :os="os" :no-statistic="noStatistic" />
       </swiper-slide>
     </swiper-container>
   </ClientOnly>
 </template>
 
 <script setup>
-const props = defineProps(['list', 'os'])
+const props = defineProps(['list', 'os', 'noStatistic'])
 </script>

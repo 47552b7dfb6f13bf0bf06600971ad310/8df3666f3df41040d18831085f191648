@@ -13,8 +13,9 @@
           <UButton icon="i-bx-x" class="ml-auto" size="xs" color="white" square @click="modal = false"></UButton>
         </UiFlex>
 
-        <LazyAuthSignIn v-if="tabItem == 0" @up="tabItem = 1" @done="doneIn"></LazyAuthSignIn>
-        <LazyAuthSignUp v-if="tabItem == 1" @in="tabItem = 0" @done="doneUp"></LazyAuthSignUp>   
+        <LazyAuthSignIn v-if="tabItem == 0" @up="tabItem = 1" @forgot="tabItem = 2" @done="doneIn"></LazyAuthSignIn>
+        <LazyAuthSignUp v-if="tabItem == 1" @in="tabItem = 0" @done="doneUp"></LazyAuthSignUp>
+        <LazyAuthSignForgot v-if="tabItem == 2" @in="tabItem = 0" @done="doneForgot"></LazyAuthSignForgot>
       </UCard>
     </UModal>
   </UiFlex>
@@ -31,6 +32,12 @@ watch(() => authStore.modal, (val) => !!val && (modal.value = true))
 watch(modal, (val) => !val && authStore.setModal(false))
 
 const doneIn = async () => {
+  modal.value = false
+  await nextTick()
+  await authStore.setAuth()
+}
+
+const doneForgot = async () => {
   modal.value = false
   await nextTick()
   await authStore.setAuth()

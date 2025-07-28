@@ -14,14 +14,24 @@
       </div>
     </div>
 
+    <!--Game Played-->
+    <div class="my-12" v-if="!!authStore.isLogin">
+      <DataGamePlayedHome />
+    </div>
+
     <!--Game Private-->
-    <div class="my-12"><DataGamePrivateHome /></div>
+    <div class="my-12">
+      <DataGamePrivateHome />
+    </div>
 
     <!--Game Tool-->
-    <div><DataGameToolHome /></div>
+    <div>
+      <DataGameToolHome />
+    </div>
   </div>
 </template>
 
 <script setup>
+const authStore = useAuthStore()
 const configStore = useConfigStore()
 </script>

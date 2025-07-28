@@ -92,6 +92,8 @@ export const DBConfig = (mongoose : Mongoose) => {
       client_secret: { type: String, default: '' },
       client_verify: { type: String, default: '' },
       client_ads: { type: String, default: '' },
+      mail_send_info: { type: String, default: '' }, 
+      mail_send_secret: { type: String, default: '' }, 
     },
     tiktok: {
       client_id: { type: String, default: '' },

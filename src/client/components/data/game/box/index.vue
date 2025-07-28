@@ -52,7 +52,7 @@
         </UiText>
       </template>
 
-      <template #footer>
+      <template #footer v-if="!noStatistic">
         <UiFlex class="gap-1" justify="center">
           <UBadge size="xs" color="gray" variant="soft">
             <UiIcon name="i-bx-show" size="4"/>
@@ -75,7 +75,7 @@
 </template>
 
 <script setup>
-const props = defineProps(['game', 'os', 'gm'])
+const props = defineProps(['game', 'os', 'gm', 'noStatistic'])
 
 const to = computed(() => {
   if(!props.gm) return `/game/${props.os}/${props.game?.key}`

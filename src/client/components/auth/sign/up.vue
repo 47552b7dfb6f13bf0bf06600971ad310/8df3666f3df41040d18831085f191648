@@ -4,19 +4,19 @@
     :state="state"
     @submit="submit"
   >
-    <UFormGroup label="Tài khoản" :hint="`${state.username ? state.username.length : 0}/15`" name="username">
+    <UFormGroup label="Tài khoản" required :hint="`${state.username ? state.username.length : 0}/15`" name="username">
       <UInput icon="i-bxs-user" v-model="state.username" />
     </UFormGroup>
 
-    <UFormGroup label="Email" name="email">
+    <UFormGroup label="Email" required name="email">
       <UInput icon="i-bxs-envelope" v-model="state.email" />
     </UFormGroup>
 
-    <UFormGroup label="Điện thoại" name="phone">
+    <UFormGroup label="Điện thoại" required name="phone">
       <UInput icon="i-bxs-phone" v-model="state.phone" />
     </UFormGroup>
 
-    <UFormGroup label="Mật khẩu" :hint="`${state.password ? state.password.length : 0}/15`" name="password">
+    <UFormGroup label="Mật khẩu" required :hint="`${state.password ? state.password.length : 0}/15`" name="password">
       <UInput icon="i-bxs-lock" v-model="state.password" type="password" />
     </UFormGroup>
 

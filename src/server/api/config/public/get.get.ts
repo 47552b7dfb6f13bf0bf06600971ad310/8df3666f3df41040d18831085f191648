@@ -34,6 +34,8 @@ export default defineEventHandler(async (event) => {
       -zalo.client_secret 
       -tiktok.client_secret
       -google.client_secret
+      -google.mail_send_info
+      -google.mail_send_secret
     `) as IDBConfig
     if(!config) throw 'Không tìm thấy cấu hình trang'
     if(!!config.license) throw 'Trang không chính thống'
