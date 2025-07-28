@@ -1,7 +1,7 @@
 <template>
   <div class="@container">
     <UiFlex justify="between" class="gap-2 mb-2" wrap>
-      <UiTitle name="Game Đã Chơi" icon="i-jam-gamepad-f" />
+      <UiTitle name="Chơi Gần Nhất" icon="i-jam-gamepad-f" />
       <UTabs :items="items" @change="onChange" class="space-y-0 w-full @2xl:w-auto" />
     </UiFlex>
 
@@ -22,7 +22,7 @@ const selectedData = computed(() => items[selected.value-1])
 const list = ref([])
 const loading = ref(true)
 const page = ref({
-  size: 12,
+  size: 4,
   current: 1
 })
 

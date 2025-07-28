@@ -16,9 +16,9 @@ export default defineEventHandler(async (event) => {
     if(!game) throw 'Trò chơi không tồn tại'
     if(!game.ip) throw 'Trò chơi đang bảo trì'
 
-    const userGame = await DB.GameToolUser.findOne({ game: game._id, user: user._id }) as IDBGameToolUser
-    if(!userGame) throw 'Bạn chưa mua bất cứ tool nào'
-    if(!userGame.recharge) throw 'Vui lòng mua tool nạp trước'
+    const userGame = await DB.GameToolUser.findOne({ game: game._id, user: user._id, server_id: server }) as IDBGameToolUser
+    if(!userGame) throw 'Bạn chưa mua bất cứ Tool nào cho máy chủ này'
+    if(!userGame.recharge) throw 'Vui lòng mua Tool nạp cho máy chủ này trước'
 
     let recharge = await DB.GameToolRecharge.findOne({ recharge_id: item_id, game: game._id}) as IDBGameToolRecharge
     if(!recharge){

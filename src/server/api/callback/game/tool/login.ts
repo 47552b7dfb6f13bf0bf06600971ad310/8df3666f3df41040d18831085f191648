@@ -6,6 +6,10 @@ export default defineEventHandler(async (event) => {
     const { username, password, code : gameCode } = await readBody(event)
     if(!username || !password || !gameCode) throw 'Vui lòng nhập đầy đủ thông tin'
 
+    // Get Game
+    const game = await DB.GameTool.findOne({ code: gameCode }).select('_id') as IDBGameTool
+    if(!game) throw 'Trò chơi không tồn tại'
+
     // Get User
     const user = await DB.User
     .findOne({ username: username.toLowerCase() })
@@ -15,14 +19,6 @@ export default defineEventHandler(async (event) => {
     if(!user) throw 'Tài khoản không tồn tại'
     if(md5(password) != user.password) throw 'Mật khẩu không chính xác'
     if(!!user.block) throw 'Tài khoản của bạn đang bị khóa'
-
-    // Get Game
-    const game = await DB.GameTool.findOne({ code: gameCode }).select('_id') as IDBGameTool
-    if(!game) throw 'Trò chơi không tồn tại'
-
-    // Check User Game
-    const userGame = await DB.GameToolUser.findOne({ game: game._id, user: user._id }).select('_id') as IDBGameToolUser
-    if(!userGame) throw 'Vui lòng đăng ký chơi game trước'
 
     return resp(event, { result: user.username, message: 'Đăng nhập thành công' })
   } 

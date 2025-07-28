@@ -143,6 +143,8 @@ export const DBGamePrivateUser = (mongoose : Mongoose) => {
 
     block: { type: Boolean, index: true, default: false },
 
+    played: { type: Date },
+
     spend: {
       day: {
         coin: { type: Number, index: true, default: 0 },

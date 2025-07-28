@@ -77,6 +77,11 @@ export interface IDBGameTool {
   open: boolean
   pin: boolean
   display: boolean
+
+  // Function
+  save: {
+    () : void
+  }
 }
 
 // News
@@ -113,6 +118,13 @@ export interface IDBGameToolUser {
   mail: boolean
 
   coin: number
+
+  played: date
+
+  // Function
+  save: {
+    () : void
+  }
 }
 
 export interface IDBGameToolPayment {

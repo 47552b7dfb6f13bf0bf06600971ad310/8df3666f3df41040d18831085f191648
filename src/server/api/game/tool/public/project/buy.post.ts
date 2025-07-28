@@ -33,7 +33,7 @@ export default defineEventHandler(async (event) => {
 
     // No User Game Tool
     if(!userGame){
-      const newUserGame = { user: user._id, game: game._id, server_id: server_id, recharge: false, mail: false, coin: 0 }
+      const newUserGame = { user: user._id, game: game._id, server_id: server_id, recharge: false, mail: false, coin: 0, played: new Date() }
       if(!!recharge) {
         totalPrice = totalPrice + game.price.recharge
         newUserGame.recharge = true
@@ -75,9 +75,10 @@ export default defineEventHandler(async (event) => {
 
       if(!!recharge && !userGame.recharge) userGame.recharge = true
       if(!!mail && !userGame.mail) userGame.mail = true
-      userGame.coin = userGame.coin + totalPrice
 
-      // @ts-expect-error
+      userGame.coin = userGame.coin + totalPrice
+      userGame.played = new Date()
+
       await userGame.save()
       await DB.User.updateOne({ _id: user._id },{ $inc: { 
         'currency.coin': minus.coin * -1,

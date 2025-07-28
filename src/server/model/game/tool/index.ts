@@ -128,6 +128,7 @@ export const DBGameToolUser = (mongoose : Mongoose) => {
     recharge: { type: Boolean, index: true, default: false },
     mail: { type: Boolean, index: true, default: false },
     coin: { type: Number, index: true, default: 0 },
+    played: { type: Date },
   }, {
     timestamps: true
   })

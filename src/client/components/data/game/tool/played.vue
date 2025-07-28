@@ -52,6 +52,9 @@ const columns = [
     key: 'game',
     label: 'Trò chơi',
   },{
+    key: 'server_id',
+    label: 'Máy chủ',
+  },{
     key: 'recharge',
     label: 'Tool nạp',
   },{
@@ -59,7 +62,7 @@ const columns = [
     label: 'Tool thư',
   },{
     key: 'createdAt',
-    label: 'Ngày bắt đầu',
+    label: 'Ngày mua',
     sortable: true
   }
 ]

@@ -9,7 +9,7 @@
 const list = ref([])
 const loading = ref(true)
 const page = ref({
-  size: 12,
+  size: 4,
   current: 1,
   total: 0
 })

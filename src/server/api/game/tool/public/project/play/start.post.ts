@@ -14,12 +14,6 @@ export default defineEventHandler(async (event) => {
     if(!game) throw 'Trò chơi không tồn tại'
     if(!game.ip) throw 'Trò chơi đang bảo trì'
 
-    const userGame = await DB.GameToolUser.findOne({ user: auth._id, game: game._id }) as IDBGameToolUser
-    if(!userGame) {
-      await DB.GameToolUser.create({ user: auth._id, game: game._id })
-      await DB.GameTool.updateOne({ _id: game._id }, { $inc: { 'statistic.user': 1 } })
-    }
-
     // Get URL Play
     let result : any
     if(type == 'web'){
@@ -41,8 +35,8 @@ export default defineEventHandler(async (event) => {
 
     // Update Play
     game.statistic.play = game.statistic.play + 1
-    // @ts-expect-error
     await game.save()
+    await DB.GameToolUser.updateMany({ user: auth._id, game: game._id }, { played: new Date() })
 
     return resp(event, { result: result })
   } 

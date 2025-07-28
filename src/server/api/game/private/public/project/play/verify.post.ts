@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken'
-import type { IAuth, IDBGamePrivate } from "~~/types"
+import type { IAuth, IDBGamePrivate, IDBGamePrivateUser } from "~~/types"
 
 export default defineEventHandler(async (event) => {
   try {
@@ -13,9 +13,15 @@ export default defineEventHandler(async (event) => {
     const game = await DB.GamePrivate.findOne({ code: code, display: true }).select('secret key') as IDBGamePrivate
     if(!game) throw 'Trò chơi không tồn tại'
 
+    const userGame = await DB.GamePrivateUser.findOne({ user: auth._id, game: game._id }).select('played') as IDBGamePrivateUser
+    if(!userGame) throw 'Bạn chưa đăng ký chơi'
+
     const decoded = jwt.verify(token, game.secret) as any
     const url = decoded.url
     const key = game.key
+
+    userGame.played = new Date()
+    await userGame.save()
 
     return resp(event, { result: { url, key, code } })
   } 

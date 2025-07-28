@@ -82,6 +82,11 @@ export interface IDBGamePrivate {
   open: boolean
   pin: boolean
   display: boolean
+
+  // Function
+  save: {
+    () : void
+  }
 }
 
 // News
@@ -116,6 +121,8 @@ export interface IDBGamePrivateUser {
   game: Types.ObjectId | IDBGamePrivate
 
   block: boolean
+
+  played: date
 
   spend: {
     day: {

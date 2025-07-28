@@ -10,12 +10,12 @@ export default defineEventHandler(async (event) => {
     if(!code) throw 'Không tìm thấy mã trò chơi'
     if(!type) throw 'Không tìm thấy hệ điều hành chơi'
 
-    const game = await DB.GamePrivate.findOne({ code: code, display: true }).select('_id ip api secret play statistic') as IDBGamePrivate
+    const game = await DB.GamePrivate.findOne({ code: code, display: true }).select('ip api secret play statistic') as IDBGamePrivate
     if(!game) throw 'Trò chơi không tồn tại'
     if(!game.ip) throw 'Trò chơi đang bảo trì'
 
     // Make User
-    const userGame = await DB.GamePrivateUser.findOne({ user: auth._id, game: game._id }) as IDBGamePrivateUser
+    const userGame = await DB.GamePrivateUser.findOne({ user: auth._id, game: game._id }).select('played') as IDBGamePrivateUser
     if(!userGame) throw 'Bạn chưa đăng ký chơi'
 
     // Get URL Play
@@ -39,8 +39,9 @@ export default defineEventHandler(async (event) => {
 
     // Update Play
     game.statistic.play = game.statistic.play + 1
-    // @ts-expect-error
     await game.save()
+    userGame.played = new Date()
+    await userGame.save()
 
     return resp(event, { result: result })
   } 

@@ -11,6 +11,7 @@ export default defineEventHandler(async (event) => {
     const list = await DB.GameToolUser
     .aggregate([
       { $match: match },
+      { $project: { game: 1, played: 1 }},
       {
         $lookup: {
           from: "GameTool",
@@ -29,6 +30,14 @@ export default defineEventHandler(async (event) => {
         }
       },
       { $unwind: { path: "$game", preserveNullAndEmptyArrays: true }},
+      { $sort: { played: -1 } },
+      {
+        $group: {
+          _id: '$game._id',
+          game: { $first: '$game' },
+          played: { $first: '$played' }
+        }
+      },
       { $addFields: {
         name: "$game.name",
         description: "$game.description",
@@ -40,7 +49,6 @@ export default defineEventHandler(async (event) => {
         rate: "$game.rate",
         platform: "$game.platform",
         category: "$game.category",
-        createdAt: '$createdAt'
       }},
       {
         $lookup: {
@@ -66,7 +74,7 @@ export default defineEventHandler(async (event) => {
         }
       },
       { $unwind: { path: '$category'} },
-      { $sort: { createdAt: -1 } },
+      { $sort: { played: 1 } },
       { $skip: (current - 1) * size },
       { $limit: size }
     ])

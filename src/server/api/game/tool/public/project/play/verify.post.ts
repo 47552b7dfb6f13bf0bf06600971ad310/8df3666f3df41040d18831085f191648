@@ -17,6 +17,8 @@ export default defineEventHandler(async (event) => {
     const url = decoded.url
     const key = game.key
 
+    await DB.GameToolUser.updateMany({ user: auth._id, game: game._id }, { played: new Date() })
+
     return resp(event, { result: { url, key, code } })
   } 
   catch (e:any) {
