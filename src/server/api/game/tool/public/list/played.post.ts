@@ -35,7 +35,8 @@ export default defineEventHandler(async (event) => {
         $group: {
           _id: '$game._id',
           game: { $first: '$game' },
-          played: { $first: '$played' }
+          played: { $first: '$played' },
+          createdAt: { $first: '$createdAt' },
         }
       },
       { $addFields: {
@@ -49,6 +50,7 @@ export default defineEventHandler(async (event) => {
         rate: "$game.rate",
         platform: "$game.platform",
         category: "$game.category",
+        played: { $ifNull: ["$played", "$createdAt"] }
       }},
       {
         $lookup: {
@@ -74,7 +76,7 @@ export default defineEventHandler(async (event) => {
         }
       },
       { $unwind: { path: '$category'} },
-      { $sort: { played: 1 } },
+      { $sort: { played: -1 } },
       { $skip: (current - 1) * size },
       { $limit: size }
     ])

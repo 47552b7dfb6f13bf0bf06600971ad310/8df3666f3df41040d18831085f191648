@@ -11,7 +11,7 @@ export default defineEventHandler(async (event) => {
     const list = await DB.GamePrivateUser
     .aggregate([
       { $match: match },
-      { $project: { game: 1, played: 1 }},
+      { $project: { game: 1, played: 1, createdAt: 1 }},
       {
         $lookup: {
           from: "GamePrivate",
@@ -41,6 +41,7 @@ export default defineEventHandler(async (event) => {
         rate: "$game.rate",
         platform: "$game.platform",
         category: "$game.category",
+        played: { $ifNull: ["$played", "$createdAt"] }
       }},
       {
         $lookup: {
@@ -66,7 +67,7 @@ export default defineEventHandler(async (event) => {
         }
       },
       { $unwind: { path: '$category'} },
-      { $sort: { played: 1 } },
+      { $sort: { played: -1 } },
       { $skip: (current - 1) * size },
       { $limit: size }
     ])
