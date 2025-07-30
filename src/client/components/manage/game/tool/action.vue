@@ -397,7 +397,7 @@ const actions = (row) => [
   [{
     label: 'Người quản lý',
     icon: 'i-bx-group',
-    disabled: !!route.params._id,
+    disabled: !authStore.isAdmin,
     click: () => {
       Object.keys(stateEditManager.value).forEach(key => stateEditManager.value[key] = row[key])
       modal.value.editManager = true
@@ -420,6 +420,7 @@ const actions = (row) => [
   [{
     label: 'Sửa thông tin',
     icon: 'i-bx-pencil',
+    disabled: !authStore.isAdmin,
     click: () => {
       Object.keys(stateEditInfo.value).forEach(key => stateEditInfo.value[key] = row[key])
       stateEditInfo.value.category = row.category._id
@@ -429,6 +430,7 @@ const actions = (row) => [
   },{
     label: 'Sửa hình ảnh',
     icon: 'i-bx-image-add',
+    disabled: !authStore.isAdmin,
     click: () => {
       Object.keys(stateEditImage.value).forEach(key => stateEditImage.value[key] = row.image[key])
       stateEditImage.value._id = row._id
@@ -451,6 +453,7 @@ const actions = (row) => [
   },{
     label: 'Sửa API Game',
     icon: 'i-bx-planet',
+    disabled: !authStore.isAdmin,
     click: () => {
       Object.keys(stateEditAPI.value).forEach(key => stateEditAPI.value[key] = row[key])
       modal.value.editAPI = true
@@ -458,6 +461,7 @@ const actions = (row) => [
   },{
     label: 'Sửa link chơi',
     icon: 'i-bx-link',
+    disabled: !authStore.isAdmin,
     click: () => {
       Object.keys(stateEditPlay.value).forEach(key => stateEditPlay.value[key] = row.play[key])
       stateEditPlay.value._id = row._id
@@ -483,6 +487,7 @@ const actions = (row) => [
   },{
     label: 'Hoa Hồng CTV',
     icon: 'i-bxs-user-badge',
+    disabled: !authStore.isAdmin,
     click: () => {
       stateEditCollab.value._id = row._id
       stateEditCollab.value.collab.commission = row.collab.commission
@@ -491,6 +496,7 @@ const actions = (row) => [
   }],[{
     label: 'Reset trò chơi',
     icon: 'i-bx-reset',
+    disabled: !authStore.isAdmin,
     click: () => {
       Object.keys(stateReset.value).forEach(key => stateReset.value[key] = row[key])
       stateReset.value._id = row._id
