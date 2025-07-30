@@ -112,9 +112,14 @@
     <!-- Modal Edit Currency-->
     <UModal v-model="modal.editCurrency" preventClose>
       <UForm :state="stateEditCurrency" @submit="editCurrencyAction" class="bg-card rounded-2xl p-4">
-        <UFormGroup label="Xu Web">
+        <!-- <UFormGroup label="Xu Web">
           <UInput v-model="stateEditCurrency.plus.coin" type="number" v-if="stateEditCurrency.type == 'plus'" />
           <UInput v-model="stateEditCurrency.origin.coin" type="number" v-if="stateEditCurrency.type == 'origin'" />
+        </UFormGroup> -->
+
+        <UFormGroup label="Xu Web (Khóa)">
+          <UInput v-model="stateEditCurrency.plus.lcoin" type="number" v-if="stateEditCurrency.type == 'plus'" />
+          <UInput v-model="stateEditCurrency.origin.lcoin" type="number" v-if="stateEditCurrency.type == 'origin'" />
         </UFormGroup>
 
         <UFormGroup label="Tu Vi">
@@ -226,11 +231,13 @@ const stateEditCurrency = ref({
   type: null,
   plus: {
     coin: 0,
+    lcoin: 0,
     exp: 0
   },
   origin: {
     coin: null,
-    exp: null
+    lcoin: null,
+    exp: null,
   },
   reason: null
 })
@@ -248,11 +255,13 @@ watch(() => modal.value.editCurrency, (val) => !val && (stateEditCurrency.value 
   type: null,
   plus: {
     coin: 0,
+    lcoin: 0,
     exp: 0
   },
   origin: {
     coin: null,
-    exp: null
+    lcoin: null,
+    exp: null,
   },
   reason: null
 }))
@@ -298,7 +307,7 @@ const actions = (row) => [
     label: 'Sửa tiền tệ',
     icon: 'i-bx-coin',
     click: () => {
-      Object.keys(stateEditCurrency.value.origin).forEach(key => stateEditCurrency.value.origin[key] = row[key])
+      Object.keys(stateEditCurrency.value.origin).forEach(key => stateEditCurrency.value.origin[key] = row.currency[key])
       stateEditCurrency.value._id = row._id
       stateEditCurrency.value.type = 'origin'
       modal.value.editCurrency = true
