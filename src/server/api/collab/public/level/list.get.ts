@@ -6,16 +6,21 @@ export default defineEventHandler(async (event) => {
     const collabCode = runtimeConfig.public.collab
     const match : any = {}
 
-    if(!!collabCode){
-      const collab = await DB.Collab.findOne({ code: collabCode }).select('_id') as IDBCollab
-      if(collab) match['parent'] = collab._id
-    }
-    else {
-      match['$or'] =  [
-        { parent: { $exists: false } },
-        { parent: null }
-      ]
-    }
+    // if(!!collabCode){
+    //   const collab = await DB.Collab.findOne({ code: collabCode }).select('_id') as IDBCollab
+    //   if(collab) match['parent'] = collab._id
+    // }
+    // else {
+    //   match['$or'] =  [
+    //     { parent: { $exists: false } },
+    //     { parent: null }
+    //   ]
+    // }
+
+    match['$or'] =  [
+      { parent: { $exists: false } },
+      { parent: null }
+    ]
 
     const list = await DB.CollabLevel
     .find(match)
