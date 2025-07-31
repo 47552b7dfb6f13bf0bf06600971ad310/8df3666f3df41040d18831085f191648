@@ -301,6 +301,19 @@ export const DBConfigPermission = (mongoose : Mongoose) => {
       add: [{ type: Number }],
       edit: [{ type: Number }],
       del: [{ type: Number }],
+    },
+
+    ecoin: {
+      shop: {
+        list: [{ type: Number }],
+        add: [{ type: Number }],
+        edit: [{ type: Number }],
+        del: [{ type: Number }],
+        history: {
+          list: [{ type: Number }],
+          action: [{ type: Number }],
+        }
+      }
     }
   })
 
@@ -488,6 +501,19 @@ export const DBConfigPermission = (mongoose : Mongoose) => {
         add: [100],
         edit: [100],
         del: [100],
+      },
+
+      ecoin: {
+        shop: {
+          list: [3,100],
+          add: [100],
+          edit: [100],
+          del: [100],
+          history: {
+            list: [3,100],
+            action: [100],
+          }
+        }
       }
     })
   }

@@ -47,7 +47,7 @@
     </UCard>
 
     <!--Post-->
-    <UCard :ui="{ body: { padding: '!pb-0' }}">
+    <div>
       <UiFlex class="mb-4 gap-1">
         <USelectMenu v-model="page.size" :options="[5,10,20,50,100]" size="lg" />
         
@@ -66,7 +66,7 @@
       <UiFlex justify="end" class="mt-4" v-if="page.total > page.size">
         <UPagination v-model="page.current" :page-count="page.size" :total="page.total" :max="4" size="md" />
       </UiFlex>
-    </UCard>
+    </div>
 
     <!--Create-->
     <UModal v-model="modal.create" prevent-close :ui="{width: 'sm:max-w-[900px]'}">
@@ -104,6 +104,7 @@
 
 <script setup>
 const configStore = useConfigStore()
+const authStore = useAuthStore()
 const route = useRoute()
 const category = ref(undefined)
 const subcategory = ref(undefined)
@@ -186,6 +187,7 @@ const validate = (state) => {
   return errors
 }
 const openCreate = () => {
+  if(!authStore.isLogin) return authStore.setModal(true)
   state.value.category = category.value._id
   state.value.sub = subcategory.value ? subcategory.value._id : null
   modal.value.create = true
@@ -236,6 +238,8 @@ const create = async () => {
 
     loading.value.create = false
     modal.value.create = false
+    state.value.title = null
+    state.value.content = null
     await getPosts()
   }
   catch(e){

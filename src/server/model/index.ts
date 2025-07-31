@@ -83,6 +83,10 @@ import {
   DBSocketChatGuild
 } from './socket'
 
+import {
+  DBECoinShop, DBECoinShopHistory
+} from './ecoin'
+
 export default (mongoose : Mongoose) : IGlobalDB => {
   return {
     // Main DB
@@ -194,6 +198,10 @@ export default (mongoose : Mongoose) : IGlobalDB => {
     SocketOnline: DBSocketOnline(mongoose),
     SocketChatSingle: DBSocketChatSingle(mongoose),
     SocketChatSingleMessage: DBSocketChatSingleMessage(mongoose),
-    SocketChatGuild: DBSocketChatGuild(mongoose)
+    SocketChatGuild: DBSocketChatGuild(mongoose),
+
+    // Ecoin
+    ECoinShop: DBECoinShop(mongoose),
+    ECoinShopHistory: DBECoinShopHistory(mongoose)
   }
 }

@@ -664,6 +664,48 @@
           </UiFlex>
         </UCard>
       </template>
+
+      <template #ecoin>
+        <UCard>
+          <UiFlex type="col" class="gap-1 mb-2">
+            <UiText color="primary" size="sm" weight="semibold" class="w-full mb-1">Cửa Hàng</UiText>
+
+            <UiFlex justify="between" class="gap-1 w-full">
+              <UiText color="gray" size="sm">Xem</UiText>
+              <SelectPermission v-model="state.ecoin.shop.list" />
+            </UiFlex>
+
+            <UiFlex justify="between" class="gap-1 w-full">
+              <UiText color="gray" size="sm">Thêm</UiText>
+              <SelectPermission v-model="state.ecoin.shop.add" />
+            </UiFlex>
+
+            <UiFlex justify="between" class="gap-1 w-full">
+              <UiText color="gray" size="sm">Sửa</UiText>
+              <SelectPermission v-model="state.ecoin.shop.edit" />
+            </UiFlex>
+
+            <UiFlex justify="between" class="gap-1 w-full">
+              <UiText color="gray" size="sm">Xóa</UiText>
+              <SelectPermission v-model="state.ecoin.shop.del" />
+            </UiFlex>
+
+            <UiFlex type="col" class="gap-1 pl-8 w-full">
+              <UiText color="primary" size="sm" weight="semibold" class="w-full mb-1">Lịch sử</UiText>
+
+              <UiFlex justify="between" class="gap-1 w-full">
+                <UiText color="gray" size="sm">Xem</UiText>
+                <SelectPermission v-model="state.ecoin.shop.history.list" />
+              </UiFlex>
+
+              <UiFlex justify="between" class="gap-1 w-full">
+                <UiText color="gray" size="sm">Duyệt</UiText>
+                <SelectPermission v-model="state.ecoin.shop.history.action" />
+              </UiFlex>
+            </UiFlex>
+          </UiFlex>
+        </UCard>
+      </template>
     </UAccordion>
 
     <UiFlex justify="end" class="mt-1">
@@ -859,6 +901,19 @@ const state = ref({
     add: [],
     edit: [],
     del: [],
+  },
+
+  ecoin: {
+    shop: {
+      list: [],
+      add: [],
+      edit: [],
+      del: [],
+      history: {
+        list: [],
+        action: [],
+      }
+    }
   }
 })
 
@@ -879,6 +934,7 @@ const menu = [
   { label: 'Diễn đàn', slot: 'forum' },
   { label: 'Nhiệm vụ', slot: 'mission' },
   { label: 'Cộng tác viên', slot: 'collab' },
+  { label: 'ECoin', slot: 'ecoin' },
 ]
 
 const getPermission = async () => {

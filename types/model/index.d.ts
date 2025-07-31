@@ -82,6 +82,10 @@ export {
   IDBSocketChatGuild
 } from './socket'
 
+export { 
+  IDBECoinShop, IDBECoinShopHistory
+} from './ecoin'
+
 export interface IGlobalDB {
   // Main DB
   Config: Model<IDBConfig>
@@ -192,4 +196,8 @@ export interface IGlobalDB {
   SocketChatSingle: Model<IDBSocketChatSingle>
   SocketChatSingleMessage: Model<IDBSocketChatSingleMessage>
   SocketChatGuild: Model<IDBSocketChatGuild>
+
+  // Ecoin
+  ECoinShop: Model<IDBECoinShop>
+  ECoinShopHistory: Model<IDBECoinShopHistory>
 }

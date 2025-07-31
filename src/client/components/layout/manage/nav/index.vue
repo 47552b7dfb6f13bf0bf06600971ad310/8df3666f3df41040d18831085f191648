@@ -38,6 +38,7 @@
     <template #tab-10><UVerticalNavigation :links="navItems[10].children" @click="emit('to')"/></template>
     <template #tab-11><UVerticalNavigation :links="navItems[11].children" @click="emit('to')"/></template>
     <template #tab-12><UVerticalNavigation :links="navItems[12].children" @click="emit('to')"/></template>
+    <template #tab-13><UVerticalNavigation :links="navItems[13].children" @click="emit('to')"/></template>
   </UAccordion>
 </template>
 
@@ -189,5 +190,14 @@ const navItems = [
       { label: 'Rút tiền', to: '/manage/@eni/collab/withdraw' },
     ]
   },
+  {
+    label: 'ECoin',
+    icon: 'i-tabler-coin-filled',
+    defaultOpen: false,
+    slot: 'tab-13',
+    children: [
+      { label: 'Cửa hàng', to: '/manage/@eni/ecoin/shop' }
+    ]
+  }
 ]
 </script>

@@ -169,7 +169,7 @@
     </template>
 
     <template #default>
-      <TiptapEditorContent :editor="editor" class="tiptap"/>
+      <TiptapEditorContent :editor="editor" class="tiptap max-h-[60vh] overflow-y-auto"/>
     </template>
   </UCard>
 </template>

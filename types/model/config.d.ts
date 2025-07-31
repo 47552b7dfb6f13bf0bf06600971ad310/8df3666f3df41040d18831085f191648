@@ -360,4 +360,17 @@ export interface IDBConfigPermission {
     edit: Array<number>
     del: Array<number>
   }
+
+  ecoin: {
+    shop: {
+      list: Array<number>
+      add: Array<number>
+      edit: Array<number>
+      del: Array<number>
+      history: {
+        list: Array<number>
+        action: Array<number>
+      }
+    }
+  }
 }

@@ -6,7 +6,7 @@
 
     <UForm :state="stateBuy">
       <UFormGroup label="Số dư Xu" name="coin">
-        <UInput :model-value="`${toMoney(authStore.profile.currency.coin)}`" readonly/>
+        <UInput :model-value="`${toMoney(authStore.profile.currency.coin + authStore.profile.currency.lcoin)}`" readonly/>
 
         <template #hint>
           <DataPaymentFast />

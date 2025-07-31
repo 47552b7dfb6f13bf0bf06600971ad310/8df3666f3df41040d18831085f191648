@@ -112,10 +112,10 @@
     <!-- Modal Edit Currency-->
     <UModal v-model="modal.editCurrency" preventClose>
       <UForm :state="stateEditCurrency" @submit="editCurrencyAction" class="bg-card rounded-2xl p-4">
-        <!-- <UFormGroup label="Xu Web">
+        <UFormGroup label="Xu Web">
           <UInput v-model="stateEditCurrency.plus.coin" type="number" v-if="stateEditCurrency.type == 'plus'" />
           <UInput v-model="stateEditCurrency.origin.coin" type="number" v-if="stateEditCurrency.type == 'origin'" />
-        </UFormGroup> -->
+        </UFormGroup>
 
         <UFormGroup label="Xu Web (Khóa)">
           <UInput v-model="stateEditCurrency.plus.lcoin" type="number" v-if="stateEditCurrency.type == 'plus'" />

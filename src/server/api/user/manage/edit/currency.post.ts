@@ -14,21 +14,21 @@ export default defineEventHandler(async (event) => {
     if(!user) throw 'Người dùng không tồn tại'
 
     if(type == 'plus'){
-      // if(!!isNaN(parseInt(plus.coin))) throw 'Dữ liệu tiền tệ không hợp lệ'
+      if(!!isNaN(parseInt(plus.coin))) throw 'Dữ liệu tiền tệ không hợp lệ'
       if(!!isNaN(parseInt(plus.lcoin))) throw 'Dữ liệu tiền tệ không hợp lệ'
       if(!!isNaN(parseInt(plus.exp))) throw 'Dữ liệu tiền tệ không hợp lệ'
 
       const update : any = {}
       update['$inc'] = { 
-        // 'currency.coin': parseInt(plus.coin),
+        'currency.coin': parseInt(plus.coin),
         'currency.lcoin': parseInt(plus.lcoin),
         'currency.exp': parseInt(plus.exp),
       }
 
       const change = []
-      // if(parseInt(plus.coin) > 0){
-      //   change.push(`${plus.coin.toLocaleString('vi-VN')} xu`)
-      // }
+      if(parseInt(plus.coin) > 0){
+        change.push(`${plus.coin.toLocaleString('vi-VN')} xu`)
+      }
       if(parseInt(plus.lcoin) > 0){
         change.push(`${plus.lcoin.toLocaleString('vi-VN')} Xu Khóa`)
       }
@@ -38,7 +38,7 @@ export default defineEventHandler(async (event) => {
 
       if(change.length > 0){
         const userUpdate = await DB.User.findOneAndUpdate({ _id: _id }, update, { new: true }).select('currency') as IDBUser
-        // if(userUpdate.currency.coin < 0) userUpdate.currency.coin = 0
+        if(userUpdate.currency.coin < 0) userUpdate.currency.coin = 0
         if(userUpdate.currency.lcoin < 0) userUpdate.currency.lcoin = 0
         if(userUpdate.currency.exp < 0) userUpdate.currency.exp = 0
         await userUpdate.save()
@@ -55,7 +55,7 @@ export default defineEventHandler(async (event) => {
     }
 
     if(type == 'origin'){
-      // if(!!isNaN(parseInt(origin.coin)) || parseInt(origin.coin) < 0) throw 'Dữ liệu tiền tệ không hợp lệ'
+      if(!!isNaN(parseInt(origin.coin)) || parseInt(origin.coin) < 0) throw 'Dữ liệu tiền tệ không hợp lệ'
       if(!!isNaN(parseInt(origin.lcoin)) || parseInt(origin.lcoin) < 0) throw 'Dữ liệu tiền tệ không hợp lệ'
       if(!!isNaN(parseInt(origin.exp)) || parseInt(origin.exp) < 0) throw 'Dữ liệu tiền tệ không hợp lệ'
 
@@ -63,16 +63,16 @@ export default defineEventHandler(async (event) => {
       update['currency'] = origin
       
       const change = []
-      // if(origin.coin != user.currency.coin){
-      //   change.push('Xu')
+      if(origin.coin != user.currency.coin){
+        change.push('Xu')
 
-      //   const notify = `Số <b>Xu</b> được thay đổi từ <b>${user.currency.coin.toLocaleString('vi-VN')}</b> thành <b>${origin.coin.toLocaleString('vi-VN')}</b> bởi quản trị viên <b>${auth.username}</b> với lý do <b>${reason}</b>`
-      //   logUser({ 
-      //     user: user._id, 
-      //     action: notify, 
-      //     type: 'gm.change.currency.coin'
-      //   })
-      // }
+        const notify = `Số <b>Xu</b> được thay đổi từ <b>${user.currency.coin.toLocaleString('vi-VN')}</b> thành <b>${origin.coin.toLocaleString('vi-VN')}</b> bởi quản trị viên <b>${auth.username}</b> với lý do <b>${reason}</b>`
+        logUser({ 
+          user: user._id, 
+          action: notify, 
+          type: 'gm.change.currency.coin'
+        })
+      }
       if(origin.lcoin != user.currency.lcoin){
         change.push('Xu Khóa')
 
@@ -96,7 +96,7 @@ export default defineEventHandler(async (event) => {
 
       if(change.length > 0){
         const userUpdate = await DB.User.findOneAndUpdate({ _id: _id }, update, { new: true }).select('currency') as IDBUser
-        // if(userUpdate.currency.coin < 0) userUpdate.currency.coin = 0
+        if(userUpdate.currency.coin < 0) userUpdate.currency.coin = 0
         if(userUpdate.currency.lcoin < 0) userUpdate.currency.lcoin = 0
         if(userUpdate.currency.exp < 0) userUpdate.currency.exp = 0
         await userUpdate.save()

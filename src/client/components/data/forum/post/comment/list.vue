@@ -6,15 +6,10 @@
       <div class="w-full">
         <UiFlex class="gap-1 mb-2">
           <DataUserName :user="comment.user" size="sm" />
-          <UiText color="gray" size="xs" class="ml-auto max-md:hidden">{{ useDayJs().displayFull(comment.createdAt) }}</UiText>
+          <UiText color="gray" size="xs" class="ml-auto">{{ useDayJs().displayFull(comment.createdAt) }}</UiText>
         </UiFlex>
 
-        <UiEditorContent :content="comment.content" class="max-md:hidden"></UiEditorContent>
-        
-        <div class="bg-gray p-2 px-3 rounded-r-2xl rounded-bl-2xl text-left md:hidden">
-          <UiEditorContent :content="comment.content"></UiEditorContent>
-          <UiText color="gray" size="xs" class="mt-2">{{ useDayJs().displayFull(comment.createdAt) }}</UiText>
-        </div>
+        <UiEditorContent :content="comment.content"></UiEditorContent>
       </div>
     </UiFlex>
   </div>

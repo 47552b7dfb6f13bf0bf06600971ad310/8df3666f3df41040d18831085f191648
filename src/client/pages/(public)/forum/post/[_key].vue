@@ -23,20 +23,6 @@
           <UiText size="sm" weight="semibold">{{ useMoney().miniMoney(post.statistic.comment) }}</UiText>
           <UiText color="gray" size="xs">Bình luận</UiText>
         </UiFlex>
-
-        <UiFlex class="gap-1 hidden md:flex ml-auto">
-          <UButton 
-            class="ml-auto" icon="i-bx-like" 
-            size="md" 
-            :color="post.liked ? 'rose' : 'gray'" 
-            :loading="loading.like" 
-            @click="updateLike(post.liked ? false : true)"
-          >
-            {{ post.liked ? 'Bỏ thích' : 'Thích' }}
-          </UButton>
-          
-          <UButton size="md" icon="i-bx-chat" class="color-blue-light bg-anim-light" @click="modal.comment = true">Phản hồi</UButton>
-        </UiFlex>
       </UiFlex>
     </UiMinibanner>
 
@@ -57,7 +43,7 @@
     </div>
 
     <!--Comment-->
-    <UiContent title="Bình luận" sub="Các phản hồi về bài viết" icon="i-fluent-comment-text-24-filled" class="bg-gray-1000 rounded-2xl p-4" >
+    <div>
       <!--Action-->
       <UiFlex class="gap-1">
         <USelectMenu v-model="page.size" size="md" :options="[5,10,20,50,100]" />
@@ -72,7 +58,7 @@
           {{ post.liked ? 'Bỏ thích' : 'Thích' }}
         </UButton>
         
-        <UButton size="md" icon="i-bx-chat" class="color-blue-light bg-anim-light" @click="modal.comment = true">Phản hồi</UButton>
+        <UButton size="md" icon="i-bx-chat" class="color-blue-light bg-anim-light" @click="startCreateComment">Phản hồi</UButton>
       </UiFlex>
 
       <!--Content-->
@@ -82,11 +68,13 @@
       </div>
 
       <!--Pagination-->
-      <UiFlex justify="between">
+      <UiFlex justify="between" class="gap-1">
         <UButton icon="i-bxs-arrow-to-top" color="gray" size="md" @click="scrollTop">Top</UButton>
+        
+        
         <UPagination v-model="page.current" :page-count="page.size" :total="page.total" :max="4" size="md" />
       </UiFlex>
-    </UiContent>
+    </div>
 
     <!--Create-->
     <UModal v-model="modal.comment" prevent-close :ui="{width: 'sm:max-w-[900px]'}">
@@ -195,6 +183,11 @@ const getPost = async () => {
 }
 
 // Comment
+const startCreateComment = () => {
+  if(!authStore.isLogin) return authStore.setModal(true)
+  modal.value.comment = true
+}
+
 const getComments = async () => {
   try {
     loading.value.comment.list = true
@@ -218,9 +211,6 @@ const createComment = async () => {
     loading.value.comment.create = false
     modal.value.comment = false
     state.value.content = null
-    const endPage = Math.floor((page.value.total + 1) / page.value.size)
-    if(endPage == page.value.current) await getComments()
-    else page.value.current = endPage
   }
   catch(e){
     loading.value.comment.create = false
@@ -230,6 +220,8 @@ const createComment = async () => {
 // Like
 const updateLike = async (type) => {
   try {
+    if(!authStore.isLogin) return authStore.setModal(true)
+
     loading.value.like = true
     const data = await useAPI(`forum/public/post/like/${!!type ? 'create' : 'undo'}`, {
       post: post.value._id

@@ -6,7 +6,7 @@
 
     <UForm :state="state" :validate="validate" @submit="buy">
       <UFormGroup label="Số dư Xu" name="coin">
-        <UInput :model-value="`${toMoney(authStore.profile.currency.coin)}`" readonly/>
+        <UInput :model-value="`${toMoney(authStore.profile.currency.coin + authStore.profile.currency.lcoin)}`" readonly/>
 
         <template #hint>
           <DataPaymentFast />
@@ -103,7 +103,7 @@ const voucher = ref()
 const validate = (state) => {
   const errors = []
   if (totalPrice.value == null) errors.push({ path: 'info', message: 'Không thể lấy thông tin giá tiền' })
-  else if (totalPrice.value != null && authStore.profile.currency.coin < totalPrice.value && !authStore.isAdmin) errors.push({ path: 'coin', message: 'Số dư Xu không đủ' })
+  else if (totalPrice.value != null && (authStore.profile.currency.coin + authStore.profile.currency.lcoin) < totalPrice.value && !authStore.isAdmin) errors.push({ path: 'coin', message: 'Số dư Xu không đủ' })
   if (!state.server) errors.push({ path: 'server', message: 'Vui lòng chọn máy chủ' })
   if (!state.role) errors.push({ path: 'role', message: 'Vui lòng chọn nhân vật' })
   if (!state.amount) errors.push({ path: 'amount', message: 'Vui lòng nhập số lượng' })
