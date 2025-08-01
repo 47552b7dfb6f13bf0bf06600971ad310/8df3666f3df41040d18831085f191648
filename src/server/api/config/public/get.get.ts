@@ -57,6 +57,10 @@ export default defineEventHandler(async (event) => {
       result.collab.user = collab.user
       result.collab.code = collab.code
       result.config = deepMerge(result.config, JSON.parse(JSON.stringify(collab.info)))
+      result.config.download.android = collab.info.download.android || ''
+      result.config.download.ios = collab.info.download.ios || ''
+      result.config.download.windows = collab.info.download.windows || ''
+      result.config.download.mac = collab.info.download.mac || ''
     }
 
     return resp(event, { result: result })

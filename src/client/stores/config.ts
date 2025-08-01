@@ -83,5 +83,14 @@ export const useConfigStore = defineStore('config', () => {
     Object.assign(collab, data.collab)
   }
 
-  return { config, collab, bootConfig }
+  const installPrompt : Ref<any> = ref()
+
+  const setInstallPrompt = (data : any) => installPrompt.value = data
+
+  return { 
+    config, 
+    collab, 
+    bootConfig,
+    installPrompt, setInstallPrompt
+  }
 })

@@ -9,6 +9,11 @@
         </template>
 
         <UiFlex class="mb-6" v-if="!!contact">
+          <UiIcon name="i-mdi-company" color="primary" class="mr-2" />
+          <UiText size="sm" color="gray" weight="semibold" class="mr-auto" mini>Công ty</UiText>
+          <UiText size="sm" weight="semibold" align="right" class="ml-6">{{ contact.name || '...' }}</UiText>
+        </UiFlex>
+        <UiFlex class="mb-6" v-if="!!contact">
           <UiIcon name="i-bxs-map" color="primary" class="mr-2" />
           <UiText size="sm" color="gray" weight="semibold" class="mr-auto" mini>Địa chỉ</UiText>
           <UiText size="sm" weight="semibold" align="right" class="ml-6">{{ contact.address || '...' }}</UiText>
@@ -41,16 +46,21 @@
 </template>
 
 <script setup>
+const configStore = useConfigStore()
 const modal = ref(false)
 
-const contact = ref(null)
-const social = ref(null)
+const social = computed(() => {
+  const data = JSON.parse(JSON.stringify(configStore.config.social)) 
+  delete data['game']
+  return data
+})
+
+const contact = computed(() => {
+  const data = JSON.parse(JSON.stringify(configStore.config.contact)) 
+  return data
+})
 
 const open = async () => {
-  const data = await useAPI('config/public/contact')
-  contact.value = data.contact
-  social.value = data.social
-  delete social.value['game']
   modal.value = true
 }
 

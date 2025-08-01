@@ -9,8 +9,34 @@
       <LoadingTable v-if="loading.load" />
 
       <UTable :columns="selectedColumns" :rows="list">
-        <template #title-data="{ row }">
-          <UBadge color="gray" variant="soft">{{ row.title }}</UBadge>
+        <template #[`commission.vip-data`]="{ row }">
+          <UiFlex class="gap-1">
+            <UiText color="cyan">{{ row.commission.vip }}%</UiText>
+          </UiFlex>
+        </template>
+
+        <template #[`commission.game.private-data`]="{ row }">
+          <UiFlex class="gap-1">
+            <UiText color="green">{{ row.commission.game.private }}%</UiText>
+          </UiFlex>
+        </template>
+
+        <template #[`commission.game.tool-data`]="{ row }">
+          <UiFlex class="gap-1">
+            <UiText color="green">{{ row.commission.game.tool }}%</UiText>
+          </UiFlex>
+        </template>
+
+        <template #[`commission.game.china-data`]="{ row }">
+          <UiFlex class="gap-1">
+            <UiText color="green">{{ row.commission.game.china }}%</UiText>
+          </UiFlex>
+        </template>
+
+        <template #[`price-data`]="{ row }">
+          <UiFlex class="gap-1">
+            <UiText color="rose">{{ useMoney().toMoney(row.price) }}</UiText>
+          </UiFlex>
         </template>
 
         <template #actions-data="{ row }">
@@ -26,6 +52,10 @@
       <UForm :state="stateAdd" @submit="addAction" class="bg-card rounded-2xl p-4">
         <UFormGroup label="Cấp">
           <UInput v-model="stateAdd.number" type="number" />
+        </UFormGroup>
+
+        <UFormGroup label="Giá tham gia">
+          <UInput v-model="stateAdd.price" />
         </UFormGroup>
 
         <UFormGroup label="Hoa hồng Nâng VIP">
@@ -54,6 +84,10 @@
     <!-- Modal Edit -->
     <UModal v-model="modal.edit" preventClose>
       <UForm :state="stateEdit" @submit="editAction" class="bg-card rounded-2xl p-4">
+        <UFormGroup label="Giá tham gia">
+          <UInput v-model="stateEdit.price" />
+        </UFormGroup>
+
         <UFormGroup label="Hoa hồng Nâng VIP">
           <UInput v-model="stateEdit.commission.vip" />
         </UFormGroup>
@@ -103,6 +137,9 @@ const columns = [
     key: 'commission.game.china',
     label: 'Hoa hồng Game China'
   },{
+    key: 'price',
+    label: 'Giá tham gia'
+  },{
     key: 'actions',
     label: 'Chức năng',
   }
@@ -117,6 +154,7 @@ const page = ref({
 // State
 const stateAdd = ref({
   number: null,
+  price: 0,
   commission: {
     game: {
       private: 0,
@@ -130,6 +168,7 @@ const stateAdd = ref({
 
 const stateEdit = ref({
   _id: null,
+  price: 0,
   commission: {
     game: {
       private: null,

@@ -4,8 +4,9 @@ export default defineEventHandler(async (event) => {
   try {
     const auth = await getAuth(event) as IAuth
     const body = await readBody(event)
-    const { _id, commission, parent } = body
+    const { _id, commission, price, parent } = body
     if(!_id || !commission) throw 'Dữ liệu đầu vào không hợp lệ'
+    if(!isNumber(price) || price < 0) throw 'Số tiền không hợp lệ'
     if(!commission.game) throw 'Dữ liệu đầu vào không hợp lệ'
     if(
       commission.vip < 0

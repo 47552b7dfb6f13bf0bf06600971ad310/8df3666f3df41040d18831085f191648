@@ -7,16 +7,16 @@
     <div>
       <UiText class="text-xs md:text-base mb-1">Tải ứng dụng</UiText>
       <UiFlex class="gap-2">
-        <UiIcon name="i-bxl-windows" class="cursor-pointer w-6 h-6 md:w-8 md:h-8" @click="download(configStore.config.download.windows)" />
-        <UiIcon name="i-bxl-apple" class="cursor-pointer w-6 h-6 md:w-8 md:h-8" @click="modal.iphone = true" />
-        <UiIcon name="i-bxl-android" class="cursor-pointer w-6 h-6 md:w-8 md:h-8" @click="download(configStore.config.download.android)"/>
+        <UiIcon name="i-bxl-windows" class="cursor-pointer w-6 h-6 md:w-8 md:h-8" @click="download(configStore.config.download.windows, 'windows')" />
+        <UiIcon name="i-bxl-apple" class="cursor-pointer w-6 h-6 md:w-8 md:h-8" @click="download(configStore.config.download.ios, 'ios')" />
+        <UiIcon name="i-bxl-android" class="cursor-pointer w-6 h-6 md:w-8 md:h-8" @click="download(configStore.config.download.android, 'android')"/>
       </UiFlex>
     </div>
 
-    <UModal v-model="modal.iphone" preventClose :ui="{ width: 'sm:max-w-[370px]' }">
+    <UModal v-model="modal.ios" preventClose :ui="{ width: 'sm:max-w-[370px]' }">
       <UiContent title="IPhone và IPad" sub="Hướng dẫn cài đặt ứng dụng" class="bg-card rounded-2xl p-4">
          <template #more>
-          <UButton icon="i-bx-x" color="gray" class="ml-auto" size="2xs" square @click="modal.iphone = false"></UButton>
+          <UButton icon="i-bx-x" color="gray" class="ml-auto" size="2xs" square @click="modal.ios = false"></UButton>
         </template>
 
         <UiFlex class="flex gap-1 mb-2" wrap>
@@ -37,13 +37,42 @@
 
 <script setup>
 const configStore = useConfigStore()
+const { isAndroid, isDesktop } = useDevice()
 
 const modal = ref({
-  iphone: false
+  ios: false
 })
 
-const download = (link) => {
-  if(!link) return useNotify().error('Link tải chưa sẵn sàng, vui lòng quay lại sau')
-  useTo().openNewTab(link)
+const download = async (link, type) => {
+  // Had Link
+  if(!!link) {
+    const link = document.createElement('a')
+    link.href = url
+    document.body.appendChild(link)
+    link.click()
+    document.body.removeChild(link)
+    return
+  }
+
+  // IOS
+  if(type == 'ios') return modal.value.ios = true
+
+  // Android and Windows
+  if(type == 'android'){
+    if(!!configStore.installPrompt && !!isAndroid){
+      await configStore.installPrompt.prompt()
+      return configStore.setInstallPrompt(null)
+    }
+    else return useNotify().error('Chúng tôi đang cập nhật link tải, vui lòng quay lại sau')
+  }
+
+  // Windows
+  if(type == 'windows'){
+    if(!!configStore.installPrompt && !!isDesktop){
+      await configStore.installPrompt.prompt()
+      return configStore.setInstallPrompt(null)
+    }
+    else return useNotify().error('Chúng tôi đang cập nhật link tải, vui lòng quay lại sau')
+  }
 }
 </script>
