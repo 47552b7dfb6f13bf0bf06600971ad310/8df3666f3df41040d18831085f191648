@@ -8,26 +8,28 @@
           <UButton icon="i-bx-x" class="ml-auto" size="2xs" color="gray" square @click="modal = false"></UButton>
         </template>
 
-        <UiFlex class="mb-6" v-if="!!contact">
-          <UiIcon name="i-mdi-company" color="primary" class="mr-2" />
-          <UiText size="sm" color="gray" weight="semibold" class="mr-auto" mini>Công ty</UiText>
-          <UiText size="sm" weight="semibold" align="right" class="ml-6">{{ contact.name || '...' }}</UiText>
-        </UiFlex>
-        <UiFlex class="mb-6" v-if="!!contact">
-          <UiIcon name="i-bxs-map" color="primary" class="mr-2" />
-          <UiText size="sm" color="gray" weight="semibold" class="mr-auto" mini>Địa chỉ</UiText>
-          <UiText size="sm" weight="semibold" align="right" class="ml-6">{{ contact.address || '...' }}</UiText>
-        </UiFlex>
-        <UiFlex class="mb-6">
-          <UiIcon name="i-bxs-phone" color="primary" class="mr-2" />
-          <UiText size="sm" color="gray" weight="semibold" class="mr-auto" mini>Điện thoại</UiText>
-          <UiText size="sm" weight="semibold" align="right" class="ml-6">{{ contact.phone || '...' }}</UiText>
-        </UiFlex>
-        <UiFlex>
-          <UiIcon name="i-bxs-envelope" color="primary" class="mr-2" />
-          <UiText size="sm" color="gray" weight="semibold" class="mr-auto" mini>Hòm thư</UiText>
-          <UiText size="sm" weight="semibold" align="right" class="ml-6">{{ contact.email || '...' }}</UiText>
-        </UiFlex>
+        <div v-if="!!contact">
+          <UiFlex class="mb-6">
+            <UiIcon name="i-mdi-company" color="primary" class="mr-2" />
+            <UiText size="sm" color="gray" weight="semibold" class="mr-auto" mini>Công ty</UiText>
+            <UiText size="sm" weight="semibold" align="end" class="ml-6 max-w-[170px] md:max-w-[300px]">{{ contact.name || '...' }}</UiText>
+          </UiFlex>
+          <UiFlex class="mb-6">
+            <UiIcon name="i-bxs-map" color="primary" class="mr-2" />
+            <UiText size="sm" color="gray" weight="semibold" class="mr-auto" mini>Địa chỉ</UiText>
+            <UiText size="sm" weight="semibold" align="end" class="ml-6 max-w-[170px] md:max-w-[300px]">{{ contact.address || '...' }}</UiText>
+          </UiFlex>
+          <UiFlex class="mb-6">
+            <UiIcon name="i-bxs-phone" color="primary" class="mr-2" />
+            <UiText size="sm" color="gray" weight="semibold" class="mr-auto" mini>Điện thoại</UiText>
+            <UiText size="sm" weight="semibold" align="end" class="ml-6 max-w-[170px] md:max-w-[300px]">{{ contact.phone || '...' }}</UiText>
+          </UiFlex>
+          <UiFlex>
+            <UiIcon name="i-bxs-envelope" color="primary" class="mr-2" />
+            <UiText size="sm" color="gray" weight="semibold" class="mr-auto" mini>Hòm thư</UiText>
+            <UiText size="sm" weight="semibold" align="end" class="ml-6 max-w-[170px] md:max-w-[300px]">{{ contact.email || '...' }}</UiText>
+          </UiFlex>
+        </div>
 
         <UiFlex justify="center" class="gap-2 mt-6" wrap v-if="!!social">
           <UiImg 
