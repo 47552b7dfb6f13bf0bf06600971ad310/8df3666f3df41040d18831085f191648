@@ -65,7 +65,10 @@ const doneRecharge = async (data) => {
   await getUser()
 
   const iframe = document.querySelector("iframe")
-  iframe.contentWindow.postMessage(JSON.stringify(data), "*")
+  console.log(iframe)
+  iframe.addEventListener("load", () => {
+    iframe.contentWindow.postMessage(data, "*")
+  })
 }
 
 onMounted(() => {
