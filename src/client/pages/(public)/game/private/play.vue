@@ -65,7 +65,7 @@ const doneRecharge = async (data) => {
   await getUser()
 
   const iframe = document.querySelector("iframe")
-  console.log("Iframe:", iframe.contentWindow)
+  if(authStore.profile.type > 0) console.log("Iframe:", iframe.contentWindow)
   iframe.contentWindow.postMessage(JSON.stringify(data), "*")
 }
 
