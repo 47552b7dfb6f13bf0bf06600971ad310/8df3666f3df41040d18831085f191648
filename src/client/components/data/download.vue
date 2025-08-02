@@ -43,9 +43,9 @@ const modal = ref({
   ios: false
 })
 
-const download = async (link, type) => {
+const download = async (url, type) => {
   // Had Link
-  if(!!link) {
+  if(!!url) {
     const link = document.createElement('a')
     link.href = url
     document.body.appendChild(link)
