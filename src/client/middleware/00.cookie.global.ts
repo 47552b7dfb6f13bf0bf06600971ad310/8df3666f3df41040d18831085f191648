@@ -13,5 +13,5 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
   // Invited By Cookie
   const invitedByCookie = useCookie('invited-by', runtimeConfig.public.cookieConfig)
   const codeInvitedBy = url.searchParams.get('i')
-  if(!invitedByCookie.value) invitedByCookie.value = codeInvitedBy ? codeInvitedBy.toString() : null
+  invitedByCookie.value = codeInvitedBy ? codeInvitedBy.toString() : null
 })

@@ -20,7 +20,7 @@
       <UInput icon="i-bxs-lock" v-model="state.password" type="password" />
     </UFormGroup>
 
-    <UFormGroup label="Mã giới thiệu" name="invite" v-if="!!activeInvite">
+    <UFormGroup label="Mã giới thiệu" name="invite">
       <UInput icon="i-bx-barcode" v-model="state.invite" placeholder="Nhập mã mời nếu có"/>
     </UFormGroup>
 
@@ -38,8 +38,6 @@ const inviteCookie = useCookie('invited-by', runtimeConfig.public.cookieConfig)
 const emit = defineEmits(['done', 'in'])
 
 const loading = ref(false)
-
-const activeInvite = ref(false)
 
 const state = ref({
   username: undefined,
@@ -86,8 +84,7 @@ const submit = async () => {
 }
 
 const setInviteCodeCookie = (data) => {
-  if(!data) activeInvite.value = true, state.value.invite = null
-  else activeInvite.value = false, state.value.invite = inviteCookie.value
+  state.value.invite = data || null
 }
 
 watch(() => inviteCookie.value, (val) => setInviteCodeCookie(val))

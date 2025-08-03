@@ -57,12 +57,13 @@ export default defineEventHandler(async (event) => {
       ]
     })
     .select('username email phone') as IDBUser
-    
     if(!!userCheck){
       if(userCheck.username == username) throw 'Tài khoản đã tồn tại'
       if(userCheck.phone == phone) throw 'Số điện thoại đã tồn tại'
       if(userCheck.email == email) throw 'Địa chỉ Email đã tồn tại'
     }
+
+    // Check 
 
     // Create
     const user = await DB.User.create({
@@ -83,13 +84,18 @@ export default defineEventHandler(async (event) => {
       .findOne({ 'invite.code' : inviteCode})
       .select('username level')
       .populate({ path: 'level', select: 'limit voucher.friend' }) as IDBUser
+
       if(!!from) {
-        // Check Limit Invite
         const levelFrom = (from.level as IDBUserLevel)
         const limit = levelFrom.limit.invite
         const countInvite = await DB.Invite.count({ from: from._id })
-        if(countInvite >= limit) deleteCookie(event, 'invited-by', runtimeConfig.public.cookieConfig)
-        else {
+        
+        // Nếu người mời đã đạt giới hạn mời
+        if(countInvite >= limit){ 
+          deleteCookie(event, 'invited-by', runtimeConfig.public.cookieConfig)
+        }
+        // Nếu vẫn có thể mời
+        else { 
           await DB.Invite.create({ from: from._id, user: user._id })
           setCookie(event, 'invited-by', inviteCode, runtimeConfig.public.cookieConfig)
           logUser({
