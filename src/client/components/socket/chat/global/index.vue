@@ -4,7 +4,11 @@
     <UiFlex class="w-full gap-2 p-2 border-b border-gray-800">
       <UiDot color="green" size="2" class="beat-anim" />
       <UiText size="sm" weight="semibold">Trực tuyến: </UiText>
-      <UiText size="sm" weight="bold" color="green">{{ socketStore.online }}</UiText>
+      <UiNumber :num="online">
+        <template #default="{ display }">
+          <UiText size="sm" weight="bold" color="green">{{ display }}</UiText>
+        </template>
+      </UiNumber>
 
       <UButton icon="i-bxs-group" class="ml-auto" size="lg" variant="ghost" color="white" :padded="false" :loading="!!loading.list" />
     </UiFlex>
@@ -80,6 +84,7 @@
 const { $socket } = useNuxtApp()
 const authStore = useAuthStore()
 const socketStore = useSocketStore()
+const configStore = useConfigStore()
 
 const box = ref()
 const input = ref()
@@ -88,6 +93,10 @@ const loading = ref({
   start: true,
   list: false,
   send: false
+})
+
+const online = computed(() => {
+  return socketStore.online + (configStore.config.fake?.online || 0)
 })
 
 const list = ref([])

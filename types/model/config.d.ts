@@ -46,6 +46,9 @@ export interface IDBConfig {
       second: number
     }
   }
+  fake: {
+    online: number
+  }
   download: {
     windows: string
     mac: string
@@ -132,6 +135,9 @@ export interface IDBConfigStore {
       first: number
       second: number
     }
+  }
+  fake: {
+    online: number
   }
   download: {
     windows: string

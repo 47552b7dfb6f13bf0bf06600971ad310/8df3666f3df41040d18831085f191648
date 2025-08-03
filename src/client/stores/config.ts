@@ -27,6 +27,9 @@ export const useConfigStore = defineStore('config', () => {
         second: 0
       }
     },
+    fake: {
+      online: 0
+    },
     download: {
       windows: '',
       mac: '',

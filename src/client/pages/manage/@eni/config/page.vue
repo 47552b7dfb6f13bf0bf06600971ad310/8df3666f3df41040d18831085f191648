@@ -162,6 +162,20 @@
           </UForm>
         </UCard>
       </template>
+
+      <template #fake>
+        <UCard>
+          <UForm :state="state">
+            <UFormGroup label="Online Ảo">
+              <UInput v-model="state.fake.online" type="number" />
+            </UFormGroup>
+
+            <UiFlex justify="end" class="mt-4">
+              <UButton @click="update('fake')" :loading="updating">Cập Nhật</UButton>
+            </UiFlex>
+          </UForm>
+        </UCard>
+      </template>
     </UAccordion>
   </UiContent>
 </template>
@@ -181,6 +195,10 @@ const state = ref({
   description: '',
   og_image: '',
   logo_image: '',
+
+  fake: {
+    online: '',
+  },
 
   download: {
     windows: '',
@@ -227,6 +245,10 @@ const menu = [
 {
   label: 'Ứng dụng',
   slot: 'download'
+},
+{
+  label: 'Giả mạo',
+  slot: 'fake'
 }
 ]
 

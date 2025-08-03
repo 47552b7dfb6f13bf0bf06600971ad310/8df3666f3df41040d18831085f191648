@@ -44,6 +44,9 @@ export const DBConfig = (mongoose : Mongoose) => {
         second: { type: Number, default: 50 },
       }
     },
+    fake: {
+      online: { type: Number, default: 0 },
+    },
     download: {
       windows: { type: String, default: '' },
       mac: { type: String, default: '' },

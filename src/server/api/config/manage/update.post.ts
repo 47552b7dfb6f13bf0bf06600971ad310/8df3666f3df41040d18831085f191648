@@ -13,6 +13,7 @@ export default defineEventHandler(async (event) => {
     if(change == 'basic') logAdmin(event, 'Cập nhật thông tin <b>cơ bản</b> trang web')
     if(change == 'contact') logAdmin(event, 'Cập nhật thông tin <b>liên hệ</b> trang web')
     if(change == 'social') logAdmin(event, 'Cập nhật thông tin <b>mạng xã hội</b> trang web')
+    if(change == 'fake') logAdmin(event, 'Cập nhật thông tin <b>giả mạo</b> trang web')
     if(change == 'download') logAdmin(event, 'Cập nhật thông tin <b>link tải</b> ứng dụng')
     if(change == 'facebook') logAdmin(event, 'Cập nhật cấu hình <b>API Facebook</b>')
     if(change == 'google') logAdmin(event, 'Cập nhật cấu hình <b>API Google</b>')
