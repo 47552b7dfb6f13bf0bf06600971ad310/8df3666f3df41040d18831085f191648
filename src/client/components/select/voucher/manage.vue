@@ -41,10 +41,10 @@ const search = async (key) => {
     const index = list.findLastIndex((i) => i._id == props.modelValue)
     if(index != -1){
       const voucher = list[index]
-      select.value = { _id: voucher._id, title: `[${voucher.value}%] - ${voucher.title}` }
+      select.value = { _id: voucher._id, title: voucher.title }
     }
   }
 
-  return list.map(voucher => ({ _id: voucher._id, title: `[${voucher.value}%] - ${voucher.title}` })).filter(Boolean)
+  return list.map(voucher => ({ _id: voucher._id, title: voucher.title })).filter(Boolean)
 }
 </script>

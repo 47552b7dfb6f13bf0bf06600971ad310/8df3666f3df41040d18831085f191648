@@ -20,7 +20,11 @@
         :rows="list"
       >
         <template #username-data="{ row }">
-          <ManageUser :user="row" />
+          <UBadge color="gray" variant="soft">{{ row.username }}</UBadge>
+        </template>
+
+        <template #level-data="{ row }">
+          {{ row.level ? row.level.number : '...' }}
         </template>
 
         <template #pay-data="{ row }">
@@ -64,6 +68,9 @@ const columns = [
   {
     key: 'username',
     label: 'Tài khoản',
+  },{
+    key: 'level',
+    label: 'Cấp',
   },{
     key: 'pay',
     label: 'Tổng nạp',

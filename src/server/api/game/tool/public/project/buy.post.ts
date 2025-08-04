@@ -16,7 +16,7 @@ export default defineEventHandler(async (event) => {
     const game = await DB.GameTool.findOne({ code: code, display: true }).select('name price discount collab') as IDBGameTool
     if(!game) throw 'Trò chơi không tồn tại'
 
-    const discountVoucher = await getValueVoucher(user, voucher)
+    const discountVoucher = await getValueVoucherDiscount(user, voucher)
     const userGame = await DB.GameToolUser.findOne({ game: game._id, user: user._id, server_id: server_id }) as IDBGameToolUser
     let minus = { coin: 0, lcoin: 0 }
     let totalPrice = 0
@@ -28,7 +28,7 @@ export default defineEventHandler(async (event) => {
     const vip = await getUserVip(user) as string
     // @ts-expect-error
     discount = !!vip ? game.discount.vip[vip] : 0
-    discount = discount + discountVoucher
+    discount = discount + discountVoucher.percent
     discount = discount > 100 ? 100 : discount
 
     // No User Game Tool
@@ -44,6 +44,8 @@ export default defineEventHandler(async (event) => {
       }
 
       totalPrice = totalPrice - Math.floor((totalPrice * discount) / 100)
+      totalPrice = totalPrice - discountVoucher.coin
+      totalPrice = totalPrice > 0 ? totalPrice : 0
       if(!runtimeConfig.public.dev && auth.type == 100) totalPrice = 0 // Admin Free
       minus = getCoinMinus(user.currency, totalPrice)
 
@@ -70,6 +72,8 @@ export default defineEventHandler(async (event) => {
       if(!!mail && !userGame.mail) totalPrice = totalPrice + game.price.mail
 
       totalPrice = totalPrice - Math.floor((totalPrice * discount) / 100)
+      totalPrice = totalPrice - discountVoucher.coin
+      totalPrice = totalPrice > 0 ? totalPrice : 0
       if(!runtimeConfig.public.dev && auth.type == 100) totalPrice = 0 // Admin Free
       minus = getCoinMinus(user.currency, totalPrice)
 
@@ -93,7 +97,7 @@ export default defineEventHandler(async (event) => {
     }
 
     // Update Voucher
-    if(discountVoucher > 0){
+    if(discountVoucher.coin > 0 || discountVoucher.percent > 0){
       await DB.User.updateOne({ _id: user._id }, { $pull: { 'vouchers': voucher } })
       await DB.VoucherHistory.create({ voucher: voucher, user: user._id, content: `Mua công cụ <b>[Game Tool] ${game.name}</b>` })
     }

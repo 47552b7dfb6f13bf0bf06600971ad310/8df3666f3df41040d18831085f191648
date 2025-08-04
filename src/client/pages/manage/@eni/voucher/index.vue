@@ -15,7 +15,7 @@
         :rows="list"
       > 
         <template #type-data="{ row }">
-          <UiText :color="row.type == 'DISCOUNT' ? 'rose' : 'green'">{{ row.title }}</UiText>
+          <UiText :color="row.type == 'DISCOUNT' ? 'rose' : row.type == 'DISCOUNT-COIN' ? 'orange' : 'green'">{{ row.title }}</UiText>
         </template>
 
         <template #expired-data="{ row }">
@@ -47,8 +47,9 @@
       <UForm :state="stateAdd" @submit="addAction" class="bg-card rounded-2xl p-4">
         <UFormGroup label="Loại phiếu">
           <USelectMenu size="lg" v-model="stateAdd.type" :options=" [
-            { label: 'Giảm giá cửa hàng', value: 'DISCOUNT' },
-            { label: 'Khuyến mãi nạp', value: 'PAYMENT' },
+            { label: 'Giảm giá % cửa hàng', value: 'DISCOUNT' },
+            { label: 'Giảm giá Xu cửa hàng', value: 'DISCOUNT-COIN' },
+            { label: 'Khuyến mãi % nạp', value: 'PAYMENT' },
           ]" value-attribute="value" />
         </UFormGroup>
 
@@ -84,8 +85,9 @@
       <UForm :state="stateEdit" @submit="editAction" class="bg-card rounded-2xl p-4">
         <UFormGroup label="Loại phiếu">
           <USelectMenu size="lg" v-model="stateEdit.type" :options=" [
-            { label: 'Giảm giá cửa hàng', value: 'DISCOUNT' },
-            { label: 'Khuyến mãi nạp', value: 'PAYMENT' },
+            { label: 'Giảm giá % cửa hàng', value: 'DISCOUNT' },
+            { label: 'Giảm giá Xu cửa hàng', value: 'DISCOUNT-COIN' },
+            { label: 'Khuyến mãi % nạp', value: 'PAYMENT' }
           ]" value-attribute="value" />
         </UFormGroup>
 

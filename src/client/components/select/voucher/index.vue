@@ -19,7 +19,7 @@
 <script setup>
 const props = defineProps({
   modelValue: [ String, Array ],
-  type: String
+  type: Array
 })
 
 const emit = defineEmits(['update:modelValue', 'update:voucherData'])

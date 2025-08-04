@@ -127,9 +127,14 @@
           <UToggle v-model="statePrivilege.edit_info" />
         </UiFlex>
 
-        <UiFlex justify="between">
+        <UiFlex justify="between" class="mb-4">
           <UiText size="sm" weight="semibold" color="gray" text="Quyền thay đổi kênh nạp" />
           <UToggle v-model="statePrivilege.edit_gate" />
+        </UiFlex>
+
+        <UiFlex justify="between">
+          <UiText size="sm" weight="semibold" color="gray" text="Quyền thay đổi cấp độ tài khoản" />
+          <UToggle v-model="statePrivilege.edit_level" />
         </UiFlex>
 
         <UiFlex justify="end" class="mt-6">
@@ -235,6 +240,7 @@ const statePrivilege = ref({
   _id: null,
   edit_info: false,
   edit_gate: false,
+  edit_level: false,
 })
 const stateGatepay = ref({
   _id: null,
@@ -294,6 +300,7 @@ const actions = (row) => [
       statePrivilege.value._id = row._id
       statePrivilege.value.edit_info = row.privilege ? row.privilege.edit_info : false
       statePrivilege.value.edit_gate = row.privilege ? row.privilege.edit_gate : false
+      statePrivilege.value.edit_level = row.privilege ? row.privilege.edit_level : false
       modal.value.privilege = true
     }
   }],[{

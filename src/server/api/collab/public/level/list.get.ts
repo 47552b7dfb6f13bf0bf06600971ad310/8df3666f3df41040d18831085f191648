@@ -17,11 +17,6 @@ export default defineEventHandler(async (event) => {
       ]
     }
 
-    // match['$or'] =  [
-    //   { parent: { $exists: false } },
-    //   { parent: null }
-    // ]
-
     const list = await DB.CollabLevel
     .find(match)
     .sort({ number: 1 })

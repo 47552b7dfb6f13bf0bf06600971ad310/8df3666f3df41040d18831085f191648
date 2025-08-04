@@ -22,7 +22,8 @@
         </template>
 
         <template #voucher-data="{ row }">
-          <UiText :color="row.voucher.type == 'DISCOUNT' ? 'rose' : 'green'">{{ row.voucher.title }}</UiText>
+          <span v-if="!row.voucher">...</span>
+          <UiText v-else :color="row.voucher.type == 'DISCOUNT' ? 'rose' : row.voucher.type == 'DISCOUNT-COIN' ? 'orange' : 'green'">{{ row.voucher.title }}</UiText>
         </template>
 
         <template #content-data="{ row }">

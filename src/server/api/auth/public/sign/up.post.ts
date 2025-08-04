@@ -43,8 +43,23 @@ export default defineEventHandler(async (event) => {
     const countIP = await DB.UserIP.count({ ip: IP })
     if(countIP >= config.security.register.ip) throw 'Địa chỉ IP đã đạt giới hạn đăng ký'
 
-    // Get Level
-    const level = await DB.UserLevel.findOne({ number: 1 }).select('_id') as IDBUserLevel
+    // Check Level
+    const collabCode = runtimeConfig.public.collab
+    let collab
+    let level
+    if(!!collabCode){
+      collab = await DB.Collab.findOne({ code: collabCode }).select('privilege') as IDBCollab
+      if(!collab) throw 'Trang cộng tác viên không khả dụng'
+      if(!!collab.privilege.edit_level){
+        level = await DB.UserLevel.findOne({ number: 1, collab: collab._id }).select('_id') as IDBUserLevel
+      }
+      else {
+        level = await DB.UserLevel.findOne({ number: 1 }).select('_id') as IDBUserLevel
+      }
+    }
+    else {
+      level = await DB.UserLevel.findOne({ number: 1 }).select('_id') as IDBUserLevel
+    }
     if(!level) throw 'Hệ thống chưa sẵn sàng để đăng ký'
 
     // Check User
@@ -63,8 +78,6 @@ export default defineEventHandler(async (event) => {
       if(userCheck.email == email) throw 'Địa chỉ Email đã tồn tại'
     }
 
-    // Check 
-
     // Create
     const user = await DB.User.create({
       username: username,
@@ -72,6 +85,9 @@ export default defineEventHandler(async (event) => {
       phone: phone,
       email: email,
       level: level._id,
+      reg: {
+        collab: collab ? collab._id : null
+      },
       currency: {
         lcoin: config.promo.register.coin > 0 ? config.promo.register.coin : 0,
       }
@@ -91,9 +107,7 @@ export default defineEventHandler(async (event) => {
         const countInvite = await DB.Invite.count({ from: from._id })
         
         // Nếu người mời đã đạt giới hạn mời
-        if(countInvite >= limit){ 
-          deleteCookie(event, 'invited-by', runtimeConfig.public.cookieConfig)
-        }
+        if(countInvite >= limit) deleteCookie(event, 'invited-by', runtimeConfig.public.cookieConfig)
         // Nếu vẫn có thể mời
         else { 
           await DB.Invite.create({ from: from._id, user: user._id })
@@ -113,6 +127,9 @@ export default defineEventHandler(async (event) => {
       else deleteCookie(event, 'invited-by', runtimeConfig.public.cookieConfig)
     }
 
+    // Update Reg Collab
+    if(!!collab) await DB.Collab.updateOne({ _id: collab._id }, { $inc: { 'statistic.user': 1 }})
+
     // Update Ads From
     const adsFromCode = getCookie(event, 'ads-from')
     if(!!adsFromCode){
@@ -122,16 +139,6 @@ export default defineEventHandler(async (event) => {
         user.reg.from = adsFromData._id
       }
       else deleteCookie(event, 'ads-from', runtimeConfig.public.cookieConfig)
-    }
-
-    // Update Reg Collab
-    const collabCode = runtimeConfig.public.collab
-    if(!!collabCode){
-      const collab = await DB.Collab.findOne({ code: collabCode }).select('_id') as IDBCollab
-      if(collab){
-        user.reg.collab = collab._id
-        await DB.Collab.updateOne({ _id: collab._id }, { $inc: { 'statistic.user': 1 }})
-      }
     }
 
     // Make Token And Cookie

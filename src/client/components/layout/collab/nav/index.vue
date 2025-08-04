@@ -38,6 +38,7 @@ const menu = ref([
   { title: 'Cài đặt', child: [
     { title: 'Thông tin trang', to: `/manage/@collab/${route.params._code}/config/info` },
     { title: 'Kênh thanh toán', to: `/manage/@collab/${route.params._code}/config/gate` },
+    { title: 'Cấp độ tài khoản', to: `/manage/@collab/${route.params._code}/config/level` },
   ]},
   { title: 'Quản lý', child: [
     { title: 'Thông kê', to: `/manage/@collab/${route.params._code}` },

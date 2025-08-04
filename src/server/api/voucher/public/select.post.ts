@@ -9,9 +9,9 @@ export default defineEventHandler(async (event) => {
     if(!user) throw true
 
     const match : any = { _id: { $in: user.vouchers }}
-    if(type) match['type'] = type
+    if(type) match['type'] = { $in: type }
 
-    const list = await DB.Voucher.find(match).select('title value')
+    const list = await DB.Voucher.find(match).select('title value type')
     return resp(event, { result: list })
   } 
   catch (e:any) {

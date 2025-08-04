@@ -12,15 +12,10 @@ export default defineEventHandler(async (event) => {
     const collabCode = runtimeConfig.public.collab
     if(!!collabCode){
       const collab = await DB.Collab.findOne({ code: collabCode }).select('_id') as IDBCollab
-      if(!!collab) match['$or'] = [
-        { collab: collab._id },
-        { collab: { $exists: false } }
-      ]
-      else match['collab'] = { $exists: false }
+      if(!!collab) match['collab'] = collab._id
+      else match['$or'] =  [{ collab: { $exists: false } }, { collab: null }]
     }
-    else {
-      match['collab'] = { $exists: false }
-    }
+    else match['$or'] =  [{ collab: { $exists: false } }, { collab: null }]
 
     const list = await DB.News
     .find(match)

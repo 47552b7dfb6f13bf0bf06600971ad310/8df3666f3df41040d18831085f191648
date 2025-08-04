@@ -18,7 +18,7 @@
       </UFormGroup>
 
       <UFormGroup label="Voucher" v-if="!!stateBuy.server_id">
-        <SelectVoucher v-model="stateBuy.voucher" v-model:voucherData="voucher" type="DISCOUNT" />
+        <SelectVoucher v-model="stateBuy.voucher" v-model:voucherData="voucher" :type="['DISCOUNT', 'DISCOUNT-COIN']" />
       </UFormGroup>
 
       <div v-if="!!checkdone.status">
@@ -51,6 +51,11 @@
             <UiFlex class="my-3" v-if="discountVoucher > 0">
               <UiText weight="semibold" color="gray" size="sm" class="mr-auto">Giảm giá Voucher</UiText>
               <UiText weight="semibold" size="sm" color="rose">- {{ toMoney(discountVoucher) }}%</UiText>
+            </UiFlex>
+
+            <UiFlex class="my-3" v-if="discountCoinVoucher > 0">
+              <UiText weight="semibold" color="gray" size="sm" class="mr-auto">Giảm giá Voucher</UiText>
+              <UiText weight="semibold" size="sm" color="rose">- {{ toMoney(discountCoinVoucher) }}</UiText>
             </UiFlex>
 
             <UiFlex>
@@ -110,16 +115,24 @@ const discount = computed(() => {
 const discountVoucher = computed(() => {
   if(!voucher.value) return 0
   if(!voucher.value.value) return 0
-  return Number(voucher.value.value)
+  return voucher.value.type == 'DISCOUNT' ? Number(voucher.value.value) : 0
+})
+
+const discountCoinVoucher = computed(() => {
+  if(!voucher.value) return 0
+  if(!voucher.value.value) return 0
+  return voucher.value.type == 'DISCOUNT-COIN' ? Number(voucher.value.value) : 0
 })
 
 const totalPrice = computed(() => {
   const discount_vip = discount.value
   const discount_voucher = discountVoucher.value
+  const discount_coin_voucher = discountCoinVoucher.value
   let discountTotal = discount_vip + discount_voucher
   discountTotal = discountTotal > 100 ? 100 : discountTotal
 
-  return price.value - Math.floor((price.value * discountTotal) / 100)
+  const total = price.value - Math.floor((price.value * discountTotal) / 100) - discount_coin_voucher
+  return total > 0 ? total : 0
 })
 
 const checkAccount = async () => {

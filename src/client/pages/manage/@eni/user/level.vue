@@ -1,8 +1,8 @@
 <template>
   <UiContent title="User Level" sub="Quản lý cấp độ tài khoản">
-    <!-- <UiFlex justify="end" class="mb-4">
+    <UiFlex justify="end" class="mb-4">
       <UButton color="yellow" @click="modal.add = true">Thêm mới</UButton>
-    </UiFlex> -->
+    </UiFlex>
     
     <!-- Table -->
     <UCard :ui="{ body: { padding: 'p-0 sm:p-0' } }">
@@ -19,7 +19,7 @@
 
         <template #[`voucher.friend-data`]="{ row }">
           <span v-if="!row.voucher || (!!row.voucher && !row.voucher.friend)">...</span>
-          <span v-else>[{{ row.voucher.friend.value }}] {{ row.voucher.friend.title }}</span>
+          <UiText v-else :color="row.voucher.friend.type == 'DISCOUNT' ? 'rose' : row.voucher.friend.type == 'DISCOUNT-COIN' ? 'orange' : 'green'">{{ row.voucher.friend.title }}</UiText>
         </template>
 
         <template #actions-data="{ row }">
@@ -43,30 +43,6 @@
 
         <UFormGroup label="Tu vi">
           <UInput v-model="stateAdd.exp" type="number" />
-        </UFormGroup>
-
-        <UFormGroup label="Giới hạn chat">
-          <UInput v-model="stateAdd.limit.chat" type="number" />
-        </UFormGroup>
-
-        <UFormGroup label="Giới hạn mời bạn">
-          <UInput v-model="stateAdd.limit.invite" type="number" />
-        </UFormGroup>
-
-        <UFormGroup label="Thưởng ECoin mời">
-          <UInput v-model="stateAdd.gift.invite" type="number" />
-        </UFormGroup>
-
-        <UFormGroup label="Bạn nạp thưởng ECoin">
-          <UInput v-model="stateAdd.bonus.invite.payment" type="number" />
-        </UFormGroup>
-
-        <UFormGroup label="Thưởng nạp">
-          <UInput v-model="stateAdd.bonus.payment" type="number" />
-        </UFormGroup>
-
-        <UFormGroup label="Giảm giá cửa hàng">
-          <UInput v-model="stateAdd.discount.shop" type="number" />
         </UFormGroup>
 
         <UiFlex justify="end" class="mt-4">
@@ -162,22 +138,6 @@ const stateAdd = ref({
   title: null,
   number: null,
   exp: null,
-  bonus: {
-    payment: null,
-    invite: {
-      payment: null,
-    }
-  },
-  limit: {
-    chat: null,
-    invite: null,
-  },
-  discount: {
-    shop: null,
-  },
-  gift: {
-    invite: null
-  }
 })
 const stateEdit = ref({
   _id: null,
@@ -211,20 +171,7 @@ const modal = ref({
 watch(() => modal.value.add, (val) => !val && (stateAdd.value = {
   title: null,
   number: null,
-  exp: null,
-  bonus: {
-    payment: null,
-    invite: {
-      payment: null,
-    }
-  },
-  limit: {
-    chat: null,
-    invite: null,
-  },
-  discount: {
-    shop: null,
-  }
+  exp: null
 }))
 
 // Loading

@@ -6,7 +6,7 @@
 
     <div>
       <UiText class="text-xs md:text-base mb-1">{{ voucher.type == 'PAYMENT' ? 'Thẻ khuyến mãi nạp' : 'Thẻ giảm giá' }}</UiText>
-      <UiText class="text-xl md:text-3xl" weight="bold">{{ voucher.value }}%</UiText>
+      <UiText class="text-xl md:text-3xl" weight="bold">{{ voucher.type == 'DISCOUNT-COIN' ? `${useMoney().toMoney(voucher.value)}` : `${voucher.value}%` }}</UiText>
     </div>
   </UiFlex>
 </template>

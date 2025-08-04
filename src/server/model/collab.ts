@@ -41,7 +41,8 @@ export const DBCollab = (mongoose : Mongoose) => {
 
     privilege: {
       edit_info: { type: Boolean, default: true },
-      edit_gate: { type: Boolean, default: true },
+      edit_gate: { type: Boolean, default: false },
+      edit_level: { type: Boolean, default: false },
     },
 
     info: {

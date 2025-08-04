@@ -125,6 +125,11 @@
             </UiFlex>
 
             <UiFlex justify="between" class="gap-1 w-full">
+              <UiText color="gray" size="sm">Thêm</UiText>
+              <SelectPermission v-model="state.user.level.add" />
+            </UiFlex>
+
+            <UiFlex justify="between" class="gap-1 w-full">
               <UiText color="gray" size="sm">Sửa</UiText>
               <SelectPermission v-model="state.user.level.edit" />
             </UiFlex>
@@ -750,6 +755,7 @@ const state = ref({
     },
     level: {
       list: [],
+      add: [],
       edit: [],
     }
   },

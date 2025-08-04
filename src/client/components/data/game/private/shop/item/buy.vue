@@ -22,7 +22,7 @@
       </UFormGroup>
 
       <UFormGroup label="Voucher">
-        <SelectVoucher v-model="state.voucher" v-model:voucherData="voucher" type="DISCOUNT" />
+        <SelectVoucher v-model="state.voucher" v-model:voucherData="voucher" :type="['DISCOUNT', 'DISCOUNT-COIN']" />
       </UFormGroup>
 
       <UFormGroup label="Nhập số lượng" name="amount">
@@ -59,6 +59,11 @@
           <UiFlex justify="between" class="text-sm font-semibold p-2" v-if="discountVoucher > 0">
             <UiText color="gray" class="mr-6">Giảm giá Voucher</UiText>
             <UiText align="right" color="rose">- {{ discountVoucher }}%</UiText>
+          </UiFlex>
+
+          <UiFlex justify="between" class="text-sm font-semibold p-2" v-if="discountCoinVoucher > 0">
+            <UiText color="gray" class="mr-6">Giảm giá Voucher</UiText>
+            <UiText align="right" color="rose">- {{ toMoney(discountCoinVoucher) }}</UiText>
           </UiFlex>
 
           <UiFlex justify="between" class="text-sm font-semibold p-2" v-if="totalPrice != null">
@@ -112,6 +117,7 @@ const totalPrice = computed(() => {
   const discount_system = useRate().data(props.game.rate.shop).number
   const discount_vip = discountVip.value
   const discount_voucher = discountVoucher.value
+  const discount_coin_voucher = discountCoinVoucher.value
 
   if(!amount || amount < 1) return null
   if(!price || price < 1) return null
@@ -121,7 +127,8 @@ const totalPrice = computed(() => {
 
   let total = Math.floor(amount * price)
   total = total - Math.floor(total * discount / 100)
-  return total
+  total = total - discount_coin_voucher
+  return total > 0 ? total : 0
 })
 
 const discountVip = computed(() => {
@@ -133,7 +140,13 @@ const discountVip = computed(() => {
 const discountVoucher = computed(() => {
   if(!voucher.value) return 0
   if(!voucher.value.value) return 0
-  return Number(voucher.value.value)
+  return voucher.value.type == 'DISCOUNT' ? Number(voucher.value.value) : 0
+})
+
+const discountCoinVoucher = computed(() => {
+  if(!voucher.value) return 0
+  if(!voucher.value.value) return 0
+  return voucher.value.type == 'DISCOUNT-COIN' ? Number(voucher.value.value) : 0
 })
 
 const buy = async () => {

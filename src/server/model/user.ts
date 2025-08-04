@@ -115,6 +115,8 @@ export const DBUser = (mongoose : Mongoose) => {
 
 export const DBUserLevel = (mongoose : Mongoose) => {
   const schema = new mongoose.Schema<IDBUserLevel>({ 
+    collab: { type: mongoose.Schema.Types.ObjectId, ref: 'Collab', index: true },
+
     title: { type: String, default: '' },
     number: { type: Number, default: 1, index: true },
     exp: { type: Number, default: 0, index: true },

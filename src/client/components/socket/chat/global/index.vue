@@ -4,11 +4,7 @@
     <UiFlex class="w-full gap-2 p-2 border-b border-gray-800">
       <UiDot color="green" size="2" class="beat-anim" />
       <UiText size="sm" weight="semibold">Trực tuyến: </UiText>
-      <UiNumber :num="online">
-        <template #default="{ display }">
-          <UiText size="sm" weight="bold" color="green">{{ display }}</UiText>
-        </template>
-      </UiNumber>
+      <UiText size="sm" weight="bold" color="green">{{ online }}</UiText>
 
       <UButton icon="i-bxs-group" class="ml-auto" size="lg" variant="ghost" color="white" :padded="false" :loading="!!loading.list" />
     </UiFlex>
@@ -96,7 +92,7 @@ const loading = ref({
 })
 
 const online = computed(() => {
-  return socketStore.online + (configStore.config.fake?.online || 0)
+  return (socketStore.online || 0) + (configStore.config.fake.online || 0)
 })
 
 const list = ref([])

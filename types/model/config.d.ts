@@ -214,6 +214,7 @@ export interface IDBConfigPermission {
     }
     level: {
       list: Array<number>
+      add: Array<number>
       edit: Array<number>
     }
   }

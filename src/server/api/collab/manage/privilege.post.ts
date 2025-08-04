@@ -6,7 +6,7 @@ export default defineEventHandler(async (event) => {
     await checkPermission('collab.edit', auth.type)
 
     const body = await readBody(event)
-    const { _id, edit_info, edit_gate } = body
+    const { _id, edit_info, edit_gate, edit_level } = body
     if(!_id) throw 'Dữ liệu đầu vào không hợp lệ'
 
     const collab = await DB.Collab.findOne({ _id: _id }).select('privilege code') as IDBCollab
@@ -14,6 +14,7 @@ export default defineEventHandler(async (event) => {
 
     collab.privilege.edit_info = edit_info
     collab.privilege.edit_gate = edit_gate
+    collab.privilege.edit_level = edit_level
 
     // @ts-expect-error
     await collab.save()

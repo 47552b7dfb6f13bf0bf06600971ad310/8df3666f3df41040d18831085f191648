@@ -1,10 +1,12 @@
-import type { IAuth, IDBGuild, IDBUserLogin, IDBUser, IDBUserLevel, IDBUserStore } from "~~/types"
+import type { IAuth, IDBGuild, IDBUserLogin, IDBUser, IDBUserLevel, IDBUserStore, IDBCollab } from "~~/types"
 
 export default defineEventHandler(async (event) => {
   try {
+    const runtimeConfig = useRuntimeConfig()
+
     // Get User
     const auth = await getAuth(event) as IAuth
-    const user = await DB.User.findOne({ _id: auth._id }).select('username level vip guild currency type') as IDBUser
+    const user = await DB.User.findOne({ _id: auth._id }).select('username level vip guild currency type reg') as IDBUser
 
     // Get Date
     const now  = new Date()
@@ -21,7 +23,15 @@ export default defineEventHandler(async (event) => {
     if(!!createNewLogin) await DB.UserLogin.create({ user: user._id })
 
     // User Level
-    const realLevel = await DB.UserLevel.findOne({ 'exp': { $lte: user.currency.exp }}).select('title number').sort({ number: -1 }) as IDBUserLevel
+    const collabUser = user.reg.collab
+    const matchLevel : any = { 'exp': { $lte: user.currency.exp } }
+    if(!!collabUser){
+      const collab = await DB.Collab.findOne({ _id: collabUser }).select('privilege') as IDBCollab
+      if(!!collab && !!collab.privilege.edit_level) matchLevel['collab'] = collab._id
+      else matchLevel['$or'] =  [{ collab: { $exists: false } }, { collab: null }]
+    }
+    else matchLevel['$or'] =  [{ collab: { $exists: false } }, { collab: null }]
+    const realLevel = await DB.UserLevel.findOne(matchLevel).select('title number').sort({ number: -1 }) as IDBUserLevel
     user.level = realLevel._id
 
     // User Guild

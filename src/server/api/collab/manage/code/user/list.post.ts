@@ -27,6 +27,18 @@ export default defineEventHandler(async (event) => {
       { $match: match },
       {
         $lookup: {
+          from: "UserLevel",
+          localField: "level",
+          foreignField: "_id",
+          pipeline: [
+            { $project: { title: 1, number: 1 } }
+          ],
+          as: "level"
+        }
+      },
+      { $unwind: { path: "$level", preserveNullAndEmptyArrays: true }},
+      {
+        $lookup: {
           from: "Payment",
           localField: "_id",
           foreignField: "user",

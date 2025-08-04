@@ -1,12 +1,14 @@
 import type { IDBUser, IDBVoucher } from "~~/types"
 import { Types } from "mongoose"
 
-export default async (user: IDBUser, voucher : Types.ObjectId) : Promise<number> => {
+export default async (user: IDBUser, voucher : Types.ObjectId) : Promise<{
+  percent: number, coin: number
+}> => {
   try {
-    if(!voucher) return Promise.resolve(0) 
+    if(!voucher) return Promise.resolve({ percent: 0, coin: 0 }) 
     if(!user.vouchers.includes(voucher)) throw 'Voucher bạn dùng không có trong kho đồ'
     
-    const voucherData = await DB.Voucher.findOne({ _id: voucher, display: true, type: 'DISCOUNT' }).select('limit expired value') as IDBVoucher
+    const voucherData = await DB.Voucher.findOne({ _id: voucher, display: true }).select('limit expired value type') as IDBVoucher
     if(!voucherData) throw 'Voucher bạn dùng không tồn tại'
 
     if(voucherData.limit > 0){
@@ -26,7 +28,10 @@ export default async (user: IDBUser, voucher : Types.ObjectId) : Promise<number>
       }
     }
 
-    return Promise.resolve(voucherData.value) 
+    return Promise.resolve({
+      percent: voucherData.type == 'DISCOUNT' ? voucherData.value : 0,
+      coin: voucherData.type == 'DISCOUNT-COIN' ? voucherData.value : 0,
+    }) 
   }
   catch (e:any) {
     throw e

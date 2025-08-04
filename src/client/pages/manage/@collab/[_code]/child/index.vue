@@ -206,12 +206,6 @@ const stateEdit = ref({
   level: null,
   parent: route.params._code
 })
-const statePrivilege = ref({
-  _id: null,
-  edit_info: false,
-  edit_gate: false,
-  parent: route.params._code
-})
 const stateGatepay = ref({
   _id: null,
   money: null,
@@ -267,7 +261,7 @@ const actions = (row) => [
 const getList = async () => {
   try {
     loading.value.load = true
-    const data = await useAPI('collab/manage/list', JSON.parse(JSON.stringify(page.value)))
+    const data = await useAPI('collab/manage/code/child/list', JSON.parse(JSON.stringify(page.value)))
 
     loading.value.load = false
     list.value = data.list
@@ -281,7 +275,7 @@ const getList = async () => {
 const addAction = async () => {
   try {
     loading.value.add = true
-    await useAPI('collab/manage/add', JSON.parse(JSON.stringify(stateAdd.value)))
+    await useAPI('collab/manage/code/child/add', JSON.parse(JSON.stringify(stateAdd.value)))
 
     loading.value.add = false
     modal.value.add = false
@@ -295,7 +289,7 @@ const addAction = async () => {
 const editAction = async () => {
   try {
     loading.value.edit = true
-    await useAPI('collab/manage/edit', JSON.parse(JSON.stringify(stateEdit.value)))
+    await useAPI('collab/manage/code/child/edit', JSON.parse(JSON.stringify(stateEdit.value)))
 
     loading.value.edit = false
     modal.value.edit = false
@@ -309,7 +303,7 @@ const editAction = async () => {
 const gatepayAction = async () => {
   try {
     loading.value.edit = true
-    await useAPI('collab/manage/gatepay', JSON.parse(JSON.stringify(stateGatepay.value)))
+    await useAPI('collab/manage/code/child/gatepay', JSON.parse(JSON.stringify(stateGatepay.value)))
 
     loading.value.edit = false
     modal.value.gatepay = false

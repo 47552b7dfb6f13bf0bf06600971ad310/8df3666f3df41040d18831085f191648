@@ -41,6 +41,7 @@ export interface IDBCollab {
   privilege: {
     edit_info: boolean
     edit_gate: boolean
+    edit_level: boolean
   }
 
   info: {

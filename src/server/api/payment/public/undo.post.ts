@@ -20,7 +20,7 @@ export default defineEventHandler(async (event) => {
       money: payment.money,
       status: 3,
       reason: reason
-    }, undefined, false)
+    }, undefined)
 
     return resp(event, { message: 'Thao tác thành công' })
   } 

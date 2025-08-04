@@ -34,17 +34,17 @@ export default defineEventHandler(async (event) => {
     let collab
     const collabCode = runtimeConfig.public.collab
     if(!!collabCode){
-      collab = await DB.Collab.findOne({ code: collabCode }).select('info.short_name') as IDBCollab
+      collab = await DB.Collab.findOne({ code: collabCode }).select('info.short_name privilege.edit_gate') as IDBCollab
       if(!collab) throw 'Mã cộng tác viên không tồn tại'
     }
 
     // Get Count Payment
     const matchCount : any = {}
-    if(!!collab) matchCount['collab'] = collab._id
+    if(!!collab && !!collab.privilege.edit_gate) matchCount['collab'] = collab._id
     const countPayment = await DB.Payment.count(matchCount)
 
     // Make Code, Token
-    const prefix = !!collab 
+    const prefix = (!!collab && !!collab.privilege.edit_gate)
       ? (collab.info.short_name ? collab.info.short_name.trim().toUpperCase() : (config.short_name ? config.short_name.trim().toUpperCase() : 'PAY')) 
       : (config.short_name ? config.short_name.trim().toUpperCase() : 'PAY')
     const code = prefix + (countPayment > 9 ? countPayment : `0${countPayment}`) + Math.floor(Math.random() * (99 - 10) + 10)
@@ -88,7 +88,7 @@ export default defineEventHandler(async (event) => {
       token: token,
       qrcode: qrcode
     }) as IDBPayment
-    if(!!collab) payment.collab = collab._id
+    if(!!collab && collab.privilege.edit_gate) payment.collab = collab._id
     await payment.save()
     
     // Log User

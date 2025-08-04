@@ -223,7 +223,7 @@ const actions = (row) => [
 const getList = async () => {
   try {
     loading.value.load = true
-    const data = await useAPI('collab/manage/level/list', JSON.parse(JSON.stringify(page.value)))
+    const data = await useAPI('collab/manage/code/child/level/list', JSON.parse(JSON.stringify(page.value)))
 
     loading.value.load = false
     list.value = data.list
@@ -237,7 +237,7 @@ const getList = async () => {
 const addAction = async () => {
   try {
     loading.value.add = true
-    await useAPI('collab/manage/level/add', JSON.parse(JSON.stringify(stateAdd.value)))
+    await useAPI('collab/manage/code/child/level/add', JSON.parse(JSON.stringify(stateAdd.value)))
 
     loading.value.add = false
     modal.value.add = false
@@ -251,7 +251,7 @@ const addAction = async () => {
 const editAction = async () => {
   try {
     loading.value.edit = true
-    await useAPI('collab/manage/level/edit', JSON.parse(JSON.stringify(stateEdit.value)))
+    await useAPI('collab/manage/code/child/level/edit', JSON.parse(JSON.stringify(stateEdit.value)))
 
     loading.value.edit = false
     modal.value.edit = false

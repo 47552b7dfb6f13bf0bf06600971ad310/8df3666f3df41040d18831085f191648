@@ -257,7 +257,7 @@ const actions = (row) => [
 const successAction = async () => {
   try {
     loading.value.success = true
-    await useAPI('collab/manage/withdraw/verify', JSON.parse(JSON.stringify(stateSuccess.value)))
+    await useAPI('collab/manage/code/child/withdraw/verify', JSON.parse(JSON.stringify(stateSuccess.value)))
 
     loading.value.success = false
     modal.value.success = false
@@ -271,7 +271,7 @@ const successAction = async () => {
 const refuseAction = async () => {
   try {
     loading.value.refuse = true
-    await useAPI('collab/manage/withdraw/verify', JSON.parse(JSON.stringify(stateRefuse.value)))
+    await useAPI('collab/manage/code/child/withdraw/verify', JSON.parse(JSON.stringify(stateRefuse.value)))
 
     loading.value.refuse = false
     modal.value.refuse = false
@@ -285,7 +285,7 @@ const refuseAction = async () => {
 const getList = async () => {
   try {
     loading.value.load = true
-    const data = await useAPI('collab/manage/withdraw/list', JSON.parse(JSON.stringify(page.value)))
+    const data = await useAPI('collab/manage/code/child/withdraw/list', JSON.parse(JSON.stringify(page.value)))
 
     list.value = data.list
     page.value.total = data.total

@@ -153,6 +153,7 @@ export const DBConfigPermission = (mongoose : Mongoose) => {
       },
       level: {
         list: [{ type: Number }],
+        add: [{ type: Number }],
         edit: [{ type: Number }],
       }
     },
@@ -353,6 +354,7 @@ export const DBConfigPermission = (mongoose : Mongoose) => {
         },
         level: {
           list: [3,100],
+          add: [100],
           edit: [100],
         }
       },

@@ -3,7 +3,9 @@ import type { IAuth, IDBCollab } from "~~/types"
 export default defineEventHandler(async (event) => {
   try {
     const auth = await getAuth(event) as IAuth
-    const { size, current, sort, search, parent } = await readBody(event)
+    await checkPermission('collab.withdraw.list', auth.type)
+
+    const { size, current, sort, search } = await readBody(event)
     if(!size || !current || !search) throw 'Dữ liệu phân trang sai'
     if(!sort.column || !sort.direction) throw 'Dữ liệu sắp xếp sai'
             
@@ -11,20 +13,10 @@ export default defineEventHandler(async (event) => {
     sorting[sort.column] = sort.direction == 'desc' ? -1 : 1
 
     const match : any = { }
-
-    if(!parent){
-      await checkPermission('collab.withdraw.list', auth.type)
-      match['$or'] =  [
-        { parent: { $exists: false } },
-        { parent: null }
-      ]
-    }
-    else {
-      const collab = await DB.Collab.findOne({ code: parent }).select('user') as IDBCollab
-      if(!collab) throw 'Dữ liệu cộng tác viên không tồn tại'
-      if(auth.type < 100 && collab.user.toString() != auth._id.toString()) throw 'Bạn không có quyền truy cập'
-      match['parent'] = collab._id
-    }
+    match['$or'] =  [
+      { parent: { $exists: false } },
+      { parent: null }
+    ]
 
     if(!!search.key){
       if(search.by == 'CODE'){

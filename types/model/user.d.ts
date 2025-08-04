@@ -105,6 +105,9 @@ export interface IDBUser {
 
 export interface IDBUserLevel {
   _id: Types.ObjectId
+
+  collab: Types.ObjectId
+
   title: string
   number: number
   exp: number

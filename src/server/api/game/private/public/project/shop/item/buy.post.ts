@@ -33,7 +33,7 @@ export default defineEventHandler(async (event) => {
     const price = shopItem.price * parseInt(amount)
 
     // Get Discount Voucher
-    const discountVoucher = await getValueVoucher(user, voucher)
+    const discountVoucher = await getValueVoucherDiscount(user, voucher)
 
     // Get Discount Game
     let discountGame = formatRate(game.rate.shop)
@@ -45,11 +45,13 @@ export default defineEventHandler(async (event) => {
     const discountVIP = !!vip ? game.rate.shop.vip[vip] : 0
 
     // Make Discount
-    let discount = discountGame + discountVIP + discountVoucher
+    let discount = discountGame + discountVIP + discountVoucher.percent
     discount = discount > 100 ? 100 : discount
 
     // Make Price and Spend
     let totalPrice = price - Math.floor(price * (discount / 100)) // Giá mua
+    totalPrice = totalPrice - discountVoucher.coin
+    totalPrice = totalPrice > 0 ? totalPrice : 0
     let totalSpend = price - Math.floor(price * (discountGame / 100)) // Tích tiêu phí (Không tính giảm giá VIP và Voucher)
     if(!runtimeConfig.public.dev && auth.type == 100) totalPrice = 0 // Admin Free
 
@@ -108,7 +110,7 @@ export default defineEventHandler(async (event) => {
     }})
 
     // Update Voucher
-    if(discountVoucher > 0){
+    if(discountVoucher.coin > 0 || discountVoucher.percent > 0){
       await DB.User.updateOne({ _id: user._id }, { $pull: { 'vouchers': voucher } })
       await DB.VoucherHistory.create({ voucher: voucher, user: user._id, content: `Mua hàng trong <b>[Game Private] ${game.name}</b>` })
     }
