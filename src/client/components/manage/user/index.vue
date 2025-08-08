@@ -5,7 +5,7 @@
     </UBadge>
 
     <UModal v-model="modal" :ui="{width: 'sm:max-w-[900px]'}">
-      <ManageUserBox :fetch-id="user._id">
+      <ManageUserBox :fetch-id="user._id" :collab="collab">
         <UAccordion
           class="mt-4"
           color="primary"
@@ -20,31 +20,31 @@
           </template>
 
           <template #log>
-            <ManageUserLog :user="user._id" />
+            <ManageUserLog :user="user._id" :collab="collab" />
           </template>
 
           <template #payment>
-            <DataPaymentHistory :user="user._id" />
+            <DataPaymentHistory :user="user._id" :collab="collab" />
           </template>
 
           <template #played>
-            <DataGamePlayed :user="user._id" />
+            <DataGamePlayed :user="user._id" :collab="collab"/>
           </template>
 
           <template #invite>
-            <ManageUserInvite :user="user._id" />
+            <ManageUserInvite :user="user._id" :collab="collab" />
           </template>
 
           <template #ip>
-            <ManageUserIp :user="user._id" />
+            <ManageUserIp :user="user._id" :collab="collab" />
           </template>
 
           <template #device>
-            <ManageUserDevice :user="user._id" />
+            <ManageUserDevice :user="user._id" :collab="collab" />
           </template>
 
           <template #mission>
-            <DataMissionHistory :user="user._id" />
+            <DataMissionHistory :user="user._id" :collab="collab" />
           </template>
         </UAccordion>
       </ManageUserBox>
@@ -53,7 +53,7 @@
 </template>
 
 <script setup>
-const props = defineProps(['user'])
+const props = defineProps(['user', 'collab'])
 
 const modal = ref(false)
 

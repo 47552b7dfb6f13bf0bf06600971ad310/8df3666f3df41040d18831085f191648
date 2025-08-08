@@ -48,7 +48,7 @@
 </template>
 
 <script setup>
-const props = defineProps(['user'])
+const props = defineProps(['user', 'collab'])
 
 // List
 const list = ref([])
@@ -89,7 +89,8 @@ const page = ref({
   },
   search: '',
   total: 0,
-  user: props.user
+  user: props.user,
+  collab: props.collab
 })
 watch(() => page.value.size, () => getList())
 watch(() => page.value.current, () => getList())

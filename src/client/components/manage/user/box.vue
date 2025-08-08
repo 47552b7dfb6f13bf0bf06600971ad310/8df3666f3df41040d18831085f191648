@@ -11,7 +11,7 @@
           <DataUserLevel :user="user" />
         </div>
       </UiFlex>
-      
+
       <UiFlex type="col" class="gap-4 relative z-[3]">
         <UiFlex justify="between" class="w-full">
           <UiText weight="semibold" color="gray" size="xs">Chức vụ</UiText>
@@ -47,6 +47,11 @@
           <UiText weight="semibold" color="gray" size="xs">ECoin</UiText>
           <UiText weight="semibold" size="xs" color="primary">{{ toMoney(user.currency.ecoin) }}</UiText>
         </UiFlex>
+
+        <UiFlex justify="between" class="w-full" v-if="!!user.inviter">
+          <UiText weight="semibold" color="gray" size="xs">Người giới thiệu</UiText>
+          <ManageUser :user="user.inviter" />
+        </UiFlex>
       </UiFlex>
       
       <div>
@@ -64,7 +69,8 @@ const props = defineProps({
   fetchId: String,
   reload: Number,
   userData: Object,
-  noChat: Boolean
+  noChat: Boolean,
+  collab: String
 })
 
 const typeFormat = {
@@ -85,10 +91,11 @@ watch(() => props.reload, (val) => !!val && getProfile())
 const getProfile = async () => {
   try {
     if(!props.fetchId) return false
-
     loading.value.load = true
+
     const get = await useAPI('user/public/profile', {
-      _id: props.fetchId
+      _id: props.fetchId,
+      collab: props.collab
     })
 
     user.value = get

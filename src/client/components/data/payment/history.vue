@@ -21,7 +21,7 @@
           </template>
 
           <template #gate-data="{ row }">
-            <UBadge variant="soft" color="gray">{{ row.gate.name }}</UBadge>
+            <UBadge variant="soft" color="gray">{{ row.gate ? row.gate.name : '...' }}</UBadge>
           </template>
 
           <template #money-data="{ row }">
@@ -88,7 +88,7 @@
 </template>
 
 <script setup>
-const props = defineProps(['user', 'reload'])
+const props = defineProps(['user', 'reload', 'collab'])
 
 const { toMoney } = useMoney()
 
@@ -144,7 +144,8 @@ const page = ref({
     end: null
   },
   total: 0,
-  user: props.user || null
+  user: props.user || null,
+  collab: props.collab
 })
 watch(() => page.value.size, () => getList())
 watch(() => page.value.current, () => getList())

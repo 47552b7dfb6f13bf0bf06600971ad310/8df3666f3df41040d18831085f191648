@@ -32,7 +32,7 @@
 </template>
 
 <script setup>
-const props = defineProps(['user', 'reload'])
+const props = defineProps(['user', 'reload', 'collab'])
 
 const { toMoney } = useMoney()
 
@@ -67,7 +67,8 @@ const page = ref({
     end: null
   },
   total: 0,
-  user: props.user || null
+  user: props.user || null,
+  collab: props.collab,
 })
 watch(() => page.value.size, () => getList())
 watch(() => page.value.current, () => getList())

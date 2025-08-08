@@ -33,7 +33,7 @@
 
         <template #user-data="{ row }">
           <span v-if="!row.user">...</span>
-          <UBadge color="gray" variant="soft">{{ row.user.username || '...' }}</UBadge>
+          <ManageUser :user="row.user" :collab="page.collab" v-else />
         </template>
 
         <template #money-data="{ row }">

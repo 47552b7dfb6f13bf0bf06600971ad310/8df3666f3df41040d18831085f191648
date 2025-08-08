@@ -12,12 +12,7 @@ export default defineEventHandler(async (event) => {
     const sorting : any = { }
     sorting[sort.column] = sort.direction == 'desc' ? -1 : 1
 
-    const match : any = {
-      '$or' : [
-        { collab: { $exists: false } },
-        { collab: null }
-      ]
-    }
+    const match : any = {}
 
     if(search.key){
       if(search.by == 'CODE') match['code'] = { $regex : search.key.toLowerCase(), $options : 'i' }

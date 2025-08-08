@@ -1,19 +1,30 @@
-import type { IAuth, IDBCollab, IDBUser, IDBUserLevel } from "~~/types"
+import type { IAuth, IDBCollab, IDBInvite, IDBUser, IDBUserLevel } from "~~/types"
 
 export default defineEventHandler(async (event) => {
   try {
-    const { _id } = await readBody(event)
+    const { _id, collab : code } = await readBody(event)
     if(!_id) throw 'Không tìm thấy ID tài khoản'
 
     const auth = await getAuth(event, false) as IAuth | null
     let select : any
 
-    if(!auth) select = '-password -email -phone -character -vouchers -statistic -invite -token -otp'
-    if(!!auth){
-      if(auth.type == 100) select = '-character -vouchers -password -token -otp'
-      else
-        if(auth._id.toString() == _id.toString()) select = '-character -vouchers -statistic -china -password -token -otp'
-        else select = '-character -vouchers -statistic -china -password -email -phone -invite -token -otp'
+    if(!auth) select = '-character -vouchers -statistic -china -password -email -phone -invite -token -otp'
+    else {
+      if(!!code){
+        const collab = await DB.Collab.findOne({ code: code }).select('user') as IDBCollab
+        if(!collab) throw 'Dữ liệu cộng tác viên không tồn tại'
+        if(
+          auth.type < 100 
+          && collab.user.toString() != auth._id.toString()
+        ) select = '-character -vouchers -statistic -china -password -email -phone -invite -token -otp'
+        else select = '-character -vouchers -statistic -china -password -token -otp'
+      }
+      else {
+        if(auth.type == 100) select = '-character -vouchers -statistic -china -password -token -otp'
+        else
+          if(auth._id.toString() == _id.toString()) select = '-character -vouchers -statistic -china -password -token -otp'
+          else select = '-character -vouchers -statistic -china -password -email -phone -invite -token -otp'
+      }
     }
     
     const data = await DB.User
@@ -23,6 +34,13 @@ export default defineEventHandler(async (event) => {
     .select(select) as IDBUser
     if(!data) throw 'Không tìm thấy thông tin tài khoản'
     const user = JSON.parse(JSON.stringify(data))
+
+    //  Inviter
+    const inviter = await DB.Invite
+    .findOne({ user: data._id })
+    .select('from')
+    .populate({ path: 'from', select: 'username' }) as IDBInvite
+    if(!!inviter) user.inviter = inviter.from
 
     // Next Level
     if(!!user.level){

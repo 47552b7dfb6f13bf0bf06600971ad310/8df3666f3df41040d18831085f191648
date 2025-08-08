@@ -1,13 +1,20 @@
-import type { IAuth } from "~~/types"
+import type { IAuth, IDBCollab } from "~~/types"
 
 export default defineEventHandler(async (event) => {
   try {
     const auth = await getAuth(event) as IAuth
-    const { size, current, sort, user, range } = await readBody(event)
+    const { size, current, sort, user, range, collab : code } = await readBody(event)
     if(!size || !current) throw 'Dữ liệu phân trang sai'
     if(!sort.column || !sort.direction) throw 'Dữ liệu sắp xếp sai'
 
-    const userCheck = (!!user && auth.type == 100) ? user : auth._id
+    let userCheck
+    if(!code) userCheck = (!!user && auth.type == 100) ? user : auth._id
+    else {
+      const collab = await DB.Collab.findOne({ code: code }).select('user') as IDBCollab
+      if(!collab) throw 'Dữ liệu cộng tác viên không tồn tại'
+      if(auth.type < 100 && collab.user.toString() != auth._id.toString()) throw 'Bạn không có quyền truy cập'
+      userCheck = !!user ? user : auth._id
+    }
     
     const sorting : any = { }
     sorting[sort.column] = sort.direction == 'desc' ? -1 : 1

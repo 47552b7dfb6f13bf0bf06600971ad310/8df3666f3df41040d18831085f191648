@@ -88,7 +88,7 @@ export default defineEventHandler(async (event) => {
       token: token,
       qrcode: qrcode
     }) as IDBPayment
-    if(!!collab && collab.privilege.edit_gate) payment.collab = collab._id
+    if(!!collab) payment.collab = collab._id
     await payment.save()
     
     // Log User

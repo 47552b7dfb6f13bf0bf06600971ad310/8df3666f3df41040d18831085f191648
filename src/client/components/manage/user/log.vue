@@ -25,7 +25,7 @@
 </template>
 
 <script setup>
-const props = defineProps(['user'])
+const props = defineProps(['user', 'collab'])
 
 const loading = ref({
   load: true,
@@ -53,7 +53,8 @@ const page = ref({
     direction: 'desc'
   },
   total: 0,
-  user: props.user
+  user: props.user,
+  collab: props.collab
 })
 watch(() => page.value.size, () => getList())
 watch(() => page.value.current, () => getList())

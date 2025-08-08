@@ -20,7 +20,7 @@
         :rows="list"
       >
         <template #username-data="{ row }">
-          <UBadge color="gray" variant="soft">{{ row.username }}</UBadge>
+          <ManageUser :user="row" :collab="page.collab" />
         </template>
 
         <template #level-data="{ row }">
